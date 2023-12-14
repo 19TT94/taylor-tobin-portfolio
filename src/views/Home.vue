@@ -1,50 +1,49 @@
 <template>
   <div class="page home frame">
-    <h1 class="heading" :class="{'show': loaded}">Taylor Tobin</h1>
-    <h3 class="heading-sub" :class="{'show': loaded}">Developer</h3>
+    <h1 class="heading" :class="{ show: loaded }">Taylor Tobin</h1>
+    <h3 class="heading-sub" :class="{ show: loaded }">Developer</h3>
     <router-link class="item view-work" to="/featured">View Work</router-link>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'home',
+  name: "home",
 
   data() {
     return {
       expand: false,
-      show: false
-    }
+      show: false,
+    };
   },
 
   computed: {
     loaded() {
-      return this.$store.state.preloaded
-    }
+      return this.$store.state.preloaded;
+    },
   },
 
   methods: {
     start() {
-      this.expand = true
+      this.expand = true;
       // animate button before transition
       setTimeout(() => {
-        this.$router.push({ path: 'featured' })
-        this.transition = false
-      }, 2000)
+        this.$router.push({ path: "featured" });
+        this.transition = false;
+      }, 2000);
     },
     go() {
       // animate button before transition
       setTimeout(() => {
-        this.$router.push({ path: 'featured' })
-        this.transition = false
-      }, 2000)
-    }
-  }
-}
+        this.$router.push({ path: "featured" });
+        this.transition = false;
+      }, 2000);
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">
-
 @import "@/assets/scss/app.scss"; // global styles
 
 .home {
@@ -61,9 +60,9 @@ export default {
     padding-top: 2rem;
     font-size: 2.5rem;
 
-    @media #{$small} {
-      font-size: 5rem;
-    }
+    // @media #{$small} {
+    //   font-size: 5rem;
+    // }
 
     &-sub {
       opacity: 0;
@@ -87,5 +86,4 @@ export default {
     opacity: 1;
   }
 }
-
 </style>

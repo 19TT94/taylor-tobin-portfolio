@@ -19,13 +19,13 @@ h1 {
   font-family: $title-font;
   font-weight: 600;
 
-  @media #{$small} {
-    font-size: 2rem;
-  }
+  // @media #{$small} {
+  //   font-size: 2rem;
+  // }
 
-  @media #{$medium} {
-    font-size: 2.5rem;
-  }
+  // @media #{$medium} {
+  //   font-size: 2.5rem;
+  // }
 }
 
 h2 {
@@ -34,9 +34,9 @@ h2 {
   font-family: $title-font;
   font-weight: 600;
 
-  @media #{$small} {
-    font-size: 2rem;
-  }
+  // @media #{$small} {
+  //   font-size: 2rem;
+  // }
 }
 
 h3 {
@@ -46,22 +46,22 @@ h3 {
   font-weight: 200;
   line-height: 25px;
 
-  @media #{$small} {
-    font-size: 1.2rem;
-  }
+  // @media #{$small} {
+  //   font-size: 1.2rem;
+  // }
 }
 
 p {
   font-size: 1rem;
   line-height: 1.4rem;
 
-  @media #{$small} {
-    font-size: 0.7rem;
-  }
+  // @media #{$small} {
+  //   font-size: 0.7rem;
+  // }
 
-  @media #{$medium} {
-    font-size: 1rem;
-  }
+  // @media #{$medium} {
+  //   font-size: 1rem;
+  // }
 }
 
 a {
@@ -69,8 +69,8 @@ a {
   color: $gold;
   text-decoration: none;
   &.router-link-exact-active {
-	// reset color with variable
-	color: $gold;
+    // reset color with variable
+    color: $gold;
   }
 }
 
@@ -81,8 +81,8 @@ span {
 }
 
 button {
-	font-size: 1.2rem;
-	font-family: $title-font;
+  font-size: 1.2rem;
+  font-family: $title-font;
   font-weight: 600;
   background: transparent;
   border: 0;
@@ -91,9 +91,9 @@ button {
 }
 
 .button {
-	padding: 0.5rem 2rem;
-	border: 1px solid $gold;
-	color: $gold;
+  padding: 0.5rem 2rem;
+  border: 1px solid $gold;
+  color: $gold;
 }
 
 ul {
@@ -109,9 +109,9 @@ ul {
   font-size: 1.4rem;
   padding-right: 0.5rem;
 
-  @media #{$small} {
-    font-size: 1.5rem;
-  }
+  // @media #{$small} {
+  //   font-size: 1.5rem;
+  // }
 }
 
 // Default Classes
@@ -123,15 +123,15 @@ ul {
   width: 100vw;
   height: 100vh;
 
-  @media #{$small} {
-    overflow: hidden;
-  }
+  // @media #{$small} {
+  //   overflow: hidden;
+  // }
 }
 
 .contactpage {
   height: auto !important;
 
-  @media #{$small} {
-    height: 100vh !important;
-  }
+  // @media #{$small} {
+  //   height: 100vh !important;
+  // }
 }

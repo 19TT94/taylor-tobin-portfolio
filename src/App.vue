@@ -3,23 +3,38 @@
     id="app"
     class="palm"
     :style="{
-      'background-image': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + require('@/assets/images/palm.jpg') + ')',
-      'cursor': 'url(' + require('@/assets/images/cursor.svg') + ')'
-    }">
+      'background-image':
+        'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' +
+        require('@/assets/images/palm.jpg') +
+        ')',
+      cursor: 'url(' + require('@/assets/images/cursor.svg') + ')',
+    }"
+  >
     <!-- Cursor -->
     <bolt />
     <!-- Noise -->
-    <div class="noise" :style="{'background-image': 'url(' + require('@/assets/images/film.gif') + ')'}"></div>
+    <div
+      class="noise"
+      :style="{
+        'background-image': 'url(' + require('@/assets/images/film.gif') + ')',
+      }"
+    ></div>
     <!-- preloader -->
-    <preloader :class="{
-      'hide'   : hide,
-      'remove' : remove
-    }" v-if="!down && !preload && currentPage === 'home' || currentPage === 'featured'" />
+    <preloader
+      :class="{
+        hide: hide,
+        remove: remove,
+      }"
+      v-if="
+        (!down && !preload && currentPage === 'home') ||
+        currentPage === 'featured'
+      "
+    />
     <!-- Global Nav Component -->
     <navigation v-if="!down && !landscape" />
     <!-- Pages -->
     <transition :name="transitionName">
-      <router-view :preloaded="preload" v-if="!down && !landscape"/>
+      <router-view :preloaded="preload" v-if="!down && !landscape" />
     </transition>
     <!-- Maintenance -->
     <maintenance v-if="down" />
@@ -29,15 +44,14 @@
 </template>
 
 <script>
+import navigation from "@/components/navigation.vue";
+import maintenance from "@/components/maintenance.vue";
+import preloader from "@/components/preloader.vue";
+import bolt from "@/components/bolt.vue";
+import card from "@/components/card.vue";
+import utils from "@/utils/index.js";
 
-import navigation from '@/components/navigation.vue'
-import maintenance from '@/components/maintenance.vue'
-import preloader from '@/components/preloader.vue'
-import bolt from '@/components/bolt.vue'
-import card from '@/components/card.vue'
-import Utils from '@/utils/index.js'
-
-const DEFAULT_TRANSITION = 'fade'
+const DEFAULT_TRANSITION = "fade";
 
 export default {
   components: {
@@ -45,40 +59,50 @@ export default {
     bolt,
     navigation,
     maintenance,
-    card
+    card,
   },
 
   created() {
     this.$router.beforeEach((to, from, next) => {
-      let transitionName = to.meta.transitionName || from.meta.transitionName
-      this.transitionName = transitionName || DEFAULT_TRANSITION
-      next()
-    })
+      let transitionName = to.meta.transitionName || from.meta.transitionName;
+      this.transitionName = transitionName || DEFAULT_TRANSITION;
+      next();
+    });
   },
 
   mounted() {
-    setTimeout(()=> {
-      this.hide = true
-      setTimeout(()=> {
-        this.remove = true
-        this.$store.state.preloaded = true
-      }, 500)
-    }, 2500)
+    setTimeout(() => {
+      this.hide = true;
+      setTimeout(() => {
+        this.remove = true;
+        this.$store.state.preloaded = true;
+      }, 500);
+    }, 2500);
 
     // intial orientation check
-    if (Utils.isMobileDevice() && Utils.isMobileSize() && window.orientation === 90 || window.orientation === -90) {
-      this.landscape = true
+    if (
+      (utils.isMobileDevice() &&
+        utils.isMobileSize() &&
+        window.orientation === 90) ||
+      window.orientation === -90
+    ) {
+      this.landscape = true;
     }
 
     // set landscape state on orientation change
-    let self = this
-    window.addEventListener('orientationchange', function() {
-      if (Utils.isMobileDevice() && Utils.isMobileSize() && window.orientation === 90 || window.orientation === -90) {
-        self.landscape = true
+    let self = this;
+    window.addEventListener("orientationchange", function () {
+      if (
+        (Utils.isMobileDevice() &&
+          Utils.isMobileSize() &&
+          window.orientation === 90) ||
+        window.orientation === -90
+      ) {
+        self.landscape = true;
       } else {
-        self.landscape = false
+        self.landscape = false;
       }
-    })
+    });
   },
 
   data() {
@@ -91,25 +115,24 @@ export default {
       hide: false,
       remove: false,
       landscape: false,
-      transitionName: DEFAULT_TRANSITION
-    }
+      transitionName: DEFAULT_TRANSITION,
+    };
   },
 
   watch: {
-    $route (to, from) {
-      this.currentPage = to.name
-    }
-  }
-}
-
+    $route(to, from) {
+      this.currentPage = to.name;
+    },
+  },
+};
 </script>
 
 <style lang="scss">
+@import "@/assets/scss/app.scss";
 
-@import '@/assets/scss/app.scss';
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
@@ -136,5 +159,4 @@ export default {
     opacity: 1;
   }
 }
-
 </style>

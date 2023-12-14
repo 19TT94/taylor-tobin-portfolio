@@ -7,12 +7,11 @@
 
 <script>
 export default {
-  name: 'NotFound'
-}
+  name: "NotFound",
+};
 </script>
 
 <style scoped lang="scss">
-
 @import "@/assets/scss/app.scss"; // global styles
 
 .not-found {
@@ -24,5 +23,4 @@ export default {
   justify-content: center;
   color: $white;
 }
-
 </style>

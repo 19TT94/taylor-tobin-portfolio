@@ -1,9 +1,12 @@
 <template>
   <div class="page contact">
-    <section class="section" :class="{ 'move': show }">
+    <section class="section" :class="{ move: show }">
       <div class="info">
         <h2>What I can do for you</h2>
-        <h3 class="subtitle">I'm a full stack developer with an interest in great visual design and quality responsive user experiences. Reach out for inquiries. Cheers!</h3>
+        <h3 class="subtitle">
+          I'm a full stack developer with an interest in great visual design and
+          quality responsive user experiences. Reach out for inquiries. Cheers!
+        </h3>
         <ul class="services">
           <li>Websites</li>
           <li>Web Apps</li>
@@ -17,16 +20,22 @@
       <NetlifyForm />
     </section>
 
-    <section class="footer" :class="{ 'reveal': reveal }">
+    <section class="footer" :class="{ reveal: reveal }">
       <ul class="links">
         <li>
-          <a href="https://github.com/19TT94"><font-awesome-icon :icon="['fab', 'github-square']" /></a>
+          <a href="https://github.com/19TT94"
+            ><font-awesome-icon :icon="['fab', 'github-square']"
+          /></a>
         </li>
         <li>
-          <a href="https://www.linkedin.com/in/taylor-tobin/"><font-awesome-icon :icon="['fab', 'linkedin']" />  </a>
+          <a href="https://www.linkedin.com/in/taylor-tobin/"
+            ><font-awesome-icon :icon="['fab', 'linkedin']" />
+          </a>
         </li>
         <li>
-          <a href="https://www.instagram.com/19tt94/"><font-awesome-icon :icon="['fab', 'instagram']" /></a>
+          <a href="https://www.instagram.com/19tt94/"
+            ><font-awesome-icon :icon="['fab', 'instagram']"
+          /></a>
         </li>
       </ul>
       <div class="resources">
@@ -35,50 +44,56 @@
             <a class="email" href="mailto:19tt94@gmail.com">19tt94@gmail.com</a>
           </li>
           <li>
-            <a class="mobile" href="tel:805-434-7559">805.434.7559</a> <span class="desktop">805.434.7559</span>
+            <a class="mobile" href="tel:805-434-7559">805.434.7559</a>
+            <span class="desktop">805.434.7559</span>
           </li>
         </ul>
         <ul>
           <li>
-            <button><a class="button resume" :href="require('@/assets/TTResume2020.pdf')" download="resume.pdf">Resume</a></button>
+            <button>
+              <a
+                class="button resume"
+                :href="require('@/assets/TTResume2020.pdf')"
+                download="resume.pdf"
+                >Resume</a
+              >
+            </button>
           </li>
         </ul>
       </div>
     </section>
-
   </div>
 </template>
 
 <script>
-import NetlifyForm from '@/components/form.vue'
+import NetlifyForm from "@/components/form.vue";
 
 export default {
-  name: 'Contact',
+  name: "Contact",
 
   components: {
-    NetlifyForm
+    NetlifyForm,
   },
 
   data() {
     return {
       show: false,
-      reveal: false
-    }
+      reveal: false,
+    };
   },
 
   mounted() {
-    setTimeout(()=> {
-      this.show = true
-      setTimeout(()=> {
-        this.reveal = true
-      }, 650)
-    }, 500)
-  }
-}
+    setTimeout(() => {
+      this.show = true;
+      setTimeout(() => {
+        this.reveal = true;
+      }, 650);
+    }, 500);
+  },
+};
 </script>
 
 <style scoped lang="scss">
-
 @import "@/assets/scss/app.scss"; // global styles
 
 .contact {
@@ -90,38 +105,38 @@ export default {
     background: $black;
     z-index: $default;
     transform: translateY(-100%);
-    box-shadow: 15px 15px 15px rgba(0,0,0,0.6);
+    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.6);
 
-    @media #{$small} {
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform: translateX(-100%);
-      width: 50%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0;
-    }
+    // @media #{$small} {
+    //   position: absolute;
+    //   top: 0;
+    //   left: 0;
+    //   transform: translateX(-100%);
+    //   width: 50%;
+    //   height: 100%;
+    //   display: flex;
+    //   align-items: center;
+    //   justify-content: center;
+    //   margin: 0;
+    // }
 
     .info {
       text-align: center;
       padding: 25% 1rem 0;
 
-      @media #{$small} {
-        text-align: center;
-        padding: 0;
-        width: 80%;
-      }
+      // @media #{$small} {
+      //   text-align: center;
+      //   padding: 0;
+      //   width: 80%;
+      // }
 
       .subtitle {
         text-align: center;
-        font-size: .75rem;
+        font-size: 0.75rem;
 
-        @media #{$small} {
-          font-size: inherit;
-        }
+        // @media #{$small} {
+        //   font-size: inherit;
+        // }
       }
 
       .services {
@@ -130,11 +145,11 @@ export default {
         flex-direction: row;
         justify-content: space-between;
         color: $gold;
-        font-size: .75rem;
+        font-size: 0.75rem;
 
-        @media #{$small} {
-          font-size: inherit;
-        }
+        // @media #{$small} {
+        //   font-size: inherit;
+        // }
       }
     }
   }
@@ -143,18 +158,18 @@ export default {
     padding: 15px 0 0;
     text-align: center;
 
-    @media #{$small} {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 50%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      margin: 0;
-      padding: 40px 0;
-    }
+    // @media #{$small} {
+    //   position: absolute;
+    //   top: 0;
+    //   right: 0;
+    //   width: 50%;
+    //   height: 100%;
+    //   display: flex;
+    //   flex-direction: column;
+    //   justify-content: center;
+    //   margin: 0;
+    //   padding: 40px 0;
+    // }
 
     h2 {
       padding: 0;
@@ -167,16 +182,16 @@ export default {
     padding: 10px 0 20px;
     background: $black;
 
-    @media #{$small} {
-      background: transparent;
-      position: absolute;
-      left: auto;
-      left: 0;
-      bottom: 0;
-      width: 50%;
-      padding: 5px 0;
-      z-index: 2;
-    }
+    // @media #{$small} {
+    //   background: transparent;
+    //   position: absolute;
+    //   left: auto;
+    //   left: 0;
+    //   bottom: 0;
+    //   width: 50%;
+    //   padding: 5px 0;
+    //   z-index: 2;
+    // }
 
     .links {
       display: flex;
@@ -206,9 +221,9 @@ export default {
     transform: translateY(0%);
     transition: all 1s ease;
 
-    @media #{$small} {
-      transform: translateX(0%);
-    }
+    // @media #{$small} {
+    //   transform: translateX(0%);
+    // }
   }
 
   .amp {
@@ -217,17 +232,16 @@ export default {
 }
 
 .mobile {
-  @media #{$small} {
-    display: none;
-  }
+  // @media #{$small} {
+  //   display: none;
+  // }
 }
 
 .desktop {
   display: none;
 
-  @media #{$small} {
-    display: inline-block;
-  }
+  // @media #{$small} {
+  //   display: inline-block;
+  // }
 }
-
 </style>

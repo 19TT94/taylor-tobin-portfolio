@@ -1,13 +1,21 @@
 <template>
   <div class="maintenance">
-
-    <section class="container info hide" :class="{ 'show': show }" v-if="!landscape">
+    <section
+      class="container info hide"
+      :class="{ show: show }"
+      v-if="!landscape"
+    >
       <h1>Taylor Tobin</h1>
       <h3>Developer</h3>
 
       <ul class="contact">
-        <li><span>Email:</span> <a href="mailto:19tt94@gmail.com">19tt94@gmail.com</a></li>
-        <span>Phone:</span> <a class="mobile" href="tel:805-434-7559">(805) 434-7559</a> <span class="desktop">(805) 434-7559</span>
+        <li>
+          <span>Email:</span>
+          <a href="mailto:19tt94@gmail.com">19tt94@gmail.com</a>
+        </li>
+        <span>Phone:</span>
+        <a class="mobile" href="tel:805-434-7559">(805) 434-7559</a>
+        <span class="desktop">(805) 434-7559</span>
       </ul>
 
       <ul class="links">
@@ -31,60 +39,75 @@
         </li>
       </ul>
 
-      <button><a class="button resume" :href="require('@/assets/images/TTresume-2019.pdf')" download="resume.pdf">Resume</a></button>
-
+      <button>
+        <a
+          class="button resume"
+          :href="require('@/assets/images/TTresume-2019.pdf')"
+          download="resume.pdf"
+          >Resume</a
+        >
+      </button>
     </section>
 
-    <div class="overlay" :class="{ 'hide': !intro }">
-      <p class="note special">Down for maintenance! Here's the basics for now.</p>
+    <div class="overlay" :class="{ hide: !intro }">
+      <p class="note special">
+        Down for maintenance! Here's the basics for now.
+      </p>
     </div>
-
   </div>
 </template>
 
 <script>
-
-import Utils from '@/utils/index.js'
+import Utils from "@/utils/index.js";
 
 export default {
-  name: 'maintenance',
+  name: "maintenance",
 
   data() {
     return {
       intro: true,
       show: false,
-      landscape: false
-    }
+      landscape: false,
+    };
   },
 
   mounted() {
-    setTimeout(()=> {
-      this.intro = false
-      setTimeout(()=> {
-        this.show = true
-      }, 500)
-    }, 2500)
+    setTimeout(() => {
+      this.intro = false;
+      setTimeout(() => {
+        this.show = true;
+      }, 500);
+    }, 2500);
 
     // intial orientation check
-    if (Utils.isMobileDevice() && Utils.isMobileSize() && window.orientation === 90 || window.orientation === -90) {
-      this.landscape = true
+    if (
+      (Utils.isMobileDevice() &&
+        Utils.isMobileSize() &&
+        window.orientation === 90) ||
+      window.orientation === -90
+    ) {
+      this.landscape = true;
     }
 
     // set landscape state on orientation change
-    let self = this
-    window.addEventListener('orientationchange', function() {
-      if (Utils.isMobileDevice() && Utils.isMobileSize() && window.orientation === 90 || window.orientation === -90) {
-        self.landscape = true
+    let self = this;
+    window.addEventListener("orientationchange", function () {
+      if (
+        (Utils.isMobileDevice() &&
+          Utils.isMobileSize() &&
+          window.orientation === 90) ||
+        window.orientation === -90
+      ) {
+        self.landscape = true;
       } else {
-        self.landscape = false
+        self.landscape = false;
       }
-    })
-  }
-}
+    });
+  },
+};
 </script>
 
 <style scoped lang="scss">
-
 @import "@/assets/scss/app.scss"; // global styles
 
 .maintenance {
@@ -104,7 +127,7 @@ export default {
   flex-direction: column;
   margin: 0 auto;
   background: $black;
-  box-shadow: 15px 15px 15px rgba(0,0,0,0.8);
+  box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.8);
 
   h1,
   h3 {
@@ -140,17 +163,16 @@ export default {
 }
 
 .mobile {
-  @media #{$small} {
-    display: none;
-  }
+  // @media #{$small} {
+  //   display: none;
+  // }
 }
 
 .desktop {
   display: none;
 
-  @media #{$small} {
-    display: inline-block;
-  }
+  // @media #{$small} {
+  //   display: inline-block;
+  // }
 }
-
 </style>
