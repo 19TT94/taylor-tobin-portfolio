@@ -29,9 +29,9 @@
   pointer-events: none;
   transition: all ease 0.5s;
 
-  // @media #{$small} {
-  //   opacity: 0.04;
-  // }
+  @media #{$small} {
+    opacity: 0.04;
+  }
 }
 
 .palm {

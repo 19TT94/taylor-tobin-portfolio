@@ -85,9 +85,9 @@ export default {
     margin: 2rem 2.4rem;
     z-index: 99;
 
-    // @media #{$small} {
-    //   max-width: 45px;
-    // }
+    @media #{$small} {
+      max-width: 45px;
+    }
   }
 
   .toggle {

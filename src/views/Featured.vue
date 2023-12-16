@@ -86,7 +86,8 @@ const projects = [
   {
     name: "Hero Builder",
     link: "https://hero-services.com",
-    description: "",
+    description:
+      "Hero services is a Water/Wastewater Consulting company under the umbrella of Ellison Environmental, along with Fluid Resource Management (FRM) and Cloacina. I started with FRM and developed Hero BuilderTM, which spurred the start of Hero Services as a company. Designed, architected and led a small team in the development of Hero BuilderTM. Hero Builder is an operations/maintenance management tool designed to be customized for multiple applications. Hero BuilderTM was developed using several micro-services including a React App, Flask Api, Postgres DB and a Redis instance. Worked with Cloacina to develop a proof of concept for integrating with their onsite SCADA systems using an Ewon Flexy device. This featured a Java script that called our API from the device. Designed and scaffolded an operator Mobile App to bring more usability to onsite operators using React Native Hero BuilderTM is used to: Manage and maintain compliance standards at 100+ water/ wastewater facilities operated by Fluid Resource Management in CA. Maintain compliance during the warranty period of any Cloacina Package Plant that is deployed for the first 2 years. Support ~500 users in the office and in the field.",
     type: "React, Flask",
     slides: [],
   },
@@ -221,10 +222,10 @@ const next = () => {
     top: 0;
     left: 0;
 
-    // @media #{$small} {
-    //   width: 35%;
-    //   height: 100%;
-    // }
+    @media #{$small} {
+      width: 35%;
+      height: 100%;
+    }
 
     .content {
       margin: 0 auto;
@@ -236,27 +237,27 @@ const next = () => {
       h1 {
         padding: 2rem 2rem 1rem;
 
-        // @media #{$small} {
-        //   padding: 0 2rem 1rem;
-        // }
+        @media #{$small} {
+          padding: 0 2rem 1rem;
+        }
       }
 
       p {
         padding: 0 2rem 1rem;
         margin-bottom: 1rem;
 
-        // @media #{$small} {
-        //   margin-bottom: 0;
-        // }
+        @media #{$small} {
+          margin-bottom: 0;
+        }
       }
 
       .description {
         display: none;
         margin-bottom: 1rem;
 
-        // @media #{$small} {
-        //   display: block;
-        // }
+        @media #{$small} {
+          display: block;
+        }
       }
 
       .project-link {
@@ -275,11 +276,11 @@ const next = () => {
     transform: translateY(-100%);
     box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.8);
 
-    // @media #{$small} {
-    //   width: 35%;
-    //   height: 100%;
-    //   transform: translateX(-100%);
-    // }
+    @media #{$small} {
+      width: 35%;
+      height: 100%;
+      transform: translateX(-100%);
+    }
   }
 
   &-slider {
@@ -294,22 +295,22 @@ const next = () => {
     z-index: $base;
     transition-delay: 0.5s;
 
-    // @media #{$small} {
-    //   width: 65% !important;
-    //   height: 100% !important;
-    //   right: 0;
-    //   left: auto;
-    // }
+    @media #{$small} {
+      width: 65% !important;
+      height: 100% !important;
+      right: 0;
+      left: auto;
+    }
   }
 
   .move {
     transform: translateY(0);
     transition: all ease 0.5s;
 
-    // @media #{$small} {
-    //   transform: translateX(0);
-    //   transition: all ease 0.5s;
-    // }
+    @media #{$small} {
+      transform: translateX(0);
+      transition: all ease 0.5s;
+    }
   }
 }
 </style>

@@ -51,10 +51,7 @@
         <ul>
           <li>
             <button>
-              <a
-                class="button resume"
-                :href="require('@/assets/TTResume2020.pdf')"
-                download="resume.pdf"
+              <a class="button resume" :href="Resume" download="resume.pdf"
                 >Resume</a
               >
             </button>
@@ -68,7 +65,9 @@
 <script setup>
 import { ref, onMounted } from "vue";
 
-import NetlifyForm from "@/components/form.vue";
+import Resume from "@/assets/TTResume2020.pdf";
+
+import NetlifyForm from "@/components/Form.vue";
 
 const show = ref(false);
 const reveal = ref(false);
@@ -97,36 +96,36 @@ onMounted(() => {
     transform: translateY(-100%);
     box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.6);
 
-    // @media #{$small} {
-    //   position: absolute;
-    //   top: 0;
-    //   left: 0;
-    //   transform: translateX(-100%);
-    //   width: 50%;
-    //   height: 100%;
-    //   display: flex;
-    //   align-items: center;
-    //   justify-content: center;
-    //   margin: 0;
-    // }
+    @media #{$small} {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translateX(-100%);
+      width: 50%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
 
     .info {
       text-align: center;
       padding: 25% 1rem 0;
 
-      // @media #{$small} {
-      //   text-align: center;
-      //   padding: 0;
-      //   width: 80%;
-      // }
+      @media #{$small} {
+        text-align: center;
+        padding: 0;
+        width: 80%;
+      }
 
       .subtitle {
         text-align: center;
         font-size: 0.75rem;
 
-        // @media #{$small} {
-        //   font-size: inherit;
-        // }
+        @media #{$small} {
+          font-size: inherit;
+        }
       }
 
       .services {
@@ -137,9 +136,9 @@ onMounted(() => {
         color: $gold;
         font-size: 0.75rem;
 
-        // @media #{$small} {
-        //   font-size: inherit;
-        // }
+        @media #{$small} {
+          font-size: inherit;
+        }
       }
     }
   }
@@ -148,18 +147,18 @@ onMounted(() => {
     padding: 15px 0 0;
     text-align: center;
 
-    // @media #{$small} {
-    //   position: absolute;
-    //   top: 0;
-    //   right: 0;
-    //   width: 50%;
-    //   height: 100%;
-    //   display: flex;
-    //   flex-direction: column;
-    //   justify-content: center;
-    //   margin: 0;
-    //   padding: 40px 0;
-    // }
+    @media #{$small} {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0;
+      padding: 40px 0;
+    }
 
     h2 {
       padding: 0;
@@ -172,16 +171,16 @@ onMounted(() => {
     padding: 10px 0 20px;
     background: $black;
 
-    // @media #{$small} {
-    //   background: transparent;
-    //   position: absolute;
-    //   left: auto;
-    //   left: 0;
-    //   bottom: 0;
-    //   width: 50%;
-    //   padding: 5px 0;
-    //   z-index: 2;
-    // }
+    @media #{$small} {
+      background: transparent;
+      position: absolute;
+      left: auto;
+      left: 0;
+      bottom: 0;
+      width: 50%;
+      padding: 5px 0;
+      z-index: 2;
+    }
 
     .links {
       display: flex;
@@ -211,9 +210,9 @@ onMounted(() => {
     transform: translateY(0%);
     transition: all 1s ease;
 
-    // @media #{$small} {
-    //   transform: translateX(0%);
-    // }
+    @media #{$small} {
+      transform: translateX(0%);
+    }
   }
 
   .amp {
@@ -222,16 +221,16 @@ onMounted(() => {
 }
 
 .mobile {
-  // @media #{$small} {
-  //   display: none;
-  // }
+  @media #{$small} {
+    display: none;
+  }
 }
 
 .desktop {
   display: none;
 
-  // @media #{$small} {
-  //   display: inline-block;
-  // }
+  @media #{$small} {
+    display: inline-block;
+  }
 }
 </style>

@@ -88,9 +88,9 @@ export default {
 #bolt {
   display: none;
 
-  // @media #{$small} {
-  //   display: block;
-  // }
+  @media #{$small} {
+    display: block;
+  }
 
   #dot {
     position: absolute;

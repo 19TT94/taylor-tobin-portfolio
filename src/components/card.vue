@@ -91,9 +91,9 @@ export default {
       .subtitle {
         display: none;
 
-        // @media #{$small} {
-        //   display: block;
-        // }
+        @media #{$small} {
+          display: block;
+        }
       }
     }
 
@@ -132,16 +132,16 @@ export default {
 }
 
 .mobile {
-  // @media #{$small} {
-  //   display: none;
-  // }
+  @media #{$small} {
+    display: none;
+  }
 }
 
 .desktop {
   display: none;
 
-  // @media #{$small} {
-  //   display: inline-block;
-  // }
+  @media #{$small} {
+    display: inline-block;
+  }
 }
 </style>

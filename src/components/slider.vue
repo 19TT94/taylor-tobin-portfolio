@@ -135,9 +135,9 @@ const onSwipe = (e) => {
         margin: 0 auto;
         box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.8);
 
-        // @media #{$small} {
-        //   max-width: 80%;
-        // }
+        @media #{$small} {
+          max-width: 80%;
+        }
       }
     }
 
@@ -164,9 +164,9 @@ const onSwipe = (e) => {
       padding: 1.5rem;
       text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.8);
 
-      // @media #{$small} {
-      //   font-size: 2rem;
-      // }
+      @media #{$small} {
+        font-size: 2rem;
+      }
     }
   }
 
@@ -190,9 +190,9 @@ const onSwipe = (e) => {
       padding: 1.5rem 1rem;
       text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.8);
 
-      // @media #{$small} {
-      //   font-size: 2rem;
-      // }
+      @media #{$small} {
+        font-size: 2rem;
+      }
     }
 
     &.forward {
@@ -200,9 +200,9 @@ const onSwipe = (e) => {
       padding: 0;
       display: none;
 
-      // @media #{$small} {
-      //   display: block;
-      // }
+      @media #{$small} {
+        display: block;
+      }
     }
 
     &.backward {
@@ -210,9 +210,9 @@ const onSwipe = (e) => {
       padding: 0;
       display: none;
 
-      // @media #{$small} {
-      //   display: block;
-      // }
+      @media #{$small} {
+        display: block;
+      }
     }
   }
 
@@ -221,9 +221,9 @@ const onSwipe = (e) => {
     bottom: 1rem;
     width: 100%;
 
-    // @media #{$small} {
-    //   bottom: 4rem;
-    // }
+    @media #{$small} {
+      bottom: 4rem;
+    }
 
     .item-list {
       margin: 0;

@@ -27,7 +27,7 @@
           Your message has been recieved, I will reach out!
         </h3>
         <h3 v-else>
-          There was an error processing you're resquest. Please try again later
+          There was an error processing you're request. Please try again later
           or contact me via email.
         </h3>
       </div>
@@ -35,58 +35,48 @@
   </div>
 </template>
 
-<script>
-// const axios = require("axios");
+<script setup>
+import { ref } from "vue";
+import axios from "axios";
 
-export default {
-  name: "NetlifyForm",
+const name = ref("");
+const email = ref("");
+const message = ref("");
+const processed = ref(false);
+const success = ref(false);
 
-  data() {
-    return {
-      name: "",
-      email: "",
-      message: "",
-      processed: false,
-      success: false,
-    };
-  },
+const encode = (data) => {
+  return Object.keys(data)
+    .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+    .join("&");
+};
 
-  methods: {
-    encode(data) {
-      return Object.keys(data)
-        .map(
-          (key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
-        )
-        .join("&");
+const handleSubmit = () => {
+  const axiosConfig = {
+    header: {
+      "Content-Type": "application/x-www-form-urlencoded",
     },
-    handleSubmit() {
-      const axiosConfig = {
-        header: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      };
+  };
 
-      axios
-        .post(
-          "/",
-          this.encode({
-            "form-name": "inquiries",
-            name: this.name,
-            email: this.email,
-            message: this.message,
-          }),
-          axiosConfig
-        )
-        .then(() => {
-          this.processed = true;
-          this.success = true;
-        })
-        .catch((e) => {
-          this.processed = true;
-          this.success = false;
-        });
-    },
-  },
+  axios
+    .post(
+      "/",
+      encode({
+        "form-name": "inquiries",
+        name: name.value,
+        email: email.value,
+        message: message.value,
+      }),
+      axiosConfig
+    )
+    .then(() => {
+      processed.value = true;
+      success.value = true;
+    })
+    .catch(() => {
+      processed.value = true;
+      success.value = false;
+    });
 };
 </script>
 
@@ -110,9 +100,9 @@ export default {
       margin: 10px 0;
       font-size: 0.75rem;
 
-      // @media #{$small} {
-      //   font-size: inherit;
-      // }
+      @media #{$small} {
+        font-size: inherit;
+      }
     }
 
     button {

@@ -15,26 +15,17 @@ const router = useRouter();
 const store = useStore();
 
 const expand = ref(false);
-const show = ref(false);
 
 const loaded = () => store.state.preloaded;
 
 const start = () => {
   expand.value = true;
   // animate button before transition
-  setTimeout(() => {
-    router.push({ path: "featured" });
-    // this.transition = false;
-  }, 2000);
+  setTimeout(() => router.push({ path: "featured" }), 2000);
 };
 
-const go = () => {
-  // animate button before transition
-  setTimeout(() => {
-    router.push({ path: "featured" });
-    // this.transition = false;
-  }, 2000);
-};
+// animate button before transition
+const go = () => setTimeout(() => router.push({ path: "featured" }), 2000);
 </script>
 
 <style lang="scss" scoped>
@@ -54,9 +45,9 @@ const go = () => {
     padding-top: 2rem;
     font-size: 2.5rem;
 
-    // @media #{$small} {
-    //   font-size: 5rem;
-    // }
+    @media #{$small} {
+      font-size: 5rem;
+    }
 
     &-sub {
       opacity: 0;
