@@ -43,90 +43,59 @@
   </section>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted } from "vue";
+
 import utils from "@/utils/index.js";
 
-export default {
-  name: "Slider",
+const { slides, slideIndex } = defineProps(["slides"]);
 
-  props: {
-    slides: Array,
-  },
+const currentIndex = ref(slideIndex);
+const setupFinished = ref(false);
+const navigation = ref(true);
+const dots = ref(true);
+const dotText = ref(false);
 
-  mounted() {
-    this.initialize();
-  },
+const initialize = () => {
+  currentIndex.value = 0;
+  setupFinished.value = true;
+};
 
-  data() {
-    return {
-      // the 'reactive' properties in this scope
-      currentIndex: null,
-      navigation: true, // what is this type of 'nav' called?
-      dots: true, // better name for this? - yes...
-      dotText: false,
-      setupFinished: false,
-    };
-  },
+onMounted(() => initialize());
 
-  computed: {
-    itemsLength() {
-      // [...{variable}] builds an array and fills it in with 'whatever'
-      return [...this.slides].length - 1;
-      // 'spreads' the items into and array: "spread syntax"
-    },
-    previousIndex() {
-      return this.currentIndex - 1 < 0
-        ? this.itemsLength
-        : this.currentIndex - 1;
-    },
-    nextIndex() {
-      return this.currentIndex + 1 > this.itemsLength
-        ? 0
-        : this.currentIndex + 1;
-    },
-    currentItem() {
-      return this.currentIndex > this.itemsLength
-        ? [...this.slides][0]
-        : [...this.slides][this.currentIndex];
-    },
-    visualIndex() {
-      return this.currentIndex + 1;
-    },
-    visualTotal() {
-      return this.itemsLength + 1;
-    },
-  },
+const itemsLength = computed(() => [...this.slides].length - 1);
 
-  methods: {
-    initialize() {
-      setTimeout(() => {
-        this.currentIndex = 0;
-        this.setupFinished = true;
-      }, 0);
-    },
-    setItem(index) {
-      this.currentIndex = index;
-    },
-    forward() {
-      this.currentIndex = this.nextIndex;
-    },
-    backward() {
-      this.currentIndex = this.previousIndex;
-    },
-    onSwipe(e) {
-      // if mobile device
-      if (utils.isMobileSize() && utils.isMobileDevice()) {
-        // swipe left
-        if (e.direction === 2) {
-          this.currentIndex = this.nextIndex;
-        }
-        // swipe right
-        if (e.direction === 4) {
-          this.currentIndex = this.previousIndex;
-        }
-      }
-    },
-  },
+const previousIndex = computed(() => {
+  return currentIndex.value - 1 < 0
+    ? itemsLength.value
+    : currentIndex.value - 1;
+});
+
+const nextIndex = computed(() =>
+  currentIndex.value + 1 > itemsLength.value ? 0 : currentIndex.value + 1
+);
+
+const setItem = (index) => {
+  currentIndex.value = index;
+};
+
+const forward = () => {
+  currentIndex.value = nextIndex.value;
+};
+
+const backward = () => {
+  currentIndex.value = previousIndex.value;
+};
+
+const onSwipe = (e) => {
+  // if mobile device
+  if (utils.isMobileSize() && utils.isMobileDevice()) {
+    // swipe left
+    if (e.direction === 2) currentIndex.value = nextIndex.value;
+
+    // swipe right
+    if (e.direction === 4) currentIndex.value = previousIndex.value;
+  }
 };
 </script>
 

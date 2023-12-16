@@ -12,12 +12,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "About",
-};
-</script>
-
 <style scoped lang="scss">
 @import "@/assets/scss/app.scss"; // global styles
 

@@ -13,38 +13,37 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component: () => import("../views/Home.vue"),
+      component: Home,
       meta: { transitionName: "fade" },
     },
     {
       path: "/featured",
       name: "featured",
-      component: () => import("../views/Home.vue"),
+      component: Featured,
       meta: { transitionName: "zoom" },
     },
     {
       path: "/projects",
       name: "projects",
-      component: () => import("../views/Home.vue"),
+      component: Projects,
       meta: { transitionName: "fade" },
     },
     {
       path: "/about",
       name: "about",
-      component: () => import("../views/Home.vue"),
+      component: About,
       meta: { transitionName: "fade" },
     },
     {
       path: "/contact",
       name: "contact",
-      component: () => import("../views/Home.vue"),
+      component: Contact,
       meta: { transitionName: "fade" },
     },
     {
-      // will match everything
-      path: "*",
-      name: "NotFound",
-      component: () => import("../views/Home.vue"),
+      path: "/:pathMatch(.*)*",
+      name: "not-found",
+      component: NotFound,
     },
   ],
 });

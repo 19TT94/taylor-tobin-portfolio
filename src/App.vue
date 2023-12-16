@@ -3,11 +3,8 @@
     id="app"
     class="palm"
     :style="{
-      'background-image':
-        'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' +
-        require('@/assets/images/palm.jpg') +
-        ')',
-      cursor: 'url(' + require('@/assets/images/cursor.svg') + ')',
+      backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${imgBg})`,
+      cursor: `url(${imgCursor})`,
     }"
   >
     <!-- Cursor -->
@@ -16,7 +13,7 @@
     <div
       class="noise"
       :style="{
-        'background-image': 'url(' + require('@/assets/images/film.gif') + ')',
+        backgroundImage: `url(${imgNoise})`,
       }"
     ></div>
     <!-- preloader -->
@@ -33,9 +30,15 @@
     <!-- Global Nav Component -->
     <navigation v-if="!down && !landscape" />
     <!-- Pages -->
-    <transition :name="transitionName">
+    <router-view v-slot="{ Component }" v-if="!down && !landscape">
+      <transition>
+        <component :is="Component" />
+      </transition>
+    </router-view>
+    <!-- TODO: verify -->
+    <!-- <transition :name="transitionName">
       <router-view :preloaded="preload" v-if="!down && !landscape" />
-    </transition>
+    </transition> -->
     <!-- Maintenance -->
     <maintenance v-if="down" />
     <!-- Landscape Device -->
@@ -43,7 +46,11 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, onBeforeMount, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+
 import navigation from "@/components/navigation.vue";
 import maintenance from "@/components/maintenance.vue";
 import preloader from "@/components/preloader.vue";
@@ -51,80 +58,66 @@ import bolt from "@/components/bolt.vue";
 import card from "@/components/card.vue";
 import utils from "@/utils/index.js";
 
+// Images
+import imgBg from "@/assets/images/palm.jpg";
+import imgCursor from "@/assets/images/cursor.svg";
+import imgNoise from "@/assets/images/film.gif";
+
 const DEFAULT_TRANSITION = "fade";
 
-export default {
-  components: {
-    preloader,
-    bolt,
-    navigation,
-    maintenance,
-    card,
-  },
+const router = useRouter();
+const store = useStore();
 
-  created() {
-    this.$router.beforeEach((to, from, next) => {
-      let transitionName = to.meta.transitionName || from.meta.transitionName;
-      this.transitionName = transitionName || DEFAULT_TRANSITION;
-      next();
-    });
-  },
+// current page reference
+const currentPage = router.currentRoute.name;
+// reference state from store
+const preload = store.state.preloaded;
+const down = store.state.down;
+const hide = ref(false);
+const remove = ref(false);
+const landscape = ref(false);
+const transitionName = ref(DEFAULT_TRANSITION);
 
-  mounted() {
+onBeforeMount(() => {
+  router.beforeEach((to, from, next) => {
+    const curr =
+      to.meta.transitionName || from.meta.transitionName || DEFAULT_TRANSITION;
+    transitionName.value = curr;
+    next();
+  });
+});
+
+onMounted(() => {
+  setTimeout(() => {
+    hide.value = true;
     setTimeout(() => {
-      this.hide = true;
-      setTimeout(() => {
-        this.remove = true;
-        this.$store.state.preloaded = true;
-      }, 500);
-    }, 2500);
+      remove.value = true;
+      store.state.preloaded = true;
+    }, 500);
+  }, 1000);
 
-    // intial orientation check
-    if (
-      (utils.isMobileDevice() &&
-        utils.isMobileSize() &&
-        window.orientation === 90) ||
-      window.orientation === -90
-    ) {
-      this.landscape = true;
-    }
+  // intial orientation check
+  landscape.value =
+    (utils.isMobileDevice() && utils.isMobileSize() && window.screen === 90) ||
+    window.screen === -90;
 
-    // set landscape state on orientation change
-    let self = this;
-    window.addEventListener("orientationchange", function () {
-      if (
-        (Utils.isMobileDevice() &&
-          Utils.isMobileSize() &&
-          window.orientation === 90) ||
-        window.orientation === -90
-      ) {
-        self.landscape = true;
-      } else {
-        self.landscape = false;
-      }
-    });
-  },
+  // set landscape state on orientation change
+  window.addEventListener("orientationchange", function () {
+    landscape.value =
+      (Utils.isMobileDevice() &&
+        Utils.isMobileSize() &&
+        window.screen === 90) ||
+      window.screen === -90;
+  });
+});
 
-  data() {
-    return {
-      // current page reference
-      currentPage: this.$router.currentRoute.name,
-      // reference state from store
-      preload: this.$store.state.preloaded,
-      down: this.$store.state.down,
-      hide: false,
-      remove: false,
-      landscape: false,
-      transitionName: DEFAULT_TRANSITION,
-    };
-  },
-
-  watch: {
-    $route(to, from) {
-      this.currentPage = to.name;
-    },
-  },
-};
+// TODO: fix
+// watch: {
+//   $route(to, from) {
+//     this.currentPage = to.name;
+//   },
+// },
+// };
 </script>
 
 <style lang="scss">

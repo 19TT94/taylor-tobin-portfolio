@@ -4,7 +4,7 @@
       <div class="info">
         <h2>What I can do for you</h2>
         <h3 class="subtitle">
-          I'm a full stack developer with an interest in great visual design and
+          I'm a Software Engineer with an interest in great visual design and
           quality responsive user experiences. Reach out for inquiries. Cheers!
         </h3>
         <ul class="services">
@@ -65,32 +65,22 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from "vue";
+
 import NetlifyForm from "@/components/form.vue";
 
-export default {
-  name: "Contact",
+const show = ref(false);
+const reveal = ref(false);
 
-  components: {
-    NetlifyForm,
-  },
-
-  data() {
-    return {
-      show: false,
-      reveal: false,
-    };
-  },
-
-  mounted() {
+onMounted(() => {
+  setTimeout(() => {
+    show.value = true;
     setTimeout(() => {
-      this.show = true;
-      setTimeout(() => {
-        this.reveal = true;
-      }, 650);
-    }, 500);
-  },
-};
+      reveal.value = true;
+    }, 650);
+  }, 500);
+});
 </script>
 
 <style scoped lang="scss">

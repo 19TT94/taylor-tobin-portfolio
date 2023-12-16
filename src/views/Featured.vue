@@ -12,20 +12,20 @@
         </button>
 
         <div class="content">
-          <h1>{{ current_project.name }}</h1>
-          <p v-if="current_project.type">
-            {{ current_project.type }}
+          <h1>{{ currentProject.name }}</h1>
+          <p v-if="currentProject.type">
+            {{ currentProject.type }}
           </p>
           <p
             class="description"
-            v-if="current_project.name"
-            v-html="current_project.description"
+            v-if="currentProject.name"
+            v-html="currentProject.description"
           ></p>
           <a
             class="button project-link"
-            :href="current_project.link"
+            :href="currentProject.link"
             target="_blank"
-            v-if="current_project.link"
+            v-if="currentProject.link"
             >Visit Site</a
           >
         </div>
@@ -38,170 +38,150 @@
         </button>
       </section>
 
-      <slider
+      <Slider
         ref="slider"
         class="featured-slider hide"
         :class="{ show: show }"
-        :slides="current_project.slides"
+        :slideIndex="slideIndex"
+        :slides="currentProject.slides"
       />
     </div>
   </div>
 </template>
 
-<script>
-import slider from "@/components/slider.vue";
+<script setup>
+import { ref, watch, computed, onMounted } from "vue";
 
-export default {
-  name: "Featured",
+// Components
+import Slider from "@/components/Slider.vue";
 
-  components: {
-    slider,
+// Slides
+import NR1 from "@/assets/images/projects/new-regency/new-regency-1.png";
+import NR2 from "@/assets/images/projects/new-regency/new-regency-2.png";
+import NR3 from "@/assets/images/projects/new-regency/new-regency-3.png";
+import NR4 from "@/assets/images/projects/new-regency/new-regency-4.png";
+import PM1 from "@/assets/images/projects/paramount/paramount1.png";
+import PM2 from "@/assets/images/projects/paramount/paramount2.png";
+import PM3 from "@/assets/images/projects/paramount/paramount3.png";
+import PM4 from "@/assets/images/projects/paramount/paramount4.png";
+import PM5 from "@/assets/images/projects/paramount/paramount5.png";
+import DW1 from "@/assets/images/projects/dreamworks/dreamworks-1.png";
+import DW2 from "@/assets/images/projects/dreamworks/dreamworks-2.png";
+import DW3 from "@/assets/images/projects/dreamworks/dreamworks-3.png";
+import DW4 from "@/assets/images/projects/dreamworks/dreamworks-4.png";
+import DW5 from "@/assets/images/projects/dreamworks/dreamworks-5.png";
+import RH1 from "@/assets/images/projects/replace-hate/replace-1.jpg";
+import RH2 from "@/assets/images/projects/replace-hate/replace-2.jpg";
+import RH3 from "@/assets/images/projects/replace-hate/replace-3.jpg";
+import RH4 from "@/assets/images/projects/replace-hate/replace-4.png";
+import PA1 from "@/assets/images/projects/pxl-agency/pxl-1.png";
+import PA2 from "@/assets/images/projects/pxl-agency/pxl-2.png";
+import PA3 from "@/assets/images/projects/pxl-agency/pxl-3.png";
+import PA4 from "@/assets/images/projects/pxl-agency/pxl-4.png";
+import TT1 from "@/assets/images/projects/ted/ted-1.png";
+import TT2 from "@/assets/images/projects/ted/ted-2.png";
+import TT3 from "@/assets/images/projects/ted/ted-3.png";
+
+const projects = [
+  {
+    name: "Hero Builder",
+    link: "https://hero-services.com",
+    description: "",
+    type: "React, Flask",
+    slides: [],
+  },
+  {
+    name: "New Regency",
+    link: "http://newregency.com",
+    description:
+      'I lead development on the relaunch and revamp of <a href="http://newregency.com">newregency.com</a>. It involved some visual upgrades, new content, and new functionality for internationalization. New Regency was looking for a way to promote their new international team. I was in charge of implementing a solution that allowed for custom pages and analytics for their international teams. In the cms international team members could generate pages for their clients with specific movies for their region.',
+    type: "Laravel",
+    slides: [NR1, NR2, NR3, NR4],
+  },
+  {
+    name: "Paramount",
+    description:
+      "I led frontend Development on Parmount's new website. This site leverages a large archive of movies with a user friendly and responsive sort and filter menu. I also assisted in api and database design/development, utilizing a Laravel (PHP) backend and a Vue (JS) frontend.",
+    type: "Vue/Laravel",
+    link: "https://paramountmovies.com",
+    slides: [PM1, PM2, PM3, PM4, PM5],
+  },
+  {
+    name: "Dreamworks Animation",
+    link: "https://dreamworks.com",
+    description:
+      "I worked the team that built Dreamworks Animation. I helped to build a custom Swiper.io slider with a responsive fullscreen video background, full screen video model for each featured movie, and custom slide transitions. I also contributed to the promotional movie pages and contact forms throughout the site.",
+    type: "Vue/Laravel",
+    slides: [DW1, DW2, DW3, DW4, DW5],
+  },
+  {
+    name: "PXL Agency",
+    link: "https://pxlagency.com",
+    description:
+      'Assisted in the development of <a href="https://www.pxlagency.com">pxlagency.com</a> during the brand relaunch at PXL Agency. Then was the lead developer on maintenance updates.',
+    type: "Ember",
+    slides: [PA1, PA2, PA3, PA4],
   },
 
-  mounted() {
-    setTimeout(() => {
-      this.down = true;
-    }, 500);
-    setTimeout(() => {
-      this.show = true;
-    }, 1000);
+  {
+    name: "ReplaceHate.com",
+    link: "https://pxlagency.com/our-work/replace-hate",
+    description:
+      'Frontend developement on <a href="https://www.instagram.com/explore/tags/replacehate/">#ReplaceHate</a> social campaign site. This site was built for Fox Movies and allows users to generate #replacehate posters to share on social media. This promotion for the movie lived mostly on Instagram and was a fun way for fans to get involved. The biggest challenge was trying to make the process of creating the share assets as easy in fast as possible for the user. Despite the changing requirements from the client and the challenges of creating the assets in a web app, the app was a success.',
+    type: "Ember",
+    slides: [RH1, RH2, RH3, RH4],
   },
+  {
+    name: "Wiere Weddings",
+    link: "https://wiere-wedding.com",
+    description: "",
+    type: "Vue",
+    slides: [],
+  },
+  {
+    name: "Ted Tobin's Portfolio",
+    link: "https://tedtobin.com",
+    description:
+      "This project was a portfolio website for Creative Director, Consultant, and Copy Writer Ted Tobin. During his transition to freelance work he needed a simple site that would showcase his skills and experience as a writer. In order to do this I designed and built a site where his words are the focus. The slider is built with vanilla js and inspired by word scramble code pens.",
+    type: "Vue",
+    slides: [TT1, TT2, TT3],
+  },
+];
 
-  computed: {
-    /** @returns index of selected project if it doesn't exceed the length */
-    current_project() {
-      return this.projects[this.project_index];
-    },
-    /** @returns length of projects */
-    length() {
-      return this.projects.length;
-    },
-  },
+const slider = ref(null);
+const down = ref(false);
+const show = ref(false);
+const currentProject = ref(projects[0]);
+const projectIdx = ref(0);
+const slideIndex = ref(0);
 
-  methods: {
-    /** @increments current project */
-    next() {
-      // reset current index on project change
-      this.$refs.slider.currentIndex = 0;
-      this.show = false;
-      let check = this.project_index;
-      setTimeout(() => {
-        // this.show = true
-        if (this.project_index === this.length - 1) {
-          // reset index
-          this.project_index = 0;
-        } else {
-          this.project_index = this.project_index + 1;
-        }
-        // this.show = true
-        if (check !== this.project_index) {
-          this.show = true;
-        }
-      }, 1500);
-    },
-  },
+onMounted(() => {
+  down.value = true;
 
-  data() {
-    return {
-      show: false,
-      down: false,
-      project_index: 0,
-      projects: [
-        {
-          name: "New Regency",
-          link: "http://newregency.com",
-          description:
-            'I lead development on the relaunch and revamp of <a href="http://newregency.com">newregency.com</a>. It involved some visual upgrades, new content, and new functionality for internationalization. New Regency was looking for a way to promote their new international team. I was in charge of implementing a solution that allowed for custom pages and analytics for their international teams. In the cms international team members could generate pages for their clients with specific movies for their region.',
-          type: "Laravel",
-          slides: [
-            require("@/assets/images/projects/new-regency/new-regency-1.png"),
-            require("@/assets/images/projects/new-regency/new-regency-2.png"),
-            require("@/assets/images/projects/new-regency/new-regency-3.png"),
-            require("@/assets/images/projects/new-regency/new-regency-4.png"),
-          ],
-        },
-        {
-          name: "Paramount",
-          description:
-            "I led frontend Development on Parmount's new website. This site leverages a large archive of movies with a user friendly and responsive sort and filter menu. I also assisted in api and database design/development, utilizing a Laravel (PHP) backend and a Vue (JS) frontend.",
-          type: "Vue/Laravel",
-          link: "https://paramountmovies.com",
-          slides: [
-            require("@/assets/images/projects/paramount/paramount1.png"),
-            require("@/assets/images/projects/paramount/paramount2.png"),
-            require("@/assets/images/projects/paramount/paramount3.png"),
-            require("@/assets/images/projects/paramount/paramount4.png"),
-            require("@/assets/images/projects/paramount/paramount5.png"),
-          ],
-        },
-        {
-          name: "Dreamworks Animation",
-          link: "https://dreamworks.com",
-          description:
-            "I worked the team that built Dreamworks Animation. I helped to build a custom Swiper.io slider with a responsive fullscreen video background, full screen video model for each featured movie, and custom slide transitions. I also contributed to the promotional movie pages and contact forms throughout the site.",
-          type: "Vue/Laravel",
-          slides: [
-            require("@/assets/images/projects/dreamworks/dreamworks-1.png"),
-            require("@/assets/images/projects/dreamworks/dreamworks-2.png"),
-            require("@/assets/images/projects/dreamworks/dreamworks-3.png"),
-            require("@/assets/images/projects/dreamworks/dreamworks-4.png"),
-            require("@/assets/images/projects/dreamworks/dreamworks-5.png"),
-          ],
-        },
-        {
-          name: "ReplaceHate.com",
-          link: "https://pxlagency.com/our-work/replace-hate",
-          description:
-            'Frontend developement on <a href="https://www.instagram.com/explore/tags/replacehate/">#ReplaceHate</a> social campaign site. This site was built for Fox Movies and allows users to generate #replacehate posters to share on social media. This promotion for the movie lived mostly on Instagram and was a fun way for fans to get involved. The biggest challenge was trying to make the process of creating the share assets as easy in fast as possible for the user. Despite the changing requirements from the client and the challenges of creating the assets in a web app, the app was a success.',
-          type: "Ember",
-          slides: [
-            require("@/assets/images/projects/replace-hate/replace-1.jpg"),
-            require("@/assets/images/projects/replace-hate/replace-2.jpg"),
-            require("@/assets/images/projects/replace-hate/replace-3.jpg"),
-            require("@/assets/images/projects/replace-hate/replace-4.png"),
-          ],
-        },
-        {
-          name: "PXL White Elephant",
-          description:
-            'Lead Developer on the White Elephant website. PXL\'s Clients were given Holiday Cards with a code to recieve a gift from PXL and a link to the White Elephant Party. These codes generate a randomly selected gag gift, which is then sent to them for the holidays. Not only was this a fun way to wish our clients a happy holiday, but the project was featured in <a href="https://www.adweek.com/agencies/agency-holiday-cards-2018-inventive-and-creative-send-offs-to-the-year/?utm_content=position_4&utm_source=sailthru&utm_medium=email&utm_term=AWK_Agencies&utm_campaign=Agencies_Newsletter_2018122114&s_id=5b75d55320122e18f4031361" target="_blank">Adweek</a>. It also gave me my first experience leading both the frontend and backend development on a project. This site featured custom analytics, user generation, and a simple email service.',
-          type: "Ember/Laravel",
-          slides: [
-            require("@/assets/images/projects/white-elephant/white-elephant-1.png"),
-            require("@/assets/images/projects/white-elephant/white-elephant-2.png"),
-            require("@/assets/images/projects/white-elephant/white-elephant-3.png"),
-            require("@/assets/images/projects/white-elephant/white-elephant-4.png"),
-            require("@/assets/images/projects/white-elephant/white-elephant-5.png"),
-          ],
-        },
-        {
-          name: "PXL Agency",
-          link: "https://pxlagency.com",
-          description:
-            'Assisted in the development of <a href="https://www.pxlagency.com">pxlagency.com</a> during the brand relaunch at PXL Agency. Then was the lead developer on maintenance updates.',
-          type: "Ember",
-          slides: [
-            require("@/assets/images/projects/pxl-agency/pxl-1.png"),
-            require("@/assets/images/projects/pxl-agency/pxl-2.png"),
-            require("@/assets/images/projects/pxl-agency/pxl-3.png"),
-            require("@/assets/images/projects/pxl-agency/pxl-4.png"),
-          ],
-        },
-        {
-          name: "Ted Tobin's Portfolio",
-          link: "https://tedtobin.com",
-          description:
-            "This project was a portfolio website for Creative Director, Consultant, and Copy Writer Ted Tobin. During his transition to freelance work he needed a simple site that would showcase his skills and experience as a writer. In order to do this I designed and built a site where his words are the focus. The slider is built with vanilla js and inspired by word scramble code pens.",
-          type: "Vue",
-          slides: [
-            require("@/assets/images/projects/ted/ted-1.png"),
-            require("@/assets/images/projects/ted/ted-2.png"),
-            require("@/assets/images/projects/ted/ted-3.png"),
-          ],
-        },
-      ],
-    };
-  },
+  setTimeout(() => {
+    show.value = true;
+  }, 500);
+});
+
+/** @returns index of selected project if it doesn't exceed the length */
+watch(projectIdx, async (idx) => (currentProject.value = projects[idx]));
+
+/** @returns length of projects */
+const length = computed(() => projects.length - 1);
+
+/** @increments current project */
+const next = () => {
+  // reset current index on project change
+  slideIndex.value = 0;
+  show.value = false;
+
+  let check = projectIdx.value;
+  if (projectIdx.value === length.value) projectIdx.value = 0;
+  else projectIdx.value += 1;
+
+  setTimeout(() => {
+    if (check !== projectIdx.value) show.value = true;
+  }, 500);
 };
 </script>
 
