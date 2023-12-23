@@ -44,13 +44,15 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 
 import utils from "@/utils/index.js";
 
-const { slides, slideIndex } = defineProps(["slides"]);
+const { slides, projectIndex } = defineProps(["slides", "projectIndex"]);
+console.log(projectIndex);
+watch(projectIndex, (idx) => console.log(idx));
 
-const currentIndex = ref(slideIndex);
+const currentIndex = ref(0);
 const setupFinished = ref(false);
 const navigation = ref(true);
 const dots = ref(true);
@@ -63,7 +65,7 @@ const initialize = () => {
 
 onMounted(() => initialize());
 
-const itemsLength = computed(() => [...this.slides].length - 1);
+const itemsLength = computed(() => [...slides].length - 1);
 
 const previousIndex = computed(() => {
   return currentIndex.value - 1 < 0
@@ -80,6 +82,7 @@ const setItem = (index) => {
 };
 
 const forward = () => {
+  console.log(projectIndex);
   currentIndex.value = nextIndex.value;
 };
 

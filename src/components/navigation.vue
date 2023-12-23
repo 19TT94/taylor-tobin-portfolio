@@ -1,7 +1,7 @@
 <template>
   <div id="menu" v-if="!down">
     <router-link @click.native="pageChange" to="/" :class="{ hide: open }">
-      <img class="home-button" src="@/assets/images/tobin.png" />
+      <img class="home-button" src="@/assets/images/tail-portfolio.png" />
     </router-link>
 
     <button class="toggle" id="toggle" @click="toggleNav">

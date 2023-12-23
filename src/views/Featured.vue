@@ -42,7 +42,7 @@
         ref="slider"
         class="featured-slider hide"
         :class="{ show: show }"
-        :slideIndex="slideIndex"
+        :projectIndex="projectIdx"
         :slides="currentProject.slides"
       />
     </div>
@@ -56,6 +56,9 @@ import { ref, watch, computed, onMounted } from "vue";
 import Slider from "@/components/Slider.vue";
 
 // Slides
+import HB1 from "@/assets/images/projects/hero-builder/hero-builder-1.png";
+import HB2 from "@/assets/images/projects/hero-builder/hero-builder-2.png";
+import HB3 from "@/assets/images/projects/hero-builder/hero-builder-3.png";
 import NR1 from "@/assets/images/projects/new-regency/new-regency-1.png";
 import NR2 from "@/assets/images/projects/new-regency/new-regency-2.png";
 import NR3 from "@/assets/images/projects/new-regency/new-regency-3.png";
@@ -78,6 +81,9 @@ import PA1 from "@/assets/images/projects/pxl-agency/pxl-1.png";
 import PA2 from "@/assets/images/projects/pxl-agency/pxl-2.png";
 import PA3 from "@/assets/images/projects/pxl-agency/pxl-3.png";
 import PA4 from "@/assets/images/projects/pxl-agency/pxl-4.png";
+import WW1 from "@/assets/images/projects/wiere-weddings/ww-1.png";
+import WW2 from "@/assets/images/projects/wiere-weddings/ww-2.png";
+import WW3 from "@/assets/images/projects/wiere-weddings/ww-3.png";
 import TT1 from "@/assets/images/projects/ted/ted-1.png";
 import TT2 from "@/assets/images/projects/ted/ted-2.png";
 import TT3 from "@/assets/images/projects/ted/ted-3.png";
@@ -89,7 +95,7 @@ const projects = [
     description:
       "Hero services is a Water/Wastewater Consulting company under the umbrella of Ellison Environmental, along with Fluid Resource Management (FRM) and Cloacina. I started with FRM and developed Hero BuilderTM, which spurred the start of Hero Services as a company. Designed, architected and led a small team in the development of Hero BuilderTM. Hero Builder is an operations/maintenance management tool designed to be customized for multiple applications. Hero BuilderTM was developed using several micro-services including a React App, Flask Api, Postgres DB and a Redis instance. Worked with Cloacina to develop a proof of concept for integrating with their onsite SCADA systems using an Ewon Flexy device. This featured a Java script that called our API from the device. Designed and scaffolded an operator Mobile App to bring more usability to onsite operators using React Native Hero BuilderTM is used to: Manage and maintain compliance standards at 100+ water/ wastewater facilities operated by Fluid Resource Management in CA. Maintain compliance during the warranty period of any Cloacina Package Plant that is deployed for the first 2 years. Support ~500 users in the office and in the field.",
     type: "React, Flask",
-    slides: [],
+    slides: [HB1, HB2, HB3],
   },
   {
     name: "New Regency",
@@ -135,16 +141,17 @@ const projects = [
   {
     name: "Wiere Weddings",
     link: "https://wiere-wedding.com",
-    description: "",
-    type: "Vue",
-    slides: [],
+    description:
+      "I designed and developed a new website for Wiere Weddings. It showcases recent work, pricing and integrates with Honeybook to obtain new appointments.",
+    type: "Vue (Typescript)",
+    slides: [WW1, WW2, WW3],
   },
   {
     name: "Ted Tobin's Portfolio",
     link: "https://tedtobin.com",
     description:
       "This project was a portfolio website for Creative Director, Consultant, and Copy Writer Ted Tobin. During his transition to freelance work he needed a simple site that would showcase his skills and experience as a writer. In order to do this I designed and built a site where his words are the focus. The slider is built with vanilla js and inspired by word scramble code pens.",
-    type: "Vue",
+    type: "Vue (JS)",
     slides: [TT1, TT2, TT3],
   },
 ];
@@ -154,18 +161,21 @@ const down = ref(false);
 const show = ref(false);
 const currentProject = ref(projects[0]);
 const projectIdx = ref(0);
-const slideIndex = ref(0);
+console.log(projectIdx.value);
 
 onMounted(() => {
   down.value = true;
 
   setTimeout(() => {
     show.value = true;
-  }, 500);
+  }, 1000);
 });
 
-/** @returns index of selected project if it doesn't exceed the length */
-watch(projectIdx, async (idx) => (currentProject.value = projects[idx]));
+/** updates index of selected project if it doesn't exceed the length */
+watch(projectIdx, async (idx) => {
+  console.log(idx);
+  currentProject.value = projects[idx];
+});
 
 /** @returns length of projects */
 const length = computed(() => projects.length - 1);
@@ -173,7 +183,6 @@ const length = computed(() => projects.length - 1);
 /** @increments current project */
 const next = () => {
   // reset current index on project change
-  slideIndex.value = 0;
   show.value = false;
 
   let check = projectIdx.value;
@@ -182,7 +191,7 @@ const next = () => {
 
   setTimeout(() => {
     if (check !== projectIdx.value) show.value = true;
-  }, 500);
+  }, 1000);
 };
 </script>
 
@@ -243,20 +252,17 @@ const next = () => {
       }
 
       p {
-        padding: 0 2rem 1rem;
+        padding: 0 2rem;
         margin-bottom: 1rem;
-
-        @media #{$small} {
-          margin-bottom: 0;
-        }
       }
 
       .description {
         display: none;
-        margin-bottom: 1rem;
 
         @media #{$small} {
           display: block;
+          height: 50%;
+          overflow: auto;
         }
       }
 
