@@ -16,8 +16,8 @@
         backgroundImage: `url(${imgNoise})`,
       }"
     ></div>
-    <!-- preloader -->
-    <preloader
+    <!-- Preloader -->
+    <Preloader
       :class="{
         hide: hide,
         remove: remove,
@@ -30,15 +30,9 @@
     <!-- Global Nav Component -->
     <navigation v-if="!down && !landscape" />
     <!-- Pages -->
-    <router-view v-slot="{ Component }" v-if="!down && !landscape">
-      <transition>
-        <component :is="Component" />
-      </transition>
-    </router-view>
-    <!-- TODO: verify -->
-    <!-- <transition :name="transitionName">
+    <transition :name="transitionName">
       <router-view :preloaded="preload" v-if="!down && !landscape" />
-    </transition> -->
+    </transition>
     <!-- Maintenance -->
     <maintenance v-if="down" />
     <!-- Landscape Device -->
@@ -51,12 +45,14 @@ import { ref, onBeforeMount, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
-import navigation from "@/components/navigation.vue";
-import maintenance from "@/components/maintenance.vue";
-import preloader from "@/components/preloader.vue";
-import bolt from "@/components/bolt.vue";
-import card from "@/components/card.vue";
 import utils from "@/utils/index.js";
+
+// Components
+import Navigation from "@/components/Navigation.vue";
+import Maintenance from "@/components/Maintenance.vue";
+import Preloader from "@/components/Preloader.vue";
+import Card from "@/components/Card.vue";
+import Bolt from "@/components/Bolt.vue";
 
 // Images
 import imgBg from "@/assets/images/palm.jpg";

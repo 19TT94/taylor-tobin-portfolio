@@ -65,7 +65,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 
-import Resume from "@/assets/TTResume2020.pdf";
+import Resume from "@/assets/TTResume2024.pdf";
 
 import NetlifyForm from "@/components/Form.vue";
 

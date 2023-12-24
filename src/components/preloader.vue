@@ -1,34 +1,26 @@
 <template>
   <div class="preloader">
-    <div class="loader hide" :class="{'show' : show}">
-      <img src="@/assets/images/loader.svg">
-      <img src="@/assets/images/loader.svg">
+    <div class="loader hide" :class="{ show: show }">
+      <img src="@/assets/images/loader.svg" />
+      <img src="@/assets/images/loader.svg" />
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from "vue";
 
-export default {
-  name: 'preloader',
+const show = ref(false);
 
-  data() {
-    return {
-      show: false
-    }
-  },
-
-  mounted() {
-    setTimeout(()=> {
-      this.show = true
-    }, 500)
-  }
-}
+onMounted(() => {
+  setTimeout(() => {
+    show.value = true;
+  }, 500);
+});
 </script>
 
 <style scoped lang="scss">
-
-@import '@/assets/scss/app.scss'; // global styles
+@import "@/assets/scss/app.scss"; // global styles
 
 .preloader {
   position: fixed;
@@ -78,18 +70,29 @@ export default {
 
 /* Animation */
 @keyframes title {
-  0%   { transform: scale(1.3); }
-  100% { transform: scale(1);   }
+  0% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @keyframes wave1 {
-  0%   { transform: translateX(0%);  }
-  100% { transform: translateX(97.99%); }
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(97.99%);
+  }
 }
 
 @keyframes wave2 {
-  0%   { transform: translateX(-97.99%);  }
-  100% { transform: translateX(0%); }
+  0% {
+    transform: translateX(-97.99%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
 }
-
 </style>

@@ -48,9 +48,7 @@ import { ref, computed, watch, onMounted } from "vue";
 
 import utils from "@/utils/index.js";
 
-const { slides, projectIndex } = defineProps(["slides", "projectIndex"]);
-console.log(projectIndex);
-watch(projectIndex, (idx) => console.log(idx));
+const props = defineProps(["slides", "projectIdx"]);
 
 const currentIndex = ref(0);
 const setupFinished = ref(false);
@@ -58,14 +56,19 @@ const navigation = ref(true);
 const dots = ref(true);
 const dotText = ref(false);
 
-const initialize = () => {
+onMounted(() => {
   currentIndex.value = 0;
   setupFinished.value = true;
-};
+});
 
-onMounted(() => initialize());
+watch(
+  () => props.projectIdx,
+  () => {
+    currentIndex.value = 0;
+  }
+);
 
-const itemsLength = computed(() => [...slides].length - 1);
+const itemsLength = computed(() => [...props.slides].length - 1);
 
 const previousIndex = computed(() => {
   return currentIndex.value - 1 < 0
@@ -82,7 +85,6 @@ const setItem = (index) => {
 };
 
 const forward = () => {
-  console.log(projectIndex);
   currentIndex.value = nextIndex.value;
 };
 

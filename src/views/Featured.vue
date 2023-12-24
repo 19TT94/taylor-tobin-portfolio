@@ -42,7 +42,7 @@
         ref="slider"
         class="featured-slider hide"
         :class="{ show: show }"
-        :projectIndex="projectIdx"
+        :projectIdx="projectIdx"
         :slides="currentProject.slides"
       />
     </div>
@@ -50,7 +50,7 @@
 </template>
 
 <script setup>
-import { ref, watch, computed, onMounted } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 
 // Components
 import Slider from "@/components/Slider.vue";
@@ -161,20 +161,13 @@ const down = ref(false);
 const show = ref(false);
 const currentProject = ref(projects[0]);
 const projectIdx = ref(0);
-console.log(projectIdx.value);
 
 onMounted(() => {
   down.value = true;
 
   setTimeout(() => {
     show.value = true;
-  }, 1000);
-});
-
-/** updates index of selected project if it doesn't exceed the length */
-watch(projectIdx, async (idx) => {
-  console.log(idx);
-  currentProject.value = projects[idx];
+  }, 500);
 });
 
 /** @returns length of projects */
@@ -185,13 +178,12 @@ const next = () => {
   // reset current index on project change
   show.value = false;
 
-  let check = projectIdx.value;
-  if (projectIdx.value === length.value) projectIdx.value = 0;
-  else projectIdx.value += 1;
-
   setTimeout(() => {
-    if (check !== projectIdx.value) show.value = true;
-  }, 1000);
+    if (projectIdx.value === length.value) projectIdx.value = 0;
+    else projectIdx.value += 1;
+    currentProject.value = projects[projectIdx.value];
+    show.value = true;
+  }, 200);
 };
 </script>
 

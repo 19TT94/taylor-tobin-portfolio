@@ -57,54 +57,39 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from "vue";
+
 import Utils from "@/utils/index.js";
 
-export default {
-  name: "maintenance",
+const intro = ref(true);
+const show = ref(false);
+const landscape = ref(false);
 
-  data() {
-    return {
-      intro: true,
-      show: false,
-      landscape: false,
-    };
-  },
-
-  mounted() {
+onMounted(() => {
+  setTimeout(() => {
+    intro.value = false;
     setTimeout(() => {
-      this.intro = false;
-      setTimeout(() => {
-        this.show = true;
-      }, 500);
-    }, 2500);
+      show.value = true;
+    }, 500);
+  }, 2500);
 
-    // intial orientation check
-    if (
+  // intial orientation check
+  landscape.value =
+    (Utils.isMobileDevice() &&
+      Utils.isMobileSize() &&
+      screen.orientation === 90) ||
+    screen.orientation === -90;
+
+  // set landscape state on orientation change
+  window.addEventListener("orientationchange", () => {
+    landscape.value =
       (Utils.isMobileDevice() &&
         Utils.isMobileSize() &&
-        window.orientation === 90) ||
-      window.orientation === -90
-    ) {
-      this.landscape = true;
-    }
-
-    // set landscape state on orientation change
-    let self = this;
-    window.addEventListener("orientationchange", function () {
-      if (
-        (Utils.isMobileDevice() &&
-          Utils.isMobileSize() &&
-          window.orientation === 90) ||
-        window.orientation === -90
-      ) {
-        self.landscape = true;
-      } else {
-        self.landscape = false;
-      }
-    });
-  },
-};
+        screen.orientation === 90) ||
+      screen.orientation === -90;
+  });
+});
 </script>
 
 <style scoped lang="scss">

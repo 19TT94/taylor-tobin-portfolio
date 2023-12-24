@@ -6,80 +6,63 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from "vue";
+
 import utils from "@/utils/index.js";
 
-export default {
-  name: "bolt",
+const selectors = ref(null);
 
-  data() {
-    return {
-      selectors: null,
+const setCursor = () => {
+  let dot = document.getElementById("dot");
+  let box = document.getElementById("box");
+  let diamond = document.getElementById("diamond");
+
+  // get mouse move events to set custom cursor
+  window.addEventListener("mousemove", (e) => {
+    dot.style.top = e.clientY + "px";
+    dot.style.left = e.clientX + "px";
+
+    setTimeout(() => {
+      box.style.top = e.clientY + "px";
+      box.style.left = e.clientX + "px";
+    }, 100);
+
+    setTimeout(() => {
+      diamond.style.top = e.clientY + "px";
+      diamond.style.left = e.clientX + "px";
+    }, 150);
+  });
+
+  // get all anchors and buttons
+  selectors.value = document.querySelectorAll("a,button");
+  // iterate over elements to hijack mouse events
+  for (var i = 0; i < selectors.value.length; i++) {
+    // add classes on mouse enter
+    selectors.value[i].onmouseenter = () => {
+      dot.classList.add("grow");
+      box.classList.add("hide");
+      diamond.classList.add("hide");
     };
-  },
-
-  methods: {
-    setCursor() {
-      let dot = document.getElementById("dot");
-      let box = document.getElementById("box");
-      let diamond = document.getElementById("diamond");
-
-      // get mouse move events to set custom cursor
-      window.addEventListener("mousemove", (e) => {
-        dot.style.top = e.clientY + "px";
-        dot.style.left = e.clientX + "px";
-        setTimeout(() => {
-          box.style.top = e.clientY + "px";
-          box.style.left = e.clientX + "px";
-        }, 100);
-        setTimeout(() => {
-          diamond.style.top = e.clientY + "px";
-          diamond.style.left = e.clientX + "px";
-        }, 150);
-      });
-
-      // get all anchors and buttons
-      this.selectors = document.querySelectorAll("a,button");
-      // iterate over elements to hijack mouse events
-      for (var i = 0; i < this.selectors.length; i++) {
-        // add classes on mouse enter
-        this.selectors[i].onmouseenter = () => {
-          dot.classList.add("grow");
-          box.classList.add("hide");
-          diamond.classList.add("hide");
-        };
-        // remove classes on mouse leave
-        this.selectors[i].onmouseleave = () => {
-          dot.classList.remove("grow");
-          box.classList.remove("hide");
-          diamond.classList.remove("hide");
-        };
-        // remove classes on mouse click
-        this.selectors[i].onmousedown = () => {
-          dot.classList.remove("grow");
-          box.classList.remove("hide");
-          diamond.classList.remove("hide");
-        };
-      }
-    },
-  },
-
-  mounted() {
-    // intial cursor state
-    if (!utils.isMobileDevice()) {
-      this.setCursor();
-    }
-  },
-
-  watch: {
-    $route(to, from) {
-      // react to route changes...
-      if (!utils.isMobileDevice()) {
-        this.setCursor();
-      }
-    },
-  },
+    // remove classes on mouse leave
+    selectors.value[i].onmouseleave = () => {
+      dot.classList.remove("grow");
+      box.classList.remove("hide");
+      diamond.classList.remove("hide");
+    };
+    // remove classes on mouse click
+    selectors.value[i].onmousedown = () => {
+      dot.classList.remove("grow");
+      box.classList.remove("hide");
+      diamond.classList.remove("hide");
+    };
+  }
 };
+
+onMounted(() => {
+  // intial cursor state
+  if (!utils.isMobileDevice()) setCursor();
+});
 </script>
 
 <style scoped lang="scss">

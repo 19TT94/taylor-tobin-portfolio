@@ -41,10 +41,7 @@
         </ul>
 
         <button>
-          <a
-            class="button resume"
-            :href="require('@/assets/TTResume.pdf')"
-            download="resume.pdf"
+          <a class="button resume" :href="Resume" download="resume.pdf"
             >Resume</a
           >
         </button>
@@ -54,9 +51,7 @@
 </template>
 
 <script>
-export default {
-  name: "Card",
-};
+import Resume from "@/assets/TTResume2024.pdf";
 </script>
 
 <style scoped lang="scss">

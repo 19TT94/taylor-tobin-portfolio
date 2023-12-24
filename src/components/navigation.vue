@@ -43,33 +43,30 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "Menu",
+<script setup>
+import { ref, onMounted } from "vue";
+import { useStore } from "vuex";
 
-  data() {
-    return {
-      // reference state from store
-      down: this.$store.state.down,
-      unlock: false,
-      open: false,
-    };
-  },
+const down = ref(null);
+const unlock = ref(false);
+const open = ref(false);
 
-  methods: {
-    /* toggles events for opening and closing the nav */
-    toggleNav() {
-      this.unlock = !this.unlock;
-      setTimeout(() => {
-        this.open = !this.open;
-      }, 200);
-    },
-    /* handles route change event, resets data */
-    pageChange() {
-      this.unlock = false;
-      this.open = false;
-    },
-  },
+const store = useStore();
+
+onMounted(() => {
+  down.value = store.state.down;
+});
+
+const toggleNav = () => {
+  unlock.value = !unlock.value;
+  setTimeout(() => {
+    open.value = !open.value;
+  }, 200);
+};
+
+const pageChange = () => {
+  unlock.value = false;
+  open.value = false;
 };
 </script>
 
