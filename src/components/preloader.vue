@@ -15,7 +15,7 @@ const show = ref(false);
 onMounted(() => {
   setTimeout(() => {
     show.value = true;
-  }, 500);
+  }, 200);
 });
 </script>
 

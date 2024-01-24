@@ -40,12 +40,7 @@
       </ul>
 
       <button>
-        <a
-          class="button resume"
-          :href="require('@/assets/images/TTresume-2019.pdf')"
-          download="resume.pdf"
-          >Resume</a
-        >
+        <a class="button resume" :href="Resume" download="resume.pdf">Resume</a>
       </button>
     </section>
 
@@ -60,6 +55,8 @@
 <script setup>
 import { ref, onMounted } from "vue";
 
+import Resume from "@/assets/TTResume2024.pdf";
+
 import Utils from "@/utils/index.js";
 
 const intro = ref(true);
@@ -72,7 +69,7 @@ onMounted(() => {
     setTimeout(() => {
       show.value = true;
     }, 500);
-  }, 2500);
+  }, 2000);
 
   // intial orientation check
   landscape.value =

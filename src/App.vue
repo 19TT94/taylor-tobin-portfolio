@@ -23,8 +23,7 @@
         remove: remove,
       }"
       v-if="
-        (!down && !preload && currentPage === 'home') ||
-        currentPage === 'featured'
+        !down && !preload && (route.path === '/' || route.path === '/featured')
       "
     />
     <!-- Global Nav Component -->
@@ -42,7 +41,7 @@
 
 <script setup>
 import { ref, onBeforeMount, onMounted } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { useStore } from "vuex";
 
 import utils from "@/utils/index.js";
@@ -62,10 +61,9 @@ import imgNoise from "@/assets/images/film.gif";
 const DEFAULT_TRANSITION = "fade";
 
 const router = useRouter();
+const route = useRoute();
 const store = useStore();
 
-// current page reference
-const currentPage = router.currentRoute.name;
 // reference state from store
 const preload = store.state.preloaded;
 const down = store.state.down;
@@ -90,7 +88,7 @@ onMounted(() => {
       remove.value = true;
       store.state.preloaded = true;
     }, 500);
-  }, 1000);
+  }, 1500);
 
   // intial orientation check
   landscape.value =
