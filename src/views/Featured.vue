@@ -59,7 +59,7 @@
 import { ref, computed, onMounted, onBeforeUnmount } from "vue";
 
 // Components
-import Slider from "@/components/Slider.vue";
+import Slider from "@/components/slider.vue";
 
 // Slides
 import HB1 from "@/assets/images/projects/hero-builder/hero-builder-1.png";
