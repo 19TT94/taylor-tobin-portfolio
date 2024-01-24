@@ -1,13 +1,21 @@
 <template>
   <div class="maintenance">
-
-    <section class="container info hide" :class="{ 'show': show }" v-if="!landscape">
+    <section
+      class="container info hide"
+      :class="{ show: show }"
+      v-if="!landscape"
+    >
       <h1>Taylor Tobin</h1>
       <h3>Developer</h3>
 
       <ul class="contact">
-        <li><span>Email:</span> <a href="mailto:19tt94@gmail.com">19tt94@gmail.com</a></li>
-        <span>Phone:</span> <a class="mobile" href="tel:805-434-7559">(805) 434-7559</a> <span class="desktop">(805) 434-7559</span>
+        <li>
+          <span>Email:</span>
+          <a href="mailto:19tt94@gmail.com">19tt94@gmail.com</a>
+        </li>
+        <span>Phone:</span>
+        <a class="mobile" href="tel:805-434-7559">(805) 434-7559</a>
+        <span class="desktop">(805) 434-7559</span>
       </ul>
 
       <ul class="links">
@@ -31,60 +39,57 @@
         </li>
       </ul>
 
-      <button><a class="button resume" :href="require('@/assets/images/TTresume-2019.pdf')" download="resume.pdf">Resume</a></button>
-
+      <button>
+        <a class="button resume" :href="Resume" download="resume.pdf">Resume</a>
+      </button>
     </section>
 
-    <div class="overlay" :class="{ 'hide': !intro }">
-      <p class="note special">Down for maintenance! Here's the basics for now.</p>
+    <div class="overlay" :class="{ hide: !intro }">
+      <p class="note special">
+        Down for maintenance! Here's the basics for now.
+      </p>
     </div>
-
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from "vue";
 
-import Utils from '@/utils/index.js'
+import Resume from "@/assets/TTResume2024.pdf";
 
-export default {
-  name: 'maintenance',
+import Utils from "@/utils/index.js";
 
-  data() {
-    return {
-      intro: true,
-      show: false,
-      landscape: false
-    }
-  },
+const intro = ref(true);
+const show = ref(false);
+const landscape = ref(false);
 
-  mounted() {
-    setTimeout(()=> {
-      this.intro = false
-      setTimeout(()=> {
-        this.show = true
-      }, 500)
-    }, 2500)
+onMounted(() => {
+  setTimeout(() => {
+    intro.value = false;
+    setTimeout(() => {
+      show.value = true;
+    }, 500);
+  }, 2000);
 
-    // intial orientation check
-    if (Utils.isMobileDevice() && Utils.isMobileSize() && window.orientation === 90 || window.orientation === -90) {
-      this.landscape = true
-    }
+  // intial orientation check
+  landscape.value =
+    (Utils.isMobileDevice() &&
+      Utils.isMobileSize() &&
+      screen.orientation === 90) ||
+    screen.orientation === -90;
 
-    // set landscape state on orientation change
-    let self = this
-    window.addEventListener('orientationchange', function() {
-      if (Utils.isMobileDevice() && Utils.isMobileSize() && window.orientation === 90 || window.orientation === -90) {
-        self.landscape = true
-      } else {
-        self.landscape = false
-      }
-    })
-  }
-}
+  // set landscape state on orientation change
+  window.addEventListener("orientationchange", () => {
+    landscape.value =
+      (Utils.isMobileDevice() &&
+        Utils.isMobileSize() &&
+        screen.orientation === 90) ||
+      screen.orientation === -90;
+  });
+});
 </script>
 
 <style scoped lang="scss">
-
 @import "@/assets/scss/app.scss"; // global styles
 
 .maintenance {
@@ -104,7 +109,7 @@ export default {
   flex-direction: column;
   margin: 0 auto;
   background: $black;
-  box-shadow: 15px 15px 15px rgba(0,0,0,0.8);
+  box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.8);
 
   h1,
   h3 {
@@ -152,5 +157,4 @@ export default {
     display: inline-block;
   }
 }
-
 </style>

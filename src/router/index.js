@@ -1,54 +1,51 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router";
 
-import Home from '@/views/Home'
-import Featured from '@/views/Featured'
-import Projects from '@/views/Projects'
-import About from '@/views/About'
-import Contact from '@/views/Contact'
-import NotFound from '@/views/NotFound'
+import Home from "@/views/Home.vue";
+import Featured from "@/views/Featured.vue";
+import Projects from "@/views/Projects.vue";
+import About from "@/views/About.vue";
+import Contact from "@/views/Contact.vue";
+import NotFound from "@/views/NotFound.vue";
 
-Vue.use(Router)
-
-export default new Router({
-  mode: 'history',
-  base: process.env.BASE_URL,
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'home',
+      path: "/",
+      name: "home",
       component: Home,
-      meta: { transitionName: 'fade' }
+      meta: { transitionName: "fade" },
     },
     {
-      path: '/featured',
-      name: 'featured',
+      path: "/featured",
+      name: "featured",
       component: Featured,
-      meta: { transitionName: 'zoom' }
+      meta: { transitionName: "zoom" },
     },
     {
-      path: '/projects',
-      name: 'projects',
+      path: "/projects",
+      name: "projects",
       component: Projects,
-      meta: { transitionName: 'fade' }
+      meta: { transitionName: "fade" },
     },
     {
-      path: '/about',
-      name: 'about',
+      path: "/about",
+      name: "about",
       component: About,
-      meta: { transitionName: 'fade' }
+      meta: { transitionName: "fade" },
     },
     {
-      path: '/contact',
-      name: 'contact',
+      path: "/contact",
+      name: "contact",
       component: Contact,
-      meta: { transitionName: 'fade' }
+      meta: { transitionName: "fade" },
     },
     {
-      // will match everything
-      path: '*',
-      name: 'NotFound',
-      component: NotFound
-    }
-  ]
-})
+      path: "/:pathMatch(.*)*",
+      name: "not-found",
+      component: NotFound,
+    },
+  ],
+});
+
+export default router;

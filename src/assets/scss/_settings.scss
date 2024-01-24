@@ -1,7 +1,9 @@
 /* Global Settings */
 
 * {
-  cursor: none;
+  @media #{$small} {
+    cursor: none;
+  }
 }
 
 // Tags
@@ -10,7 +12,7 @@ input,
 textarea {
   font-size: 16px; // base font size
   font-family: $body-font;
-  // overflow: hidden;
+  overflow: hidden;
 }
 
 h1 {
@@ -69,8 +71,8 @@ a {
   color: $gold;
   text-decoration: none;
   &.router-link-exact-active {
-	// reset color with variable
-	color: $gold;
+    // reset color with variable
+    color: $gold;
   }
 }
 
@@ -81,8 +83,8 @@ span {
 }
 
 button {
-	font-size: 1.2rem;
-	font-family: $title-font;
+  font-size: 1.2rem;
+  font-family: $title-font;
   font-weight: 600;
   background: transparent;
   border: 0;
@@ -91,9 +93,9 @@ button {
 }
 
 .button {
-	padding: 0.5rem 2rem;
-	border: 1px solid $gold;
-	color: $gold;
+  padding: 0.5rem 2rem;
+  border: 1px solid $gold;
+  color: $gold;
 }
 
 ul {

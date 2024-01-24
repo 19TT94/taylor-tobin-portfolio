@@ -2,15 +2,20 @@
   <div class="page contact">
     <h2 class="title">Taylor Tobin</h2>
     <section class="section left">
-      <img class="home-button" src="@/assets/images/tobin.png">
+      <img class="home-button" src="@/assets/images/tobin.png" />
     </section>
     <section class="section right">
       <div class="info">
         <h2>Get In Touch</h2>
         <ul>
-          <li><span>Email:</span> <a href="mailto:19tt94@gmail.com">19tt94@gmail.com</a></li>
           <li>
-            <span>Phone:</span> <a class="mobile" href="tel:805-434-7559">(805) 434-7559</a> <span class="desktop">(805) 434-7559</span>
+            <span>Email:</span>
+            <a href="mailto:19tt94@gmail.com">19tt94@gmail.com</a>
+          </li>
+          <li>
+            <span>Phone:</span>
+            <a class="mobile" href="tel:805-434-7559">(805) 434-7559</a>
+            <span class="desktop">(805) 434-7559</span>
           </li>
         </ul>
 
@@ -35,22 +40,21 @@
           </li>
         </ul>
 
-        <button><a class="button resume" :href="require('@/assets/TTResume.pdf')" download="resume.pdf">Resume</a></button>
+        <button>
+          <a class="button resume" :href="Resume" download="resume.pdf"
+            >Resume</a
+          >
+        </button>
       </div>
     </section>
-
   </div>
 </template>
 
 <script>
-
-export default {
-  name: 'Card'
-}
+import Resume from "@/assets/TTResume2024.pdf";
 </script>
 
 <style scoped lang="scss">
-
 @import "@/assets/scss/app.scss"; // global styles
 
 .contact {
@@ -97,8 +101,12 @@ export default {
       animation: spin 5s infinite;
 
       @keyframes spin {
-        0% { transform: rotateY(-360deg) }
-        100% { transform: rotateY(360deg) }
+        0% {
+          transform: rotateY(-360deg);
+        }
+        100% {
+          transform: rotateY(360deg);
+        }
       }
     }
   }
@@ -106,7 +114,7 @@ export default {
   .right {
     right: 0;
     background: $black;
-    box-shadow: -15px -15px 15px rgba(0,0,0,0.6);
+    box-shadow: -15px -15px 15px rgba(0, 0, 0, 0.6);
   }
 
   .left {
@@ -131,5 +139,4 @@ export default {
     display: inline-block;
   }
 }
-
 </style>

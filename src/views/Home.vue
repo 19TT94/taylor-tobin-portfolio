@@ -1,50 +1,34 @@
 <template>
   <div class="page home frame">
-    <h1 class="heading" :class="{'show': loaded}">Taylor Tobin</h1>
-    <h3 class="heading-sub" :class="{'show': loaded}">Developer</h3>
+    <h1 class="heading" :class="{ show: loaded }">Taylor Tobin</h1>
+    <h3 class="heading-sub" :class="{ show: loaded }">Software Engineer</h3>
     <router-link class="item view-work" to="/featured">View Work</router-link>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'home',
+<script setup>
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 
-  data() {
-    return {
-      expand: false,
-      show: false
-    }
-  },
+const router = useRouter();
+const store = useStore();
 
-  computed: {
-    loaded() {
-      return this.$store.state.preloaded
-    }
-  },
+const expand = ref(false);
 
-  methods: {
-    start() {
-      this.expand = true
-      // animate button before transition
-      setTimeout(() => {
-        this.$router.push({ path: 'featured' })
-        this.transition = false
-      }, 2000)
-    },
-    go() {
-      // animate button before transition
-      setTimeout(() => {
-        this.$router.push({ path: 'featured' })
-        this.transition = false
-      }, 2000)
-    }
-  }
-}
+const loaded = () => store.state.preloaded;
+
+const start = () => {
+  expand.value = true;
+  // animate button before transition
+  setTimeout(() => router.push({ path: "featured" }), 2000);
+};
+
+// animate button before transition
+const go = () => setTimeout(() => router.push({ path: "featured" }), 2000);
 </script>
 
-<style scoped lang="scss">
-
+<style lang="scss" scoped>
 @import "@/assets/scss/app.scss"; // global styles
 
 .home {
@@ -87,5 +71,4 @@ export default {
     opacity: 1;
   }
 }
-
 </style>

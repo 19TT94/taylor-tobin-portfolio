@@ -1,137 +1,110 @@
 <template>
-    <section
-      class="wrapper"
-      ref="theater"
-      :class="{'loading': !setupFinished}"
+  <section class="wrapper" ref="theater" :class="{ loading: !setupFinished }">
+    <ul class="slider">
+      <li
+        class="slide"
+        v-for="(item, index) in slides"
+        :class="[item.name, { active: currentIndex === index }]"
+        :key="`x-${index}`"
       >
+        <div class="content">
+          <img :src="item" />
+          <div class="swipe" v-hammer:swipe="onSwipe"></div>
+        </div>
+      </li>
+    </ul>
 
-      <ul class="slider">
-        <li class="slide"
+    <!-- optional stuff -->
+    <div class="button backward" v-if="navigation">
+      <button class="next" @click="backward">←</button>
+    </div>
+
+    <div class="button forward" v-if="navigation">
+      <button class="next" @click="forward">→</button>
+    </div>
+
+    <div class="pagination" v-if="dots">
+      <ul class="item-list">
+        <li
+          class="item"
           v-for="(item, index) in slides"
-          :class="[item.name, {active: currentIndex === index}]"
-          :key="`x-${index}`"
-          >
-          <div class="content">
-            <img :src="item">
-            <div class="swipe" v-hammer:swipe="onSwipe"></div>
-          </div>
+          :class="[item.slug, { active: currentIndex === index }]"
+          :key="`y-${index}`"
+        >
+          <button @click="setItem(index)">
+            <span v-if="dotText">
+              {{ item.title }}
+            </span>
+            <span else> &times; </span>
+          </button>
         </li>
       </ul>
-
-      <!-- optional stuff -->
-      <div class="button backward" v-if="navigation">
-        <button class="next" @click="backward">←</button>
-      </div>
-
-      <div class="button forward" v-if="navigation">
-        <button class="next" @click="forward">→</button>
-      </div>
-
-      <div class="pagination" v-if="dots">
-        <ul class="item-list">
-          <li class="item"
-            v-for="(item, index) in slides"
-            :class="[item.slug, {active: currentIndex === index}]"
-            :key="`y-${index}`"
-            >
-            <button @click="setItem(index)">
-              <span v-if="dotText">
-                {{item.title}}
-              </span>
-              <span else>
-                &times;
-              </span>
-            </button>
-          </li>
-        </ul>
-      </div>
-
-    </section>
+    </div>
+  </section>
 </template>
 
-<script>
-import Utils from '@/utils/index.js'
+<script setup>
+import { ref, computed, watch, onMounted } from "vue";
 
-export default {
-  name: 'Slider',
+import utils from "@/utils/index.js";
 
-  props: {
-    slides: Array
-  },
+const props = defineProps(["slides", "projectIdx"]);
 
-  mounted() {
-    this.initialize()
-  },
+const currentIndex = ref(0);
+const setupFinished = ref(false);
+const navigation = ref(true);
+const dots = ref(true);
+const dotText = ref(false);
 
-  data() {
-    return {
-      // the 'reactive' properties in this scope
-      currentIndex: null,
-      navigation: true, // what is this type of 'nav' called?
-      dots: true, // better name for this? - yes...
-      dotText: false,
-      setupFinished: false
-    }
-  },
+onMounted(() => {
+  currentIndex.value = 0;
+  setupFinished.value = true;
+});
 
-  computed: {
-    itemsLength() {
-      // [...{variable}] builds an array and fills it in with 'whatever'
-      return [...this.slides].length - 1
-      // 'spreads' the items into and array: "spread syntax"
-    },
-    previousIndex() {
-      return (this.currentIndex - 1) < 0 ? this.itemsLength : this.currentIndex - 1
-    },
-    nextIndex() {
-      return (this.currentIndex + 1) > this.itemsLength ? 0 : this.currentIndex + 1
-    },
-    currentItem() {
-      return (this.currentIndex > this.itemsLength) ? [...this.slides][0] : [...this.slides][this.currentIndex]
-    },
-    visualIndex() {
-      return this.currentIndex + 1
-    },
-    visualTotal() {
-      return this.itemsLength + 1
-    }
-  },
-
-  methods: {
-    initialize() {
-      setTimeout(()=> {
-        this.currentIndex = 0
-        this.setupFinished = true
-      }, 0)
-    },
-    setItem(index) {
-      this.currentIndex = index
-    },
-    forward() {
-      this.currentIndex = this.nextIndex
-    },
-    backward() {
-      this.currentIndex = this.previousIndex
-    },
-    onSwipe(e) {
-      // if mobile device
-      if (Utils.isMobileSize() && Utils.isMobileDevice()) {
-        // swipe left
-        if (e.direction === 2) {
-          this.currentIndex = this.nextIndex
-        }
-        // swipe right
-        if (e.direction === 4) {
-          this.currentIndex = this.previousIndex
-        }
-      }
-    }
+watch(
+  () => props.projectIdx,
+  () => {
+    currentIndex.value = 0;
   }
-}
+);
+
+const itemsLength = computed(() => [...props.slides].length - 1);
+
+const previousIndex = computed(() => {
+  return currentIndex.value - 1 < 0
+    ? itemsLength.value
+    : currentIndex.value - 1;
+});
+
+const nextIndex = computed(() =>
+  currentIndex.value + 1 > itemsLength.value ? 0 : currentIndex.value + 1
+);
+
+const setItem = (index) => {
+  currentIndex.value = index;
+};
+
+const forward = () => {
+  currentIndex.value = nextIndex.value;
+};
+
+const backward = () => {
+  currentIndex.value = previousIndex.value;
+};
+
+const onSwipe = (e) => {
+  // if mobile device
+  if (utils.isMobileSize() && utils.isMobileDevice()) {
+    // swipe left
+    if (e.direction === 2) currentIndex.value = nextIndex.value;
+
+    // swipe right
+    if (e.direction === 4) currentIndex.value = previousIndex.value;
+  }
+};
 </script>
 
 <style scoped lang="scss">
-
 @import "@/assets/scss/app.scss"; // global styles
 
 .wrapper {
@@ -165,7 +138,7 @@ export default {
         max-width: 70%;
         max-height: 60%;
         margin: 0 auto;
-        box-shadow: 0px 15px 15px rgba(0,0,0,0.8);
+        box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.8);
 
         @media #{$small} {
           max-width: 80%;
@@ -173,7 +146,8 @@ export default {
       }
     }
 
-    &.active { // when the frame that is chosen appears...
+    &.active {
+      // when the frame that is chosen appears...
       opacity: 1;
       z-index: $base;
       pointer-events: initial; // let users interact with buttons etc.
@@ -201,7 +175,8 @@ export default {
     }
   }
 
-  .button, .menu {
+  .button,
+  .menu {
     // menu/buttons etc. - rendering could be based on an optional parameter
     // - but the style rules to be written and ready
     opacity: 1;
@@ -280,7 +255,8 @@ export default {
   }
 
   &.loading {
-    .button, .menu {
+    .button,
+    .menu {
       // start these hidden, so they can fade in with some style
       opacity: 0;
       transition: 2s;
@@ -296,5 +272,4 @@ export default {
   height: 100%;
   z-index: $front;
 }
-
 </style>
