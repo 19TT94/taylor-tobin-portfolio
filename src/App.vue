@@ -47,11 +47,11 @@ import { useStore } from "vuex";
 import utils from "@/utils/index.js";
 
 // Components
-import Navigation from "@/components/Navigation.vue";
-import Maintenance from "@/components/Maintenance.vue";
-import Preloader from "@/components/Preloader.vue";
-import Card from "@/components/Card.vue";
-import Bolt from "@/components/Bolt.vue";
+import Navigation from "@/components/navigation.vue";
+import Maintenance from "@/components/maintenance.vue";
+import Preloader from "@/components/preloader.vue";
+import Card from "@/components/card.vue";
+import Bolt from "@/components/bolt.vue";
 
 // Images
 import imgBg from "@/assets/images/palm.jpg";
