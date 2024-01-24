@@ -67,7 +67,7 @@ import { ref, onMounted } from "vue";
 
 import Resume from "@/assets/TTResume2024.pdf";
 
-import NetlifyForm from "@/components/Form.vue";
+import NetlifyForm from "@/components/form.vue";
 
 const show = ref(false);
 const reveal = ref(false);
