@@ -1,7 +1,9 @@
 /* Global Settings */
 
 * {
-  cursor: none;
+  @media #{$small} {
+    cursor: none;
+  }
 }
 
 // Tags

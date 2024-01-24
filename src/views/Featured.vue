@@ -16,11 +16,17 @@
           <p v-if="currentProject.type">
             {{ currentProject.type }}
           </p>
-          <p
-            class="description"
+          <div
             v-if="currentProject.name"
-            v-html="currentProject.description"
-          ></p>
+            class="description"
+            :class="{ 'show-top': scrollTop, 'show-bottom': scrollBottom }"
+          >
+            <p
+              class="description-text"
+              ref="block"
+              v-html="currentProject.description"
+            ></p>
+          </div>
           <a
             class="button project-link"
             :href="currentProject.link"
@@ -50,7 +56,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from "vue";
+import { ref, computed, onMounted, onBeforeUnmount } from "vue";
 
 // Components
 import Slider from "@/components/Slider.vue";
@@ -156,18 +162,36 @@ const projects = [
   },
 ];
 
+// DOM elements
+const block = ref(null);
+
+// States
 const slider = ref(null);
 const down = ref(false);
 const show = ref(false);
 const currentProject = ref(projects[0]);
 const projectIdx = ref(0);
+const scrollTop = ref(false);
+const scrollBottom = ref(true);
+
+const handleScroll = ({ target }) => {
+  scrollTop.value = target.scrollTop > 1;
+  scrollBottom.value =
+    target.scrollTop !== target.scrollHeight - target.clientHeight;
+};
 
 onMounted(() => {
   down.value = true;
 
   setTimeout(() => {
     show.value = true;
-  }, 500);
+  }, 200);
+
+  block.value.addEventListener("scroll", handleScroll);
+});
+
+onBeforeUnmount(() => {
+  block.value.removeEventListener("scroll", handleScroll);
 });
 
 /** @returns length of projects */
@@ -253,9 +277,46 @@ const next = () => {
 
         @media #{$small} {
           display: block;
+          overflow: hidden;
+          position: relative;
+          margin-bottom: 2rem;
           height: 50%;
-          overflow: auto;
+
+          &-text {
+            overflow: auto;
+            height: 100%;
+            margin: 0;
+          }
         }
+
+        &:before,
+        &:after {
+          content: "";
+          z-index: $front;
+          position: absolute;
+          left: 0;
+          width: 100%;
+          height: 1rem;
+          opacity: 0;
+        }
+
+        &:before {
+          top: 0;
+          background: linear-gradient(to bottom, $black, rgba(0, 0, 0, 0) 100%);
+        }
+
+        &:after {
+          bottom: 0;
+          background: linear-gradient(to top, $black, rgba(0, 0, 0, 0) 100%);
+        }
+      }
+
+      .show-top:before {
+        opacity: 1;
+      }
+
+      .show-bottom:after {
+        opacity: 1;
       }
 
       .project-link {
