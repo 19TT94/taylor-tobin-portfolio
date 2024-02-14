@@ -88,7 +88,7 @@ onMounted(() => {
 
   .section {
     width: 100%;
-    height: 50%;
+    height: 40%;
     background: $black;
     z-index: $default;
     transform: translateY(-100%);
@@ -159,7 +159,7 @@ onMounted(() => {
     }
 
     h2 {
-      padding: 0;
+      padding: 0 !important;
     }
   }
 
@@ -184,7 +184,7 @@ onMounted(() => {
       display: flex;
       justify-content: space-between;
       width: 50%;
-      margin: 10px auto 20px;
+      margin: 10px auto 0;
     }
   }
 

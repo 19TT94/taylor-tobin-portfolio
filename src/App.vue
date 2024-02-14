@@ -81,11 +81,8 @@ onBeforeMount(() => {
   });
 });
 
-const showCard = () => {
-  landscape.value =
-    isMobileDevice() &&
-    isMobileSize() &&
-    window.screen.orientation.angle === 90;
+const showCard = (e) => {
+  landscape.value = isMobileDevice() && isMobileSize() && e.matches;
 };
 
 onMounted(() => {
@@ -98,17 +95,15 @@ onMounted(() => {
   }, 1500);
 
   // intial orientation check
-  landscape.value =
-    isMobileDevice() &&
-    isMobileSize() &&
-    window.screen.orientation.angle === 90;
+  let orientation = window.matchMedia("(orientation: landscape)");
+  landscape.value = isMobileDevice() && isMobileSize() && orientation.matches;
 
   // set landscape state on orientation change
-  window.addEventListener("orientationchange", showCard);
+  orientation.addEventListener("change", showCard);
 });
 
 onUnmounted(() => {
-  window.removeEventListener("orientationchange", showCard);
+  window.removeEventListener("change", showCard);
 });
 </script>
 
