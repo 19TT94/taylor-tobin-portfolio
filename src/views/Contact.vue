@@ -50,11 +50,9 @@
         </ul>
         <ul>
           <li>
-            <button>
-              <a class="button resume" :href="Resume" download="resume.pdf"
-                >Resume</a
-              >
-            </button>
+            <a class="button resume" :href="Resume" download="resume.pdf"
+              >Resume</a
+            >
           </li>
         </ul>
       </div>

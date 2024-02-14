@@ -232,7 +232,7 @@ const next = () => {
   .next-project {
     color: $black;
     background: $gold;
-    padding: 0 1rem;
+    padding: 0.5rem 1rem;
     position: absolute;
     width: 100%;
     z-index: $front;

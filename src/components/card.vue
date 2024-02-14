@@ -40,17 +40,13 @@
           </li>
         </ul>
 
-        <button>
-          <a class="button resume" :href="Resume" download="resume.pdf"
-            >Resume</a
-          >
-        </button>
+        <a class="button resume" :href="Resume" download="resume.pdf">Resume</a>
       </div>
     </section>
   </div>
 </template>
 
-<script>
+<script setup>
 import Resume from "@/assets/TTResume2024.pdf";
 </script>
 
