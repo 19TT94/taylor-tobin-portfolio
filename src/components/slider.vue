@@ -9,7 +9,7 @@
       >
         <div class="content">
           <img :src="item" />
-          <div class="swipe" v-hammer:swipe="onSwipe"></div>
+          <div class="swipe" v-touch:swipe="onSwipe"></div>
         </div>
       </li>
     </ul>
@@ -46,7 +46,7 @@
 <script setup>
 import { ref, computed, watch, onMounted } from "vue";
 
-import utils from "@/utils/index.js";
+import { isMobileDevice, isMobileSize } from "@/utils/index.js";
 
 const props = defineProps(["slides", "projectIdx"]);
 
@@ -92,14 +92,11 @@ const backward = () => {
   currentIndex.value = previousIndex.value;
 };
 
-const onSwipe = (e) => {
+const onSwipe = (direction) => {
   // if mobile device
-  if (utils.isMobileSize() && utils.isMobileDevice()) {
-    // swipe left
-    if (e.direction === 2) currentIndex.value = nextIndex.value;
-
-    // swipe right
-    if (e.direction === 4) currentIndex.value = previousIndex.value;
+  if (isMobileSize() && isMobileDevice()) {
+    if (direction === "left") currentIndex.value = nextIndex.value;
+    if (direction === "right") currentIndex.value = previousIndex.value;
   }
 };
 </script>
@@ -232,15 +229,16 @@ const onSwipe = (e) => {
 
     .item-list {
       margin: 0;
-      padding: 0; // should be in a css reset to start with
+      padding: 0;
       list-style: none;
       display: flex;
       justify-content: center;
+      width: 100%;
     }
 
     .item {
       display: block;
-      padding: 0 1rem;
+      width: fit-content;
 
       button {
         color: $white;

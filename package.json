@@ -22,7 +22,7 @@
     "vite": "^5.0.8",
     "vue": "^3.3.11",
     "vue-router": "^4.2.5",
-    "vue2-hammer": "^2.1.2",
+    "vue3-touch-events": "^4.1.8",
     "vuex": "^4.1.0"
   },
   "devDependencies": {

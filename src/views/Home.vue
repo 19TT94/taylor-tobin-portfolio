@@ -51,7 +51,7 @@ const go = () => setTimeout(() => router.push({ path: "featured" }), 2000);
 
     &-sub {
       opacity: 0;
-      font-size: 2rem;
+      font-size: 1.5rem;
       color: $white;
     }
   }

@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import { VueHammer } from "vue2-hammer";
+import Vue3TouchEvents from "vue3-touch-events";
 // Font Awesome
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faMapMarker } from "@fortawesome/free-solid-svg-icons";
@@ -20,7 +20,7 @@ const app = createApp(App);
 
 app.use(router);
 app.use(store);
-app.use(VueHammer);
+app.use(Vue3TouchEvents);
 
 app.component("font-awesome-icon", FontAwesomeIcon);
 

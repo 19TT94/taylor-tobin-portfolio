@@ -2,7 +2,7 @@
   <div class="page contact">
     <h2 class="title">Taylor Tobin</h2>
     <section class="section left">
-      <img class="home-button" src="@/assets/images/tobin.png" />
+      <img class="home-button" src="@/assets/images/tail-portfolio.png" />
     </section>
     <section class="section right">
       <div class="info">

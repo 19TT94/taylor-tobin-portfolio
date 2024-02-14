@@ -9,13 +9,13 @@
 <script setup>
 import { onMounted } from "vue";
 
-import utils from "@/utils/index.js";
+import { isMobileDevice } from "@/utils/index.js";
 
 // const selectors = ref(null);
 
 onMounted(() => {
   // intial cursor state
-  if (!utils.isMobileDevice()) {
+  if (!isMobileDevice()) {
     let dot = document.getElementById("dot");
     let box = document.getElementById("box");
     let diamond = document.getElementById("diamond");

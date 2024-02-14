@@ -57,7 +57,7 @@ import { ref, onMounted } from "vue";
 
 import Resume from "@/assets/TTResume2024.pdf";
 
-import Utils from "@/utils/index.js";
+import { isMobileDevice, isMobileSize } from "@/utils/index.js";
 
 const intro = ref(true);
 const show = ref(false);
@@ -73,17 +73,13 @@ onMounted(() => {
 
   // intial orientation check
   landscape.value =
-    (Utils.isMobileDevice() &&
-      Utils.isMobileSize() &&
-      screen.orientation === 90) ||
+    (isMobileDevice() && isMobileSize() && screen.orientation === 90) ||
     screen.orientation === -90;
 
   // set landscape state on orientation change
   window.addEventListener("orientationchange", () => {
     landscape.value =
-      (Utils.isMobileDevice() &&
-        Utils.isMobileSize() &&
-        screen.orientation === 90) ||
+      (isMobileDevice() && isMobileSize() && screen.orientation === 90) ||
       screen.orientation === -90;
   });
 });

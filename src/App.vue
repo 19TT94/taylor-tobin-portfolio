@@ -40,11 +40,11 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount, onMounted } from "vue";
+import { ref, onBeforeMount, onMounted, onUnmounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useStore } from "vuex";
 
-import utils from "@/utils/index.js";
+import { isMobileDevice, isMobileSize } from "@/utils/index.js";
 
 // Components
 import Navigation from "@/components/navigation.vue";
@@ -81,6 +81,13 @@ onBeforeMount(() => {
   });
 });
 
+const showCard = () => {
+  landscape.value =
+    isMobileDevice() &&
+    isMobileSize() &&
+    window.screen.orientation.angle === 90;
+};
+
 onMounted(() => {
   setTimeout(() => {
     hide.value = true;
@@ -92,26 +99,17 @@ onMounted(() => {
 
   // intial orientation check
   landscape.value =
-    (utils.isMobileDevice() && utils.isMobileSize() && window.screen === 90) ||
-    window.screen === -90;
+    isMobileDevice() &&
+    isMobileSize() &&
+    window.screen.orientation.angle === 90;
 
   // set landscape state on orientation change
-  window.addEventListener("orientationchange", function () {
-    landscape.value =
-      (Utils.isMobileDevice() &&
-        Utils.isMobileSize() &&
-        window.screen === 90) ||
-      window.screen === -90;
-  });
+  window.addEventListener("orientationchange", showCard);
 });
 
-// TODO: fix
-// watch: {
-//   $route(to, from) {
-//     this.currentPage = to.name;
-//   },
-// },
-// };
+onUnmounted(() => {
+  window.removeEventListener("orientationchange", showCard);
+});
 </script>
 
 <style lang="scss">
