@@ -2,7 +2,7 @@
   <div id="bolt">
     <div id="dot"></div>
     <div id="box"></div>
-    <div id="diamond"></div>
+    <!-- <div id="diamond"></div> -->
   </div>
 </template>
 
@@ -18,7 +18,7 @@ onMounted(() => {
   if (!isMobileDevice()) {
     let dot = document.getElementById("dot");
     let box = document.getElementById("box");
-    let diamond = document.getElementById("diamond");
+    // let diamond = document.getElementById("diamond");
 
     // get mouse move events to set custom cursor
     window.addEventListener("mousemove", (e) => {
@@ -30,10 +30,10 @@ onMounted(() => {
         box.style.left = e.clientX + "px";
       }, 100);
 
-      setTimeout(() => {
-        diamond.style.top = e.clientY + "px";
-        diamond.style.left = e.clientX + "px";
-      }, 150);
+      // setTimeout(() => {
+      //   diamond.style.top = e.clientY + "px";
+      //   diamond.style.left = e.clientX + "px";
+      // }, 150);
     });
 
     // get all anchors and buttons
@@ -42,28 +42,28 @@ onMounted(() => {
     for (var i = 0; i < selectors.length; i++) {
       // add classes on mouse enter
       selectors[i].onmouseenter = () => {
-        // dot.classList.add("grow");
-        // box.classList.add("hide");
+        dot.classList.add("grow");
+        box.classList.add("hide");
         // diamond.classList.add("hide");
 
-        box.classList.add("show");
-        diamond.classList.add("show");
+        // box.classList.add("show");
+        // diamond.classList.add("show");
       };
       // remove classes on mouse leave
       selectors[i].onmouseleave = () => {
         // dot.classList.remove("grow");
-        // box.classList.remove("hide");
+        box.classList.remove("hide");
         // diamond.classList.remove("hide");
 
         box.classList.remove("show");
-        diamond.classList.remove("show");
+        // diamond.classList.remove("show");
       };
       // remove classes on mouse click
-      // selectors.value[i].onmousedown = () => {
-      //   // dot.classList.remove("grow");
-      //   box.classList.remove("hide");
-      //   diamond.classList.remove("hide");
-      // };
+      selectors[i].onmousedown = () => {
+        // dot.classList.remove("grow");
+        box.classList.remove("hide");
+        // diamond.classList.remove("hide");
+      };
     }
   }
 });
@@ -74,6 +74,7 @@ onMounted(() => {
 
 #bolt {
   display: none;
+  background-color: $white;
 
   @media #{$small} {
     display: block;
@@ -84,12 +85,13 @@ onMounted(() => {
     height: 10px;
     width: 10px;
     border-radius: 50%;
+    border: 2px solid #fff;
     transition: all 0.3s, top 0s, left 0s;
     transform: translate(-50%, -50%);
     pointer-events: none;
     background-color: $white;
     mix-blend-mode: difference;
-    z-index: 10;
+    z-index: $cursor;
   }
 
   #box {
@@ -101,7 +103,7 @@ onMounted(() => {
     transition: all 0.3s, top 0s, left 0s;
     pointer-events: none;
     animation: spin 5s linear reverse infinite;
-    z-index: 10;
+    z-index: $cursor;
 
     // opacity: 0;
   }
@@ -116,7 +118,7 @@ onMounted(() => {
     pointer-events: none;
     animation: spin 5s linear infinite;
     mix-blend-mode: difference;
-    z-index: 10;
+    z-index: $cursor;
 
     // opacity: 0;
   }

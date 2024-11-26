@@ -3,7 +3,11 @@
     id="app"
     class="palm"
     :style="{
-      backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${imgBg})`,
+      backgroundImage: `linear-gradient(${
+        store.state.theme === 'dark'
+          ? 'rgba(0,0,0,0.5), rgba(0,0,0,0.5)'
+          : 'rgba(255,255,255,0.5), rgba(255,255,255,0.5)'
+      }), url(${imgBg})`,
       cursor: `url(${imgCursor})`,
     }"
   >
@@ -109,6 +113,18 @@ onUnmounted(() => {
 
 <style lang="scss">
 @import "@/assets/scss/app.scss";
+
+.palm {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  top: 0;
+  left: 0;
+  z-index: $base;
+}
 
 .fade-enter-active,
 .fade-leave-active {

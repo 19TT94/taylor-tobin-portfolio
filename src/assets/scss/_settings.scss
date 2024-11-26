@@ -73,6 +73,11 @@ a {
     // reset color with variable
     color: $gold;
   }
+
+  &:focus {
+    outline: 2px solid $gold;
+    margin: $pad;
+  }
 }
 
 span {
@@ -89,6 +94,19 @@ button {
   border: 0;
   padding: 0;
   outline: none;
+
+  &:before {
+    content: "";
+    width: 100%;
+    height: 10px;
+    background: gold;
+    opacity: 0;
+  }
+
+  &:focus {
+    outline: 2px solid $gold;
+    margin: $pad;
+  }
 }
 
 .button {
