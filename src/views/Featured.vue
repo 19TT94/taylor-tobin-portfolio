@@ -146,10 +146,10 @@ const projects = [
   },
   {
     name: "Wiere Weddings",
-    link: "https://wiere-wedding.com",
+    link: "https://wiereweddings.com",
     description:
       "I designed and developed a new website for Wiere Weddings. It showcases recent work, pricing and integrates with Honeybook to obtain new appointments.",
-    type: "Vue (Typescript)",
+    type: "Vue (Typescript), Wordpress (PHP)",
     slides: [WW1, WW2, WW3],
   },
   {

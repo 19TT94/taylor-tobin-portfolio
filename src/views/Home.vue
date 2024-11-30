@@ -1,21 +1,39 @@
 <template>
-  <div class="page home frame">
-    <div class="toggle-wrapper">
+  <div
+    class="page home frame"
+    :class="{ [`frame-${store.state.theme}`]: store.state.theme }"
+  >
+    <div
+      class="toggle-wrapper"
+      :class="{ [store.state.theme]: store.state.theme }"
+    >
       <button
         type="button"
-        :title="{ [`Toggle ${store.state.theme} mode`]: store.state.theme }"
+        :title="`Toggle ${store.state.theme} mode`"
         class="toggle"
-        :class="{ [store.state.theme]: store.state.theme }"
+        :class="{ [`toggle-${store.state.theme}`]: store.state.theme }"
         @click="toggle"
       >
-        <font-awesome-icon
-          :class="{ active: store.state.theme === 'light' }"
-          :icon="['fas', 'sun']"
-        />
-        <font-awesome-icon
-          :class="{ active: store.state.theme === 'dark' }"
-          :icon="['fas', 'moon']"
-        />
+        <div
+          class="toggle-dot"
+          :class="{
+            active: store.state.theme === 'light',
+            [`active-${store.state.theme}`]: store.state.theme === 'light',
+            [`toggle-dot-${store.state.theme}`]: store.state.theme,
+          }"
+        >
+          <font-awesome-icon :icon="['fas', 'sun']" />
+        </div>
+        <div
+          class="toggle-dot"
+          :class="{
+            active: store.state.theme === 'dark',
+            [`active-${store.state.theme}`]: store.state.theme === 'dark',
+            [`toggle-dot-${store.state.theme}`]: store.state.theme,
+          }"
+        >
+          <font-awesome-icon :icon="['fas', 'moon']" />
+        </div>
       </button>
     </div>
     <h1
@@ -49,7 +67,11 @@
         class="detail"
         :class="{ [`detail-${store.state.theme}`]: store.state.theme }"
       >
-        <font-awesome-icon id="location-icon" :icon="['fas', 'cog']" />
+        <font-awesome-icon
+          id="location-icon"
+          :class="{ [`location-icon-${store.state.theme}`]: store.state.theme }"
+          :icon="['fas', 'cog']"
+        />
         Settings
       </p>
       <p
@@ -62,12 +84,16 @@
         class="detail"
         :class="{ [`detail-${store.state.theme}`]: store.state.theme }"
       >
-        <font-awesome-icon id="location-icon" :icon="['fas', 'location']" />
+        <font-awesome-icon
+          id="location-icon"
+          :class="{ [`location-icon-${store.state.theme}`]: store.state.theme }"
+          :icon="['fas', 'location']"
+        />
         Grover Beach CA
       </p>
     </div>
 
-    <!-- <router-link class="item view-work" to="/featured">View Work</router-link> -->
+    <router-link class="item view-work" to="/featured">View Work</router-link>
   </div>
 </template>
 <script setup>
@@ -104,25 +130,58 @@ const localTime = () => dayjs.utc().tz("US/Pacific").format("h:mm A z");
   }
 
   .toggle {
-    border: $border solid $gold;
     border-radius: 20px;
-    padding: 2px 0;
+    padding: 2px;
     margin: 10px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 5px;
 
-    .active {
-      border-radius: 50%;
-      padding: 5px;
-      background: $gold;
+    &-dark {
+      border: $border solid $gold;
     }
 
-    svg {
-      color: $gold;
-      width: 15px;
-      height: 15px;
+    &-light {
+      border: $border solid $black;
+    }
+
+    &-dot {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3px 5px;
+      margin: 2px;
+
+      svg {
+        height: 15px;
+        padding: 0;
+      }
+
+      &-light {
+        svg {
+          color: $black;
+        }
+      }
+    }
+  }
+
+  .active {
+    border-radius: 50%;
+
+    &-dark {
+      background: $gold;
+
+      svg {
+        color: $black;
+      }
+    }
+
+    &-light {
+      background: $black;
+
+      svg {
+        color: $gold;
+      }
     }
   }
 
@@ -203,9 +262,16 @@ const localTime = () => dayjs.utc().tz("US/Pacific").format("h:mm A z");
   }
 
   #location-icon {
-    color: $gold;
     width: 15px;
     height: 15px;
+  }
+
+  .location-icon-dark {
+    color: $gold;
+  }
+
+  .location-icon-light {
+    color: $black;
   }
 
   .view-work {

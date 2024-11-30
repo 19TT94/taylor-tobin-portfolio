@@ -2,10 +2,19 @@
   <div id="menu" v-if="!down">
     <router-link @click.native="pageChange" to="/" :class="{ hide: open }">
       <img
-        tabindex="0"
         class="home-button"
+        :class="{ hide: store.state.theme === 'light' }"
         src="@/assets/images/tail-portfolio.png"
         alt="Pilot (Taylor Tobin Portfolio Logo)"
+        tabindex="0"
+      />
+
+      <img
+        class="home-button"
+        :class="{ hide: store.state.theme === 'dark' }"
+        src="@/assets/images/tail-bw.png"
+        alt="Pilot (Taylor Tobin Portfolio Logo)"
+        tabindex="0"
       />
     </router-link>
 
@@ -16,8 +25,20 @@
       title="Menu"
       @click="toggleNav"
     >
-      <div class="bar" :class="{ rotate: unlock }"></div>
-      <div class="bar" :class="{ rotate: unlock }"></div>
+      <div
+        class="bar"
+        :class="{
+          rotate: unlock,
+          [`bar-${store.state.theme}`]: store.state.theme,
+        }"
+      ></div>
+      <div
+        class="bar"
+        :class="{
+          rotate: unlock,
+          [`bar-${store.state.theme}`]: store.state.theme,
+        }"
+      ></div>
     </button>
 
     <div class="menu-wrap" :class="{ visible: unlock, show: open }">
@@ -47,7 +68,11 @@
 
       <ul class="social">
         <li>
-          <a name="View my work on Github" href="https://github.com/19TT94">
+          <a
+            name="View my work on Github"
+            href="https://github.com/19TT94"
+            target="_blank"
+          >
             <font-awesome-icon :icon="['fab', 'github-square']" />
           </a>
         </li>
@@ -55,6 +80,7 @@
           <a
             name="View my profile on LinkedIn"
             href="https://www.linkedin.com/in/taylor-tobin/"
+            target="_blank"
           >
             <font-awesome-icon :icon="['fab', 'linkedin']" />
           </a>
@@ -63,6 +89,7 @@
           <a
             name="View my profile on Instagram"
             href="https://www.instagram.com/19tt94/"
+            target="_blank"
           >
             <font-awesome-icon :icon="['fab', 'instagram']" />
           </a>
@@ -114,6 +141,17 @@ const pageChange = () => {
     @media #{$small} {
       max-width: 45px;
     }
+
+    &:focus {
+      img {
+        box-shadow: 0 0 10px $gold;
+        outline: hidden;
+      }
+    }
+
+    .hide {
+      opacity: 0;
+    }
   }
 
   #hamburger {
@@ -125,12 +163,25 @@ const pageChange = () => {
     margin: 2rem 2.4rem;
     z-index: $nav;
 
+    &:focus {
+      outline: hidden;
+      box-shadow: none;
+
+      .bar {
+        box-shadow: 0 0 10px $gold;
+      }
+    }
+
     .bar {
       width: 100%;
       height: 3px;
       background: $gold;
       margin-top: 6px;
       transition: all ease-in-out 0.5s;
+
+      &-light {
+        background: $black;
+      }
     }
 
     .rotate {
