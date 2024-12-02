@@ -23,18 +23,22 @@
     <!-- Preloader -->
     <Preloader
       :class="{
-        hide: hide,
-        remove: remove,
+        hide: store.state.preload,
       }"
       v-if="
-        !down && !preload && (route.path === '/' || route.path === '/featured')
+        !down &&
+        !store.state.preloaded &&
+        (route.path === '/' || route.path === '/featured')
       "
     />
     <!-- Global Nav Component -->
     <navigation v-if="!down && !landscape" />
     <!-- Pages -->
     <transition :name="transitionName">
-      <router-view :preloaded="preload" v-if="!down && !landscape" />
+      <router-view
+        :preloaded="store.state.preloaded"
+        v-if="!down && !landscape"
+      />
     </transition>
     <!-- Maintenance -->
     <maintenance v-if="down" />
@@ -69,10 +73,7 @@ const route = useRoute();
 const store = useStore();
 
 // reference state from store
-const preload = store.state.preloaded;
 const down = store.state.down;
-const hide = ref(false);
-const remove = ref(false);
 const landscape = ref(false);
 const transitionName = ref(DEFAULT_TRANSITION);
 
@@ -91,12 +92,11 @@ const showCard = (e) => {
 
 onMounted(() => {
   setTimeout(() => {
-    hide.value = true;
+    store.state.preload = true;
     setTimeout(() => {
-      remove.value = true;
       store.state.preloaded = true;
-    }, 500);
-  }, 1500);
+    }, 1000);
+  }, 2000);
 
   // intial orientation check
   let orientation = window.matchMedia("(orientation: landscape)");

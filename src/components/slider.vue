@@ -16,11 +16,23 @@
 
     <!-- optional stuff -->
     <div class="button backward" v-if="navigation">
-      <button class="next" @click="backward">←</button>
+      <button
+        class="next"
+        :class="{ [`next-${store.state.theme}`]: store.state.theme }"
+        @click="backward"
+      >
+        ←
+      </button>
     </div>
 
     <div class="button forward" v-if="navigation">
-      <button class="next" @click="forward">→</button>
+      <button
+        class="next"
+        :class="{ [`next-${store.state.theme}`]: store.state.theme }"
+        @click="forward"
+      >
+        →
+      </button>
     </div>
 
     <div class="pagination" v-if="dots">
@@ -31,7 +43,7 @@
           :class="[item.slug, { active: currentIndex === index }]"
           :key="`y-${index}`"
         >
-          <button @click="setItem(index)">
+          <button @click="setItem(index)" :class="store.state.theme">
             <span v-if="dotText">
               {{ item.title }}
             </span>
@@ -45,8 +57,11 @@
 
 <script setup>
 import { ref, computed, watch, onMounted } from "vue";
+import { useStore } from "vuex";
 
 import { isMobileDevice, isMobileSize } from "@/utils/index.js";
+
+const store = useStore();
 
 const props = defineProps(["slides", "projectIdx"]);
 
@@ -195,6 +210,14 @@ const onSwipe = (direction) => {
       @media #{$small} {
         font-size: 2rem;
       }
+
+      &-dark {
+        color: $gold;
+      }
+
+      &-light {
+        color: $black;
+      }
     }
 
     &.forward {
@@ -242,6 +265,14 @@ const onSwipe = (direction) => {
 
       button {
         color: $white;
+
+        .dark {
+          color: $white;
+        }
+
+        .light {
+          color: $black;
+        }
       }
 
       &.active {

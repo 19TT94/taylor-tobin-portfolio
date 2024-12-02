@@ -1,13 +1,22 @@
 <template>
   <div id="bolt">
-    <div id="point"></div>
+    <div
+      id="point"
+      :class="{ [`point-${store.state.theme}`]: store.state.theme }"
+    ></div>
     <div id="dot"></div>
-    <div id="box"></div>
+    <div
+      id="box"
+      :class="{ [`box-${store.state.theme}`]: store.state.theme }"
+    ></div>
   </div>
 </template>
 
 <script setup>
 import { onMounted } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore();
 
 import { isMobileDevice } from "@/utils/index.js";
 
@@ -37,12 +46,10 @@ onMounted(() => {
     for (var i = 0; i < selectors.length; i++) {
       // add classes on mouse enter
       selectors[i].onmouseenter = () => {
-        console.log("called enter");
         box.classList.add("show");
       };
       // remove classes on mouse leave
       selectors[i].onmouseleave = () => {
-        console.log("called leave");
         box.classList.remove("show");
       };
       // remove classes on mouse click
@@ -72,8 +79,15 @@ onMounted(() => {
     width: 10px;
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    background-color: $white; // inverted from blend mode
     z-index: $cursor;
+  }
+
+  .point-dark {
+    background-color: $white; // inverted from blend mode
+  }
+
+  .point-light {
+    background-color: $black; // inverted from blend mode
   }
 
   #dot {
@@ -93,13 +107,20 @@ onMounted(() => {
     position: absolute;
     height: 20px;
     width: 20px;
-    border: 1px solid $gold;
     transform: translate(-50%, -50%);
     transition: all 0.3s, top 0s, left 0s;
     pointer-events: none;
     animation: spin 5s linear reverse infinite;
     z-index: $cursor;
     opacity: 0;
+  }
+
+  .box-dark {
+    border: 1px solid $gold;
+  }
+
+  .box-light {
+    border: 1px solid $black;
   }
 }
 

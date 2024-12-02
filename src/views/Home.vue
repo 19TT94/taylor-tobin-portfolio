@@ -63,7 +63,8 @@
     </div>
 
     <div class="right">
-      <p
+      <!-- TODO: add settings to disable cursor and noise -->
+      <!-- <p
         class="detail"
         :class="{ [`detail-${store.state.theme}`]: store.state.theme }"
       >
@@ -73,7 +74,7 @@
           :icon="['fas', 'cog']"
         />
         Settings
-      </p>
+      </p> -->
       <p
         class="detail"
         :class="{ [`detail-${store.state.theme}`]: store.state.theme }"
@@ -93,7 +94,7 @@
       </p>
     </div>
 
-    <router-link class="item view-work" to="/featured">View Work</router-link>
+    <!-- <router-link class="item view-work" to="/featured">View Work</router-link> -->
   </div>
 </template>
 <script setup>

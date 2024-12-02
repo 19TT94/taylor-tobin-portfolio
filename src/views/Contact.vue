@@ -1,17 +1,26 @@
 <template>
   <div class="page contact">
-    <section class="section" :class="{ move: show }">
+    <section
+      class="section"
+      :class="{
+        move: show,
+        [`section-${store.state.theme}`]: store.state.theme,
+      }"
+    >
       <div class="info">
         <h2>What I can do for you</h2>
         <h3 class="subtitle">
           I'm a Software Engineer with an interest in great visual design and
           quality responsive user experiences. Reach out for inquiries. Cheers!
         </h3>
-        <ul class="services">
-          <li>Websites</li>
-          <li>Web Apps</li>
+        <ul
+          class="services"
+          :class="{ [`services-${store.state.theme}`]: store.state.theme }"
+        >
           <li>UI/UX</li>
-          <li>Mobile Apps</li>
+          <li>Web</li>
+          <li>Mobile</li>
+          <li>Database</li>
         </ul>
       </div>
     </section>
@@ -50,7 +59,11 @@
         </ul>
         <ul>
           <li>
-            <a class="button resume" :href="Resume" download="resume.pdf"
+            <a
+              class="button"
+              :class="{ [`resume-${store.state.theme}`]: store.state.theme }"
+              :href="Resume"
+              download="resume.pdf"
               >Resume</a
             >
           </li>
@@ -62,10 +75,13 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import { useStore } from "vuex";
 
 import Resume from "@/assets/TTResume2024.pdf";
 
 import NetlifyForm from "@/components/form.vue";
+
+const store = useStore();
 
 const show = ref(false);
 const reveal = ref(false);
@@ -84,8 +100,6 @@ onMounted(() => {
 @import "@/assets/scss/app.scss"; // global styles
 
 .contact {
-  color: $white;
-
   .section {
     width: 100%;
     height: 40%;
@@ -93,6 +107,16 @@ onMounted(() => {
     z-index: $default;
     transform: translateY(-100%);
     box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.6);
+
+    &-light {
+      background: $white;
+      color: $black;
+    }
+
+    &-dark {
+      background: $black;
+      color: $white;
+    }
 
     @media #{$small} {
       position: absolute;
@@ -134,8 +158,20 @@ onMounted(() => {
         color: $gold;
         font-size: 0.75rem;
 
+        &-light {
+          color: $black;
+        }
+
+        &-dark {
+          color: $gold;
+        }
+
         @media #{$small} {
           font-size: inherit;
+        }
+
+        li {
+          padding: $pad / 2;
         }
       }
     }
@@ -156,10 +192,6 @@ onMounted(() => {
       justify-content: center;
       margin: 0;
       padding: 40px 0;
-    }
-
-    h2 {
-      padding: 0 !important;
     }
   }
 
@@ -186,6 +218,16 @@ onMounted(() => {
       width: 50%;
       margin: 10px auto 0;
     }
+  }
+
+  .resume-dark {
+    border: 1px solid $gold;
+    color: $gold;
+  }
+
+  .resume-light {
+    border: 1px solid $black;
+    color: $black;
   }
 
   .reveal {
