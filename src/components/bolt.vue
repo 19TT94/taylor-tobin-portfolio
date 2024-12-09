@@ -22,7 +22,7 @@ import { isMobileDevice } from "@/utils/index.js";
 
 onMounted(() => {
   // intial cursor state
-  if (!isMobileDevice()) {
+  if (!isMobileDevice() && store.state.cursor) {
     let point = document.getElementById("point");
     let dot = document.getElementById("dot");
     let box = document.getElementById("box");

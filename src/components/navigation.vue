@@ -22,7 +22,7 @@
       id="hamburger"
       role="button"
       tabindex="0"
-      title="Menu"
+      area-label="Open Menu"
       @click="toggleNav"
     >
       <div
@@ -45,14 +45,14 @@
       <router-link
         @click.native="pageChange"
         class="item"
-        name="Navigate to Homepage"
+        area-label="Navigate to Homepage"
         to="/"
         >Home</router-link
       >
       <router-link
         @click.native="pageChange"
         class="item"
-        name="Navigate to Featured Work"
+        area-label="Navigate to Featured Work"
         to="/featured"
         >Work</router-link
       >
@@ -60,7 +60,7 @@
       <!-- <router-link @click.native="pageChange" class="item" to="/about">About</router-link> -->
       <router-link
         @click.native="pageChange"
-        name="Navigate to Contact"
+        area-label="Navigate to Contact"
         class="item"
         to="/contact"
         >Contact</router-link
@@ -69,7 +69,7 @@
       <ul class="social">
         <li>
           <a
-            name="View my work on Github"
+            area-label="View my work on Github"
             href="https://github.com/19TT94"
             target="_blank"
           >
@@ -78,7 +78,7 @@
         </li>
         <li>
           <a
-            name="View my profile on LinkedIn"
+            area-label="View my profile on LinkedIn"
             href="https://www.linkedin.com/in/taylor-tobin/"
             target="_blank"
           >
@@ -87,7 +87,7 @@
         </li>
         <li>
           <a
-            name="View my profile on Instagram"
+            area-label="View my profile on Instagram"
             href="https://www.instagram.com/19tt94/"
             target="_blank"
           >
@@ -95,6 +95,22 @@
           </a>
         </li>
       </ul>
+      <div id="settings">
+        <button
+          type="button"
+          :title="store.state.cursor ? 'Disable Cursor' : 'Enable Cursor'"
+          @click="disableCursor"
+        >
+          {{ store.state.cursor ? "Disable" : "Enable" }} Cursor
+        </button>
+        <button
+          type="button"
+          :title="store.state.overlay ? 'Disable Overlay' : 'Enable Overlay'"
+          @click="disableOverlay"
+        >
+          {{ store.state.overlay ? "Disable" : "Enable" }} Overlay
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -124,6 +140,14 @@ const pageChange = () => {
   unlock.value = false;
   open.value = false;
 };
+
+const disableCursor = () => {
+  store.state.cursor = !store.state.cursor;
+};
+
+const disableOverlay = () => {
+  store.state.overlay = !store.state.overlay;
+};
 </script>
 
 <style scoped lang="scss">
@@ -144,7 +168,7 @@ const pageChange = () => {
 
     &:focus {
       img {
-        box-shadow: 0 0 10px $gold;
+        box-shadow: 0 0 10px 2px $turquiose;
         outline: hidden;
       }
     }
@@ -168,7 +192,7 @@ const pageChange = () => {
       box-shadow: none;
 
       .bar {
-        box-shadow: 0 0 10px $gold;
+        box-shadow: 0 0 10px 2px $turquiose;
       }
     }
 
@@ -239,6 +263,19 @@ const pageChange = () => {
 
   .show {
     opacity: 1;
+  }
+
+  #settings {
+    display: flex;
+    gap: $pad;
+
+    button {
+      background: $black;
+      color: $white;
+      padding: $pad;
+      font-family: $body-font;
+      font-size: 0.75rem;
+    }
   }
 }
 </style>

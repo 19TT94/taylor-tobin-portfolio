@@ -33,24 +33,36 @@
       <ul class="links">
         <li>
           <a href="https://github.com/19TT94"
-            ><font-awesome-icon :icon="['fab', 'github-square']"
+            ><font-awesome-icon
+              :class="{ [store.state.theme]: store.state.theme }"
+              :icon="['fab', 'github-square']"
           /></a>
         </li>
         <li>
           <a href="https://www.linkedin.com/in/taylor-tobin/"
-            ><font-awesome-icon :icon="['fab', 'linkedin']" />
+            ><font-awesome-icon
+              :class="{ [store.state.theme]: store.state.theme }"
+              :icon="['fab', 'linkedin']"
+            />
           </a>
         </li>
         <li>
           <a href="https://www.instagram.com/19tt94/"
-            ><font-awesome-icon :icon="['fab', 'instagram']"
+            ><font-awesome-icon
+              :class="{ [store.state.theme]: store.state.theme }"
+              :icon="['fab', 'instagram']"
           /></a>
         </li>
       </ul>
       <div class="resources">
         <ul>
           <li>
-            <a class="email" href="mailto:19tt94@gmail.com">19tt94@gmail.com</a>
+            <a
+              class="email"
+              :class="{ [store.state.theme]: store.state.theme }"
+              href="mailto:19tt94@gmail.com"
+              >19tt94@gmail.com</a
+            >
           </li>
           <li>
             <a class="mobile" href="tel:805-434-7559">805.434.7559</a>
@@ -77,7 +89,7 @@
 import { ref, onMounted } from "vue";
 import { useStore } from "vuex";
 
-import Resume from "@/assets/TTResume2024.pdf";
+import Resume from "@/assets/TTResume2025.pdf";
 
 import NetlifyForm from "@/components/form.vue";
 
@@ -106,7 +118,7 @@ onMounted(() => {
     background: $black;
     z-index: $default;
     transform: translateY(-100%);
-    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.6);
 
     &-light {
       background: $white;
@@ -133,7 +145,7 @@ onMounted(() => {
 
     .info {
       text-align: center;
-      padding: 25% 1rem 0;
+      padding: 15% 1rem 0;
 
       @media #{$small} {
         text-align: center;
@@ -171,7 +183,7 @@ onMounted(() => {
         }
 
         li {
-          padding: $pad / 2;
+          padding: calc($pad / 2);
         }
       }
     }
@@ -199,7 +211,7 @@ onMounted(() => {
     opacity: 0;
     visibility: hidden;
     padding: 10px 0 20px;
-    background: $black;
+    background: $white;
 
     @media #{$small} {
       background: transparent;
@@ -217,7 +229,25 @@ onMounted(() => {
       justify-content: space-between;
       width: 50%;
       margin: 10px auto 0;
+
+      svg {
+        &-dark {
+          color: $gold;
+        }
+
+        &-light {
+          color: $black;
+        }
+      }
     }
+  }
+
+  .dark {
+    color: $gold;
+  }
+
+  .light {
+    color: $black;
   }
 
   .resume-dark {

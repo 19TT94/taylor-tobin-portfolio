@@ -18,7 +18,7 @@
             {{ currentProject.type }}
           </p>
           <a
-            class=""
+            area-label="Visit featured website"
             :class="{
               [`project-link-${store.state.theme}`]: store.state.theme,
             }"
@@ -44,6 +44,7 @@
           </div>
         </div>
         <button
+          area-label="Navigate to next project"
           class="next-project hide"
           :class="{
             show: down,

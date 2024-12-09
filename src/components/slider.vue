@@ -40,7 +40,11 @@
         <li
           class="item"
           v-for="(item, index) in slides"
-          :class="[item.slug, { active: currentIndex === index }]"
+          :class="[
+            item.slug,
+            { active: currentIndex === index },
+            { [`item-${store.state.theme}`]: store.state.theme },
+          ]"
           :key="`y-${index}`"
         >
           <button @click="setItem(index)" :class="store.state.theme">
@@ -263,9 +267,7 @@ const onSwipe = (direction) => {
       display: block;
       width: fit-content;
 
-      button {
-        color: $white;
-
+      span {
         .dark {
           color: $white;
         }
@@ -278,6 +280,7 @@ const onSwipe = (direction) => {
       &.active {
         button {
           color: $gold;
+          font-weight: bold;
         }
       }
     }

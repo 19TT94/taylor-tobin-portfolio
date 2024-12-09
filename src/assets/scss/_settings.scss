@@ -1,11 +1,5 @@
 /* Global Settings */
 
-* {
-  @media #{$small} {
-    cursor: none;
-  }
-}
-
 // Tags
 body,
 input,
@@ -76,7 +70,7 @@ a {
 
   &:focus {
     outline: hidden;
-    text-shadow: 0 0 10px $gold;
+    box-shadow: 0 0 10px 2px $turquiose;
   }
 }
 
@@ -97,7 +91,7 @@ button {
 
   &:focus {
     outline: hidden;
-    box-shadow: 0 0 10px $gold;
+    box-shadow: 0 0 10px 2px $turquiose;
   }
 }
 

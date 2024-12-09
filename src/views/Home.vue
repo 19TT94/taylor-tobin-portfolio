@@ -63,18 +63,6 @@
     </div>
 
     <div class="right">
-      <!-- TODO: add settings to disable cursor and noise -->
-      <!-- <p
-        class="detail"
-        :class="{ [`detail-${store.state.theme}`]: store.state.theme }"
-      >
-        <font-awesome-icon
-          id="location-icon"
-          :class="{ [`location-icon-${store.state.theme}`]: store.state.theme }"
-          :icon="['fas', 'cog']"
-        />
-        Settings
-      </p> -->
       <p
         class="detail"
         :class="{ [`detail-${store.state.theme}`]: store.state.theme }"
@@ -90,11 +78,9 @@
           :class="{ [`location-icon-${store.state.theme}`]: store.state.theme }"
           :icon="['fas', 'location']"
         />
-        Grover Beach CA
+        Grover Beach, CA
       </p>
     </div>
-
-    <!-- <router-link class="item view-work" to="/featured">View Work</router-link> -->
   </div>
 </template>
 <script setup>
@@ -254,6 +240,7 @@ const localTime = () => dayjs.utc().tz("US/Pacific").format("h:mm A z");
     background: $black;
     padding: 0 calc($pad / 2);
     border-radius: 10px;
+    font-size: 0.75rem;
   }
 
   #status-icon {

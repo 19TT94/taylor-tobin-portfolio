@@ -6,33 +6,51 @@
       v-if="!landscape"
     >
       <h1>Taylor Tobin</h1>
-      <h3>Developer</h3>
+      <h3>Software Engineer</h3>
 
       <ul class="contact">
         <li>
           <span>Email:</span>
-          <a href="mailto:19tt94@gmail.com">19tt94@gmail.com</a>
+          <a
+            href="mailto:19tt94@gmail.com"
+            area-label="Email me at 19tt94@gmail.com"
+            >19tt94@gmail.com</a
+          >
         </li>
         <span>Phone:</span>
-        <a class="mobile" href="tel:805-434-7559">(805) 434-7559</a>
+        <a
+          class="mobile"
+          href="tel:805-434-7559"
+          area-label="Call me at (805) 434-7559"
+          >(805) 434-7559</a
+        >
         <span class="desktop">(805) 434-7559</span>
       </ul>
 
       <ul class="links">
         <li>
-          <a href="https://github.com/19TT94">
+          <a
+            href="https://github.com/19TT94"
+            area-label="View my profile on Github"
+          >
             <font-awesome-icon :icon="['fab', 'github-square']" />
             <span class="amp">@</span>19tt94
           </a>
         </li>
         <li>
-          <a href="https://www.linkedin.com/in/taylor-tobin/">
+          <a
+            href="https://www.linkedin.com/in/taylor-tobin/"
+            area-label="View my profile on LinkedIn"
+          >
             <font-awesome-icon :icon="['fab', 'linkedin']" />
             <span class="amp">@</span>taylor-tobin
           </a>
         </li>
         <li>
-          <a href="https://www.instagram.com/19tt94/">
+          <a
+            href="https://www.instagram.com/19tt94/"
+            area-label="View my profile on Instagram"
+          >
             <font-awesome-icon :icon="['fab', 'instagram']" />
             <span class="amp">@</span>19tt94
           </a>
@@ -40,7 +58,13 @@
       </ul>
 
       <button>
-        <a class="button resume" :href="Resume" download="resume.pdf">Resume</a>
+        <a
+          class="button resume"
+          :href="Resume"
+          download="resume.pdf"
+          area-label="Download Resume"
+          >Resume</a
+        >
       </button>
     </section>
 
@@ -55,7 +79,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 
-import Resume from "@/assets/TTResume2024.pdf";
+import Resume from "@/assets/TTResume2025.pdf";
 
 import { isMobileDevice, isMobileSize } from "@/utils/index.js";
 

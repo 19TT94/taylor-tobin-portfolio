@@ -2,20 +2,21 @@
   <div
     id="app"
     class="palm"
+    :class="{ 'custom-cursor': store.state.cursor }"
     :style="{
       backgroundImage: `linear-gradient(${
         store.state.theme === 'dark'
           ? 'rgba(0,0,0,0.8), rgba(0,0,0,0.8)'
           : 'rgba(255,255,255,0.8), rgba(255,255,255,0.8)'
       }), url(${imgBg})`,
-      cursor: `url(${imgCursor})`,
     }"
   >
     <!-- Cursor -->
-    <bolt />
+    <bolt v-if="store.state.cursor" />
     <!-- Noise -->
     <div
       class="noise"
+      :class="{ 'hide-overlay': !store.state.overlay }"
       :style="{
         backgroundImage: `url(${imgNoise})`,
       }"
@@ -114,6 +115,10 @@ onUnmounted(() => {
 <style lang="scss">
 @import "@/assets/scss/app.scss";
 
+.custom-cursor {
+  cursor: none;
+}
+
 .palm {
   position: absolute;
   width: 100%;
@@ -154,5 +159,9 @@ onUnmounted(() => {
   100% {
     opacity: 1;
   }
+}
+
+.hide-overlay {
+  visibility: hidden;
 }
 </style>

@@ -6,6 +6,8 @@ const store = createStore({
     preload: false,
     preloaded: false,
     theme: "dark",
+    cursor: true,
+    overlay: true,
   },
   mutations: {
     toggleTheme(state) {
