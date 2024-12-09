@@ -1,25 +1,40 @@
 <template>
-  <div class="featured">
-    <div class="section" :class="{ move: down }"></div>
+  <div
+    class="featured"
+    :class="{ [`featured-${store.state.theme}`]: store.state.theme }"
+  >
+    <div
+      class="section"
+      :class="{
+        move: down,
+        [`section-${store.state.theme}`]: store.state.theme,
+      }"
+    ></div>
     <div class="featured-wrapper">
       <section class="featured-info hide" :class="{ show: show }">
-        <button
-          class="next-project hide"
-          :class="{ show: down }"
-          @click="next()"
-        >
-          Next
-        </button>
-
         <div class="content">
           <h1>{{ currentProject.name }}</h1>
           <p v-if="currentProject.type">
             {{ currentProject.type }}
           </p>
+          <a
+            area-label="Visit featured website"
+            :class="{
+              [`project-link-${store.state.theme}`]: store.state.theme,
+            }"
+            :href="currentProject.link"
+            target="_blank"
+            v-if="currentProject.link"
+            >Visit Site</a
+          >
           <div
             v-if="currentProject.name"
             class="description"
-            :class="{ 'show-top': scrollTop, 'show-bottom': scrollBottom }"
+            :class="{
+              'show-top': scrollTop,
+              'show-bottom': scrollBottom,
+              [`description-${store.state.theme}`]: store.state.theme,
+            }"
           >
             <p
               class="description-text"
@@ -27,17 +42,14 @@
               v-html="currentProject.description"
             ></p>
           </div>
-          <a
-            class="button project-link"
-            :href="currentProject.link"
-            target="_blank"
-            v-if="currentProject.link"
-            >Visit Site</a
-          >
         </div>
         <button
+          area-label="Navigate to next project"
           class="next-project hide"
-          :class="{ show: down }"
+          :class="{
+            show: down,
+            [`next-project-${store.state.theme}`]: store.state.theme,
+          }"
           @click="next()"
         >
           Next Project
@@ -57,6 +69,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from "vue";
+import { useStore } from "vuex";
 
 // Components
 import Slider from "@/components/slider.vue";
@@ -146,10 +159,10 @@ const projects = [
   },
   {
     name: "Wiere Weddings",
-    link: "https://wiere-wedding.com",
+    link: "https://wiereweddings.com",
     description:
       "I designed and developed a new website for Wiere Weddings. It showcases recent work, pricing and integrates with Honeybook to obtain new appointments.",
-    type: "Vue (Typescript)",
+    type: "Vue (Typescript), Wordpress (PHP)",
     slides: [WW1, WW2, WW3],
   },
   {
@@ -161,6 +174,8 @@ const projects = [
     slides: [TT1, TT2, TT3],
   },
 ];
+
+const store = useStore();
 
 // DOM elements
 const block = ref(null);
@@ -220,6 +235,14 @@ const next = () => {
   width: 100%;
   height: 100%;
 
+  &-dark {
+    color: $white;
+  }
+
+  &-light {
+    color: $black;
+  }
+
   &-wrapper {
     position: relative;
     width: 100%;
@@ -230,13 +253,20 @@ const next = () => {
   }
 
   .next-project {
-    color: $black;
-    background: $gold;
     padding: 0.5rem 1rem;
     position: absolute;
     width: 100%;
-    z-index: $front;
     bottom: 0;
+
+    &-dark {
+      color: $black;
+      background: $gold;
+    }
+
+    &-light {
+      color: $gold;
+      background: $black;
+    }
   }
 
   &-info {
@@ -253,11 +283,12 @@ const next = () => {
     }
 
     .content {
-      margin: 0 auto;
-      bottom: 0;
-      position: absolute;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      margin-bottom: $pad * 2;
       width: 100%;
-      height: 80%;
+      height: 100%;
 
       h1 {
         padding: 2rem 2rem 1rem;
@@ -272,6 +303,14 @@ const next = () => {
         margin-bottom: 1rem;
       }
 
+      a {
+        padding: 0 2rem;
+        margin-bottom: 1rem;
+        font-size: 12px;
+        border: 0 !important;
+        text-decoration: underline;
+      }
+
       .description {
         display: none;
 
@@ -279,8 +318,8 @@ const next = () => {
           display: block;
           overflow: hidden;
           position: relative;
-          margin-bottom: 2rem;
           height: 50%;
+          margin-bottom: 3rem;
 
           &-text {
             overflow: auto;
@@ -292,7 +331,6 @@ const next = () => {
         &:before,
         &:after {
           content: "";
-          z-index: $front;
           position: absolute;
           left: 0;
           width: 100%;
@@ -309,6 +347,22 @@ const next = () => {
           bottom: 0;
           background: linear-gradient(to top, $black, rgba(0, 0, 0, 0) 100%);
         }
+
+        &-light {
+          &:before {
+            top: 0;
+            background: linear-gradient(
+              to bottom,
+              $white,
+              rgba(0, 0, 0, 0) 100%
+            );
+          }
+
+          &:after {
+            bottom: 0;
+            background: linear-gradient(to top, $white, rgba(0, 0, 0, 0) 100%);
+          }
+        }
       }
 
       .show-top:before {
@@ -321,7 +375,16 @@ const next = () => {
 
       .project-link {
         padding: 0.5rem 1rem;
-        margin: 1rem 2rem;
+
+        &-dark {
+          border: 1px solid $gold;
+          color: $gold;
+        }
+
+        &-light {
+          border: 1px solid $black;
+          color: $black;
+        }
       }
     }
   }
@@ -331,7 +394,6 @@ const next = () => {
     width: 100%;
     height: 50%;
     background: $black;
-    z-index: -1;
     transform: translateY(-100%);
     box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.8);
 
@@ -339,6 +401,14 @@ const next = () => {
       width: 35%;
       height: 100%;
       transform: translateX(-100%);
+    }
+
+    &-dark {
+      background: $black;
+    }
+
+    &-light {
+      background: $white;
     }
   }
 
@@ -351,7 +421,6 @@ const next = () => {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: $base;
     transition-delay: 0.5s;
 
     @media #{$small} {

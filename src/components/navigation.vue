@@ -1,44 +1,116 @@
 <template>
   <div id="menu" v-if="!down">
     <router-link @click.native="pageChange" to="/" :class="{ hide: open }">
-      <img class="home-button" src="@/assets/images/tail-portfolio.png" />
+      <img
+        class="home-button"
+        :class="{ hide: store.state.theme === 'light' }"
+        src="@/assets/images/tail-portfolio.png"
+        alt="Pilot (Taylor Tobin Portfolio Logo)"
+        tabindex="0"
+      />
+
+      <img
+        class="home-button"
+        :class="{ hide: store.state.theme === 'dark' }"
+        src="@/assets/images/tail-bw.png"
+        alt="Pilot (Taylor Tobin Portfolio Logo)"
+        tabindex="0"
+      />
     </router-link>
 
-    <button class="toggle" id="toggle" @click="toggleNav">
-      <div class="bar" :class="{ rotate: unlock }"></div>
-      <div class="bar" :class="{ rotate: unlock }"></div>
+    <button
+      id="hamburger"
+      role="button"
+      tabindex="0"
+      area-label="Open Menu"
+      @click="toggleNav"
+    >
+      <div
+        class="bar"
+        :class="{
+          rotate: unlock,
+          [`bar-${store.state.theme}`]: store.state.theme,
+        }"
+      ></div>
+      <div
+        class="bar"
+        :class="{
+          rotate: unlock,
+          [`bar-${store.state.theme}`]: store.state.theme,
+        }"
+      ></div>
     </button>
 
     <div class="menu-wrap" :class="{ visible: unlock, show: open }">
-      <router-link @click.native="pageChange" class="item" to="/"
+      <router-link
+        @click.native="pageChange"
+        class="item"
+        area-label="Navigate to Homepage"
+        to="/"
         >Home</router-link
       >
-      <router-link @click.native="pageChange" class="item" to="/featured"
+      <router-link
+        @click.native="pageChange"
+        class="item"
+        area-label="Navigate to Featured Work"
+        to="/featured"
         >Work</router-link
       >
       <!-- <router-link @click.native="pageChange" class="item" to="/projects">Projects</router-link> -->
       <!-- <router-link @click.native="pageChange" class="item" to="/about">About</router-link> -->
-      <router-link @click.native="pageChange" class="item" to="/contact"
+      <router-link
+        @click.native="pageChange"
+        area-label="Navigate to Contact"
+        class="item"
+        to="/contact"
         >Contact</router-link
       >
 
       <ul class="social">
         <li>
-          <a href="https://github.com/19TT94">
+          <a
+            area-label="View my work on Github"
+            href="https://github.com/19TT94"
+            target="_blank"
+          >
             <font-awesome-icon :icon="['fab', 'github-square']" />
           </a>
         </li>
         <li>
-          <a href="https://www.linkedin.com/in/taylor-tobin/">
+          <a
+            area-label="View my profile on LinkedIn"
+            href="https://www.linkedin.com/in/taylor-tobin/"
+            target="_blank"
+          >
             <font-awesome-icon :icon="['fab', 'linkedin']" />
           </a>
         </li>
         <li>
-          <a href="https://www.instagram.com/19tt94/">
+          <a
+            area-label="View my profile on Instagram"
+            href="https://www.instagram.com/19tt94/"
+            target="_blank"
+          >
             <font-awesome-icon :icon="['fab', 'instagram']" />
           </a>
         </li>
       </ul>
+      <div id="settings">
+        <button
+          type="button"
+          :title="store.state.cursor ? 'Disable Cursor' : 'Enable Cursor'"
+          @click="disableCursor"
+        >
+          {{ store.state.cursor ? "Disable" : "Enable" }} Cursor
+        </button>
+        <button
+          type="button"
+          :title="store.state.overlay ? 'Disable Overlay' : 'Enable Overlay'"
+          @click="disableOverlay"
+        >
+          {{ store.state.overlay ? "Disable" : "Enable" }} Overlay
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -68,6 +140,14 @@ const pageChange = () => {
   unlock.value = false;
   open.value = false;
 };
+
+const disableCursor = () => {
+  store.state.cursor = !store.state.cursor;
+};
+
+const disableOverlay = () => {
+  store.state.overlay = !store.state.overlay;
+};
 </script>
 
 <style scoped lang="scss">
@@ -80,21 +160,41 @@ const pageChange = () => {
     left: 0;
     max-width: 35px;
     margin: 2rem 2.4rem;
-    z-index: 99;
+    z-index: $nav;
 
     @media #{$small} {
       max-width: 45px;
     }
+
+    &:focus {
+      img {
+        box-shadow: 0 0 10px 2px $turquiose;
+        outline: hidden;
+      }
+    }
+
+    .hide {
+      opacity: 0;
+    }
   }
 
-  .toggle {
+  #hamburger {
     position: absolute;
     top: 0;
     right: 0;
     width: 35px;
     height: 35px;
     margin: 2rem 2.4rem;
-    z-index: 99;
+    z-index: $nav;
+
+    &:focus {
+      outline: hidden;
+      box-shadow: none;
+
+      .bar {
+        box-shadow: 0 0 10px 2px $turquiose;
+      }
+    }
 
     .bar {
       width: 100%;
@@ -102,6 +202,10 @@ const pageChange = () => {
       background: $gold;
       margin-top: 6px;
       transition: all ease-in-out 0.5s;
+
+      &-light {
+        background: $black;
+      }
     }
 
     .rotate {
@@ -159,6 +263,19 @@ const pageChange = () => {
 
   .show {
     opacity: 1;
+  }
+
+  #settings {
+    display: flex;
+    gap: $pad;
+
+    button {
+      background: $black;
+      color: $white;
+      padding: $pad;
+      font-family: $body-font;
+      font-size: 0.75rem;
+    }
   }
 }
 </style>

@@ -1,27 +1,36 @@
 <template>
   <div id="bolt">
+    <div
+      id="point"
+      :class="{ [`point-${store.state.theme}`]: store.state.theme }"
+    ></div>
     <div id="dot"></div>
-    <div id="box"></div>
-    <div id="diamond"></div>
+    <div
+      id="box"
+      :class="{ [`box-${store.state.theme}`]: store.state.theme }"
+    ></div>
   </div>
 </template>
 
 <script setup>
 import { onMounted } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore();
 
 import { isMobileDevice } from "@/utils/index.js";
 
-// const selectors = ref(null);
-
 onMounted(() => {
   // intial cursor state
-  if (!isMobileDevice()) {
+  if (!isMobileDevice() && store.state.cursor) {
+    let point = document.getElementById("point");
     let dot = document.getElementById("dot");
     let box = document.getElementById("box");
-    let diamond = document.getElementById("diamond");
 
     // get mouse move events to set custom cursor
     window.addEventListener("mousemove", (e) => {
+      point.style.top = e.clientY + "px";
+      point.style.left = e.clientX + "px";
       dot.style.top = e.clientY + "px";
       dot.style.left = e.clientX + "px";
 
@@ -29,11 +38,6 @@ onMounted(() => {
         box.style.top = e.clientY + "px";
         box.style.left = e.clientX + "px";
       }, 100);
-
-      setTimeout(() => {
-        diamond.style.top = e.clientY + "px";
-        diamond.style.left = e.clientX + "px";
-      }, 150);
     });
 
     // get all anchors and buttons
@@ -42,28 +46,16 @@ onMounted(() => {
     for (var i = 0; i < selectors.length; i++) {
       // add classes on mouse enter
       selectors[i].onmouseenter = () => {
-        // dot.classList.add("grow");
-        // box.classList.add("hide");
-        // diamond.classList.add("hide");
-
         box.classList.add("show");
-        diamond.classList.add("show");
       };
       // remove classes on mouse leave
       selectors[i].onmouseleave = () => {
-        // dot.classList.remove("grow");
-        // box.classList.remove("hide");
-        // diamond.classList.remove("hide");
-
         box.classList.remove("show");
-        diamond.classList.remove("show");
       };
       // remove classes on mouse click
-      // selectors.value[i].onmousedown = () => {
-      //   // dot.classList.remove("grow");
-      //   box.classList.remove("hide");
-      //   diamond.classList.remove("hide");
-      // };
+      selectors[i].onmousedown = () => {
+        box.classList.remove("hide");
+      };
     }
   }
 });
@@ -74,64 +66,70 @@ onMounted(() => {
 
 #bolt {
   display: none;
+  background-color: $white;
 
   @media #{$small} {
     display: block;
   }
 
-  #dot {
+  #point {
+    pointer-events: none;
     position: absolute;
     height: 10px;
     width: 10px;
     border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: $cursor;
+  }
+
+  .point-dark {
+    background-color: $white; // inverted from blend mode
+  }
+
+  .point-light {
+    background-color: $black; // inverted from blend mode
+  }
+
+  #dot {
+    pointer-events: none;
+    position: absolute;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
     transition: all 0.3s, top 0s, left 0s;
     transform: translate(-50%, -50%);
-    pointer-events: none;
     background-color: $white;
     mix-blend-mode: difference;
-    z-index: 10;
+    z-index: $cursor;
   }
 
   #box {
     position: absolute;
     height: 20px;
     width: 20px;
-    border: 1px solid $gold;
     transform: translate(-50%, -50%);
     transition: all 0.3s, top 0s, left 0s;
     pointer-events: none;
     animation: spin 5s linear reverse infinite;
-    z-index: 10;
-
-    // opacity: 0;
+    z-index: $cursor;
+    opacity: 0;
   }
 
-  #diamond {
-    position: absolute;
-    height: 20px;
-    width: 20px;
-    border: 1px solid $white;
-    transform: translate(-50%, -50%) rotate(45deg);
-    transition: all 0.3s, top 0s, left 0s;
-    pointer-events: none;
-    animation: spin 5s linear infinite;
-    mix-blend-mode: difference;
-    z-index: 10;
+  .box-dark {
+    border: 1px solid $gold;
+  }
 
-    // opacity: 0;
+  .box-light {
+    border: 1px solid $black;
   }
 }
 
-// .grow {
-//   transform: translate(-50%, -50%) scale(4) !important;
-// }
-
 .hide {
-  opacity: 0;
+  opacity: 0 !important;
 }
 
 .show {
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 @keyframes spin {

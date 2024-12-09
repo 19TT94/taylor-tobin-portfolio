@@ -2,16 +2,21 @@
   <div
     id="app"
     class="palm"
+    :class="{ 'custom-cursor': store.state.cursor }"
     :style="{
-      backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${imgBg})`,
-      cursor: `url(${imgCursor})`,
+      backgroundImage: `linear-gradient(${
+        store.state.theme === 'dark'
+          ? 'rgba(0,0,0,0.8), rgba(0,0,0,0.8)'
+          : 'rgba(255,255,255,0.8), rgba(255,255,255,0.8)'
+      }), url(${imgBg})`,
     }"
   >
     <!-- Cursor -->
-    <bolt />
+    <bolt v-if="store.state.cursor" />
     <!-- Noise -->
     <div
       class="noise"
+      :class="{ 'hide-overlay': !store.state.overlay }"
       :style="{
         backgroundImage: `url(${imgNoise})`,
       }"
@@ -19,18 +24,22 @@
     <!-- Preloader -->
     <Preloader
       :class="{
-        hide: hide,
-        remove: remove,
+        hide: store.state.preload,
       }"
       v-if="
-        !down && !preload && (route.path === '/' || route.path === '/featured')
+        !down &&
+        !store.state.preloaded &&
+        (route.path === '/' || route.path === '/featured')
       "
     />
     <!-- Global Nav Component -->
     <navigation v-if="!down && !landscape" />
     <!-- Pages -->
     <transition :name="transitionName">
-      <router-view :preloaded="preload" v-if="!down && !landscape" />
+      <router-view
+        :preloaded="store.state.preloaded"
+        v-if="!down && !landscape"
+      />
     </transition>
     <!-- Maintenance -->
     <maintenance v-if="down" />
@@ -65,10 +74,7 @@ const route = useRoute();
 const store = useStore();
 
 // reference state from store
-const preload = store.state.preloaded;
 const down = store.state.down;
-const hide = ref(false);
-const remove = ref(false);
 const landscape = ref(false);
 const transitionName = ref(DEFAULT_TRANSITION);
 
@@ -87,12 +93,11 @@ const showCard = (e) => {
 
 onMounted(() => {
   setTimeout(() => {
-    hide.value = true;
+    store.state.preload = true;
     setTimeout(() => {
-      remove.value = true;
       store.state.preloaded = true;
-    }, 500);
-  }, 1500);
+    }, 1000);
+  }, 2000);
 
   // intial orientation check
   let orientation = window.matchMedia("(orientation: landscape)");
@@ -109,6 +114,22 @@ onUnmounted(() => {
 
 <style lang="scss">
 @import "@/assets/scss/app.scss";
+
+.custom-cursor {
+  cursor: none;
+}
+
+.palm {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  top: 0;
+  left: 0;
+  z-index: $base;
+}
 
 .fade-enter-active,
 .fade-leave-active {
@@ -138,5 +159,9 @@ onUnmounted(() => {
   100% {
     opacity: 1;
   }
+}
+
+.hide-overlay {
+  visibility: hidden;
 }
 </style>

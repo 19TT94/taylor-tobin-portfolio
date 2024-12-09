@@ -1,13 +1,19 @@
-$title-font: 'Megrim', sans-serif;
-$body-font: 'Roboto Mono', monospace;
-
+$title-font: "Megrim", sans-serif;
+$body-font: "Roboto Mono", monospace;
 
 .special {
   font-family: $title-font;
   font-weight: 600;
 }
 
+// General
+$border: 1px;
+$pad: 10px;
+$radius: 10px;
+
 // Layers
+$cursor: 5;
+$nav: 4;
 $menu: 3;
 $front: 2;
 $default: 1;
@@ -24,7 +30,7 @@ $back: -1;
 .show {
   opacity: 1;
   transition: all 0.5s ease;
-  z-index: 1;
+  z-index: $default;
 }
 
 .remove {

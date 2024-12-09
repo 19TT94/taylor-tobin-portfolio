@@ -1,17 +1,26 @@
 <template>
   <div class="page contact">
-    <section class="section" :class="{ move: show }">
+    <section
+      class="section"
+      :class="{
+        move: show,
+        [`section-${store.state.theme}`]: store.state.theme,
+      }"
+    >
       <div class="info">
         <h2>What I can do for you</h2>
         <h3 class="subtitle">
           I'm a Software Engineer with an interest in great visual design and
           quality responsive user experiences. Reach out for inquiries. Cheers!
         </h3>
-        <ul class="services">
-          <li>Websites</li>
-          <li>Web Apps</li>
+        <ul
+          class="services"
+          :class="{ [`services-${store.state.theme}`]: store.state.theme }"
+        >
           <li>UI/UX</li>
-          <li>Mobile Apps</li>
+          <li>Web</li>
+          <li>Mobile</li>
+          <li>Database</li>
         </ul>
       </div>
     </section>
@@ -24,24 +33,36 @@
       <ul class="links">
         <li>
           <a href="https://github.com/19TT94"
-            ><font-awesome-icon :icon="['fab', 'github-square']"
+            ><font-awesome-icon
+              :class="{ [store.state.theme]: store.state.theme }"
+              :icon="['fab', 'github-square']"
           /></a>
         </li>
         <li>
           <a href="https://www.linkedin.com/in/taylor-tobin/"
-            ><font-awesome-icon :icon="['fab', 'linkedin']" />
+            ><font-awesome-icon
+              :class="{ [store.state.theme]: store.state.theme }"
+              :icon="['fab', 'linkedin']"
+            />
           </a>
         </li>
         <li>
           <a href="https://www.instagram.com/19tt94/"
-            ><font-awesome-icon :icon="['fab', 'instagram']"
+            ><font-awesome-icon
+              :class="{ [store.state.theme]: store.state.theme }"
+              :icon="['fab', 'instagram']"
           /></a>
         </li>
       </ul>
       <div class="resources">
         <ul>
           <li>
-            <a class="email" href="mailto:19tt94@gmail.com">19tt94@gmail.com</a>
+            <a
+              class="email"
+              :class="{ [store.state.theme]: store.state.theme }"
+              href="mailto:19tt94@gmail.com"
+              >19tt94@gmail.com</a
+            >
           </li>
           <li>
             <a class="mobile" href="tel:805-434-7559">805.434.7559</a>
@@ -50,7 +71,11 @@
         </ul>
         <ul>
           <li>
-            <a class="button resume" :href="Resume" download="resume.pdf"
+            <a
+              class="button"
+              :class="{ [`resume-${store.state.theme}`]: store.state.theme }"
+              :href="Resume"
+              download="resume.pdf"
               >Resume</a
             >
           </li>
@@ -62,10 +87,13 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import { useStore } from "vuex";
 
-import Resume from "@/assets/TTResume2024.pdf";
+import Resume from "@/assets/TTResume2025.pdf";
 
 import NetlifyForm from "@/components/form.vue";
+
+const store = useStore();
 
 const show = ref(false);
 const reveal = ref(false);
@@ -84,15 +112,23 @@ onMounted(() => {
 @import "@/assets/scss/app.scss"; // global styles
 
 .contact {
-  color: $white;
-
   .section {
     width: 100%;
     height: 40%;
     background: $black;
     z-index: $default;
     transform: translateY(-100%);
-    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.6);
+
+    &-light {
+      background: $white;
+      color: $black;
+    }
+
+    &-dark {
+      background: $black;
+      color: $white;
+    }
 
     @media #{$small} {
       position: absolute;
@@ -109,7 +145,7 @@ onMounted(() => {
 
     .info {
       text-align: center;
-      padding: 25% 1rem 0;
+      padding: 15% 1rem 0;
 
       @media #{$small} {
         text-align: center;
@@ -134,8 +170,20 @@ onMounted(() => {
         color: $gold;
         font-size: 0.75rem;
 
+        &-light {
+          color: $black;
+        }
+
+        &-dark {
+          color: $gold;
+        }
+
         @media #{$small} {
           font-size: inherit;
+        }
+
+        li {
+          padding: calc($pad / 2);
         }
       }
     }
@@ -157,17 +205,13 @@ onMounted(() => {
       margin: 0;
       padding: 40px 0;
     }
-
-    h2 {
-      padding: 0 !important;
-    }
   }
 
   .footer {
     opacity: 0;
     visibility: hidden;
     padding: 10px 0 20px;
-    background: $black;
+    background: $white;
 
     @media #{$small} {
       background: transparent;
@@ -185,7 +229,35 @@ onMounted(() => {
       justify-content: space-between;
       width: 50%;
       margin: 10px auto 0;
+
+      svg {
+        &-dark {
+          color: $gold;
+        }
+
+        &-light {
+          color: $black;
+        }
+      }
     }
+  }
+
+  .dark {
+    color: $gold;
+  }
+
+  .light {
+    color: $black;
+  }
+
+  .resume-dark {
+    border: 1px solid $gold;
+    color: $gold;
+  }
+
+  .resume-light {
+    border: 1px solid $black;
+    color: $black;
   }
 
   .reveal {

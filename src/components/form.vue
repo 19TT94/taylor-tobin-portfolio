@@ -17,7 +17,13 @@
         <textarea placeholder="Inquiry" name="message" v-model="message">
         </textarea>
         <div>
-          <button class="button submit" type="submit">Send</button>
+          <button
+            class="button submit"
+            :class="{ [`submit-${store.state.theme}`]: store.state.theme }"
+            type="submit"
+          >
+            Send
+          </button>
         </div>
       </form>
     </div>
@@ -37,7 +43,11 @@
 
 <script setup>
 import { ref } from "vue";
+import { useStore } from "vuex";
+
 import axios from "axios";
+
+const store = useStore();
 
 const name = ref("");
 const email = ref("");
@@ -114,6 +124,16 @@ const handleSubmit = () => {
     max-width: 80%;
     margin: 0 auto;
     color: $gold;
+  }
+
+  .submit-light {
+    color: $black;
+    border: 1px solid $black;
+  }
+
+  .submit-dark {
+    color: $gold;
+    border: 1px solid $gold;
   }
 }
 </style>
