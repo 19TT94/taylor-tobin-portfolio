@@ -89,7 +89,7 @@
 import { ref, onMounted } from "vue";
 import { useStore } from "vuex";
 
-import Resume from "@/assets/TTResume2025.pdf";
+import Resume from "@/assets/documents/TTResume2025.pdf";
 
 import NetlifyForm from "@/components/form.vue";
 

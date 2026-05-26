@@ -79,7 +79,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 
-import Resume from "@/assets/TTResume2025.pdf";
+import Resume from "@/assets/documents/TTResume2025.pdf";
 
 import { isMobileDevice, isMobileSize } from "@/utils/index.js";
 

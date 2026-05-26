@@ -71,7 +71,7 @@
 </template>
 
 <script setup>
-import Resume from "@/assets/TTResume2024.pdf";
+import Resume from "@/assets/documents/TTResume2024.pdf";
 </script>
 
 <style scoped lang="scss">

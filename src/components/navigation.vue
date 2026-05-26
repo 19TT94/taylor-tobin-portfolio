@@ -54,9 +54,15 @@
         class="item"
         area-label="Navigate to Featured Work"
         to="/featured"
+        >Featured</router-link
+      >
+      <router-link
+        @click.native="pageChange"
+        class="item"
+        area-label="Navigate to Featured Work"
+        to="/projects"
         >Work</router-link
       >
-      <!-- <router-link @click.native="pageChange" class="item" to="/projects">Projects</router-link> -->
       <!-- <router-link @click.native="pageChange" class="item" to="/about">About</router-link> -->
       <router-link
         @click.native="pageChange"
