@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import Home from "@/views/Home.vue";
 import Featured from "@/views/Featured.vue";
+import HeroBuilderCaseStudy from "@/views/HeroBuilderCaseStudy.vue";
 import Projects from "@/views/Projects.vue";
 import About from "@/views/About.vue";
 import Contact from "@/views/Contact.vue";
@@ -21,6 +22,12 @@ const router = createRouter({
       name: "featured",
       component: Featured,
       meta: { transitionName: "zoom" },
+    },
+    {
+      path: "/featured/hero-builder",
+      name: "hero-builder-case-study",
+      component: HeroBuilderCaseStudy,
+      meta: { transitionName: "fade" },
     },
     {
       path: "/projects",

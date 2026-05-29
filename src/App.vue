@@ -29,7 +29,9 @@
       v-if="
         !down &&
         !store.state.preloaded &&
-        (route.path === '/' || route.path === '/featured')
+        (route.path === '/' ||
+          route.path === '/featured' ||
+          route.path === '/featured/hero-builder')
       "
     />
     <!-- Global Nav Component -->

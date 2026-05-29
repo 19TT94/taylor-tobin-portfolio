@@ -52,16 +52,16 @@
       <router-link
         @click.native="pageChange"
         class="item"
-        area-label="Navigate to Featured Work"
-        to="/featured"
+        area-label="Navigate to Hero Builder case study"
+        to="/featured/hero-builder"
         >Featured</router-link
       >
       <router-link
         @click.native="pageChange"
         class="item"
-        area-label="Navigate to Featured Work"
-        to="/projects"
-        >Work</router-link
+        area-label="Navigate to projects"
+        to="/featured"
+        >Projects</router-link
       >
       <!-- <router-link @click.native="pageChange" class="item" to="/about">About</router-link> -->
       <router-link
