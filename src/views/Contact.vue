@@ -11,7 +11,8 @@
         <h2>What I can do for you</h2>
         <h3 class="subtitle">
           I'm a Software Engineer with an interest in great visual design and
-          quality responsive user experiences. Reach out for inquiries. Cheers!
+          quality responsive user experiences. Available for contract work —
+          reach out to discuss your project. Cheers!
         </h3>
         <ul
           class="services"
@@ -22,6 +23,26 @@
           <li>Mobile</li>
           <li>Database</li>
         </ul>
+
+        <dl
+          class="hire-details"
+          :class="{ [`hire-details-${store.state.theme}`]: store.state.theme }"
+        >
+          <div class="hire-item">
+            <dt>Engagement types</dt>
+            <dd>
+              Fixed-scope project, monthly retainer, short audit, fractional
+              lead dev
+            </dd>
+          </div>
+          <div class="hire-item">
+            <dt>To get started</dt>
+            <dd>
+              Discovery call, project brief, codebase or repo access (as
+              needed), and a stakeholder or decision-maker
+            </dd>
+          </div>
+        </dl>
       </div>
     </section>
 
@@ -29,7 +50,13 @@
       <NetlifyForm />
     </section>
 
-    <section class="footer" :class="{ reveal: reveal }">
+    <section
+      class="footer"
+      :class="{
+        reveal: reveal,
+        [`footer-${store.state.theme}`]: store.state.theme,
+      }"
+    >
       <ul class="links">
         <li>
           <a href="https://github.com/19TT94"
@@ -55,21 +82,15 @@
         </li>
       </ul>
       <div class="resources">
-        <ul>
+        <ul class="action-buttons">
           <li>
             <a
-              class="email"
-              :class="{ [store.state.theme]: store.state.theme }"
+              class="button"
+              :class="{ [`resume-${store.state.theme}`]: store.state.theme }"
               href="mailto:19tt94@gmail.com"
-              >19tt94@gmail.com</a
+              >Email</a
             >
           </li>
-          <li>
-            <a class="mobile" href="tel:805-434-7559">805.434.7559</a>
-            <span class="desktop">805.434.7559</span>
-          </li>
-        </ul>
-        <ul>
           <li>
             <a
               class="button"
@@ -88,6 +109,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useStore } from "vuex";
+import dayjs from "dayjs";
 
 import Resume from "@/assets/TTResume2025.pdf";
 
@@ -97,6 +119,8 @@ const store = useStore();
 
 const show = ref(false);
 const reveal = ref(false);
+
+const localTime = () => dayjs.utc().tz("US/Pacific").format("h:mm A z");
 
 onMounted(() => {
   setTimeout(() => {
@@ -112,12 +136,24 @@ onMounted(() => {
 @import "@/assets/scss/app.scss"; // global styles
 
 .contact {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+
+  @media #{$small} {
+    position: relative;
+  }
+
   .section {
+    display: none;
     width: 100%;
-    height: 40%;
     background: $black;
     z-index: $default;
-    transform: translateY(-100%);
     box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.6);
 
     &-light {
@@ -131,44 +167,58 @@ onMounted(() => {
     }
 
     @media #{$small} {
+      display: flex;
       position: absolute;
       top: 0;
       left: 0;
       transform: translateX(-100%);
-      width: 50%;
+      width: 42%;
       height: 100%;
-      display: flex;
       align-items: center;
       justify-content: center;
       margin: 0;
+      overflow-y: auto;
     }
 
     .info {
       text-align: center;
-      padding: 15% 1rem 0;
+      padding: 0 1rem;
+      width: 85%;
 
-      @media #{$small} {
-        text-align: center;
-        padding: 0;
+      @media #{$medium} {
         width: 80%;
       }
 
-      .subtitle {
-        text-align: center;
-        font-size: 0.75rem;
+      h2 {
+        font-size: 1.25rem;
 
-        @media #{$small} {
+        @media #{$medium} {
           font-size: inherit;
         }
       }
 
+      .subtitle {
+        display: none;
+        text-align: center;
+        font-size: 0.85rem;
+
+        @media #{$medium} {
+          display: block;
+        }
+      }
+
       .services {
+        display: none;
         width: 100%;
-        display: flex;
         flex-direction: row;
         justify-content: space-between;
         color: $gold;
-        font-size: 0.75rem;
+        font-size: 0.85rem;
+        margin-bottom: calc($pad * 1.5);
+
+        @media #{$small} {
+          display: flex;
+        }
 
         &-light {
           color: $black;
@@ -176,67 +226,192 @@ onMounted(() => {
 
         &-dark {
           color: $gold;
-        }
-
-        @media #{$small} {
-          font-size: inherit;
         }
 
         li {
           padding: calc($pad / 2);
         }
       }
+
+      .hire-details {
+        display: none;
+        text-align: left;
+        font-size: 0.75rem;
+        line-height: 1.4;
+
+        @media #{$medium} {
+          display: block;
+          text-align: center;
+        }
+
+        &-light {
+          dt {
+            color: $black;
+          }
+
+          dd {
+            color: rgba($black, 0.85);
+          }
+        }
+
+        &-dark {
+          dt {
+            color: $gold;
+          }
+
+          dd {
+            color: rgba($white, 0.85);
+          }
+        }
+
+        .hire-item {
+          margin-bottom: calc($pad * 0.75);
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+
+        dt {
+          font-family: $title-font;
+          font-weight: 600;
+          font-size: 0.75rem;
+          margin-bottom: 0.15rem;
+        }
+
+        dd {
+          margin: 0;
+        }
+      }
     }
   }
 
   .get-in-touch {
-    padding: 15px 0 0;
-    text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 0;
+    padding: calc($pad * 3) $pad;
+    min-height: 0;
+    box-sizing: border-box;
 
     @media #{$small} {
       position: absolute;
       top: 0;
       right: 0;
-      width: 50%;
+      width: 58%;
       height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
       margin: 0;
-      padding: 40px 0;
+      padding: 2rem;
     }
   }
 
   .footer {
     opacity: 0;
     visibility: hidden;
-    padding: 10px 0 20px;
-    background: $white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: calc($pad * 1.5);
+    padding: calc($pad * 1.5) $pad calc($pad * 2);
+
+    &-dark {
+      background: $black;
+    }
+
+    &-light {
+      background: $white;
+    }
 
     @media #{$small} {
       background: transparent;
       position: absolute;
-      left: auto;
       left: 0;
       bottom: 0;
-      width: 50%;
+      width: 42%;
       padding: 5px 0;
       z-index: 2;
+      gap: calc($pad / 2);
     }
 
     .links {
       display: flex;
       justify-content: space-between;
-      width: 50%;
-      margin: 10px auto 0;
+      width: 100%;
+      max-width: 12rem;
+      margin: 0 auto;
 
-      svg {
-        &-dark {
+      @media #{$small} {
+        width: 50%;
+        margin: 10px auto 0;
+      }
+
+      li a {
+        display: inline-flex;
+        line-height: 0;
+
+        &:focus,
+        &:focus-visible {
+          outline: none;
+          box-shadow: none;
+
+          .svg-inline--fa {
+            filter: drop-shadow(1px 0 0 $turquiose)
+              drop-shadow(-1px 0 0 $turquiose) drop-shadow(0 1px 0 $turquiose)
+              drop-shadow(0 -1px 0 $turquiose);
+          }
+        }
+      }
+
+      .svg-inline--fa {
+        padding-right: 0;
+
+        &.dark {
           color: $gold;
         }
 
-        &-light {
+        &.light {
           color: $black;
+        }
+      }
+    }
+
+    .resources {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin: 0 auto;
+      font-size: 0.75rem;
+
+      @media #{$small} {
+        width: 90%;
+        justify-content: space-between;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: $pad;
+        align-items: center;
+        justify-content: center;
+        width: auto;
+
+        @media #{$small} {
+          justify-content: space-between;
+          width: 100%;
+        }
+      }
+
+      a {
+        width: fit-content;
+
+        &:focus,
+        &:focus-visible {
+          outline: none;
+          box-shadow: none;
+          -webkit-text-stroke: 1px $turquiose;
         }
       }
     }
@@ -266,18 +441,8 @@ onMounted(() => {
     transition: all ease 0.5s;
   }
 
-  .resources {
-    width: 90%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 auto;
-    font-size: 0.75rem;
-  }
-
   .move {
-    transform: translateY(0%);
+    transform: none;
     transition: all 1s ease;
 
     @media #{$small} {
