@@ -1,20 +1,24 @@
 <template>
   <div id="menu" v-if="!down">
-    <router-link @click.native="pageChange" to="/" :class="{ hide: open }">
+    <router-link
+      @click.native="pageChange"
+      to="/"
+      class="home-link"
+      :class="{ hide: open }"
+    >
       <img
         class="home-button"
         :class="{ hide: store.state.theme === 'light' }"
         src="@/assets/images/tail-portfolio.png"
         alt="Pilot (Taylor Tobin Portfolio Logo)"
-        tabindex="0"
       />
 
       <img
         class="home-button"
         :class="{ hide: store.state.theme === 'dark' }"
         src="@/assets/images/tail-bw.png"
-        alt="Pilot (Taylor Tobin Portfolio Logo)"
-        tabindex="0"
+        alt=""
+        aria-hidden="true"
       />
     </router-link>
 
@@ -154,6 +158,20 @@ const disableOverlay = () => {
 @import "@/assets/scss/app.scss"; // global styles
 
 #menu {
+  .home-link {
+    &:focus,
+    &:focus-visible {
+      outline: none;
+      box-shadow: none;
+
+      .home-button:not(.hide) {
+        filter: drop-shadow(1px 0 0 $turquiose)
+          drop-shadow(-1px 0 0 $turquiose) drop-shadow(0 1px 0 $turquiose)
+          drop-shadow(0 -1px 0 $turquiose);
+      }
+    }
+  }
+
   .home-button {
     position: absolute;
     top: 0;
@@ -166,14 +184,7 @@ const disableOverlay = () => {
       max-width: 45px;
     }
 
-    &:focus {
-      img {
-        box-shadow: 0 0 10px 2px $turquiose;
-        outline: hidden;
-      }
-    }
-
-    .hide {
+    &.hide {
       opacity: 0;
     }
   }
@@ -238,9 +249,17 @@ const disableOverlay = () => {
     .item {
       font-family: $title-font;
       font-weight: 600;
-      padding: 1rem 0;
+      margin: 1rem 0;
+      padding: 0;
       color: $black;
       font-size: 2rem;
+      width: fit-content;
+
+      &:focus {
+        outline: none;
+        box-shadow: none;
+        -webkit-text-stroke: 1px $turquiose;
+      }
     }
   }
 
@@ -248,10 +267,28 @@ const disableOverlay = () => {
     display: inline-flex;
 
     li {
-      padding: 2rem;
+      margin: 0 2rem;
+      padding: 0;
+
+      a {
+        display: inline-flex;
+        line-height: 0;
+
+        &:focus {
+          outline: none;
+          box-shadow: none;
+
+          .svg-inline--fa {
+            filter: drop-shadow(1px 0 0 $turquiose)
+              drop-shadow(-1px 0 0 $turquiose) drop-shadow(0 1px 0 $turquiose)
+              drop-shadow(0 -1px 0 $turquiose);
+          }
+        }
+      }
 
       .svg-inline--fa {
         color: $black;
+        padding-right: 0;
       }
     }
   }
