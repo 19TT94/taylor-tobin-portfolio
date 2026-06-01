@@ -93,13 +93,15 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from "vue";
+import { ref, computed, onMounted, onBeforeUnmount, watch } from "vue";
+import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 
 import Slider from "@/components/slider.vue";
-import { projects } from "@/data/projects.js";
+import { projects, getProjectIndexById } from "@/data/projects.js";
 
 const store = useStore();
+const route = useRoute();
 
 const block = ref(null);
 const slider = ref(null);
@@ -116,7 +118,19 @@ const handleScroll = ({ target }) => {
     target.scrollTop !== target.scrollHeight - target.clientHeight;
 };
 
+const setProjectFromQuery = () => {
+  const projectId = route.query.project;
+  if (typeof projectId !== "string") return;
+
+  const index = getProjectIndexById(projectId);
+  if (index === -1) return;
+
+  projectIdx.value = index;
+  currentProject.value = projects[index];
+};
+
 onMounted(() => {
+  setProjectFromQuery();
   down.value = true;
 
   setTimeout(() => {
@@ -127,6 +141,13 @@ onMounted(() => {
     block.value.addEventListener("scroll", handleScroll);
   }
 });
+
+watch(
+  () => route.query.project,
+  () => {
+    setProjectFromQuery();
+  },
+);
 
 onBeforeUnmount(() => {
   if (block.value) {

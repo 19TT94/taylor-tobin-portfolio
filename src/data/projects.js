@@ -63,6 +63,17 @@ export const projects = [
     ],
   },
   {
+    id: "wiere-weddings",
+    name: "Wiere Weddings",
+    link: "https://wiereweddings.com",
+    shortDescription:
+      "Custom landing page with WordPress CMS on Netlify and HoneyBook intake to manage content and new client inquiries as the wedding business grew.",
+    description:
+      'I designed and built a custom, design-forward landing page for a wedding business, <a href="https://wiereweddings.com">Wiere Weddings</a>. As the business grew, the owner needed a better way to manage inquiries and update content, so I developed a custom WordPress theme and integrated WordPress as a CMS for flexible content management on a Netlify-hosted site. I also embedded a HoneyBook intake form to streamline new client inquiries and business triage.',
+    type: "WordPress, Netlify",
+    slides: [WW1, WW2, WW3],
+  },
+  {
     id: "new-regency",
     name: "New Regency",
     link: "http://newregency.com",
@@ -118,17 +129,6 @@ export const projects = [
     slides: [RH1, RH2, RH3, RH4],
   },
   {
-    id: "wiere-weddings",
-    name: "Wiere Weddings",
-    link: "https://wiereweddings.com",
-    shortDescription:
-      "Designed and developed a portfolio site with pricing and Honeybook appointment booking integration.",
-    description:
-      "I designed and developed a new website for Wiere Weddings. It showcases recent work, pricing and integrates with Honeybook to obtain new appointments.",
-    type: "Vue (Typescript), Wordpress (PHP)",
-    slides: [WW1, WW2, WW3],
-  },
-  {
     id: "ted-tobin-portfolio",
     name: "Ted Tobin's Portfolio",
     link: "https://tedtobin.com",
@@ -143,5 +143,14 @@ export const projects = [
 
 export const getProjectById = (id) =>
   projects.find((project) => project.id === id);
+
+export const getProjectIndexById = (id) =>
+  projects.findIndex((project) => project.id === id);
+
+export const getNextProject = (id) => {
+  const index = getProjectIndexById(id);
+  if (index === -1) return null;
+  return projects[(index + 1) % projects.length];
+};
 
 export default projects;

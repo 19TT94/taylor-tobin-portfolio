@@ -6,7 +6,16 @@
     <div class="case-header show">
       <div class="case-header-content">
         <div class="case-title-section">
-          <router-link to="/featured" class="back-link">← Projects</router-link>
+          <router-link
+            v-if="nextFeaturedProject"
+            :to="{
+              path: '/featured',
+              query: { project: nextFeaturedProject.id },
+            }"
+            class="back-link"
+            >← Projects</router-link
+          >
+          <router-link v-else to="/featured" class="back-link">← Projects</router-link>
           <h1 class="case-title">{{ project.name }}</h1>
           <div class="case-meta">
             <span class="case-type" v-if="project.type">{{ project.type }}</span>
@@ -176,10 +185,12 @@ import {
   heroBuilderCaseStudy,
   heroBuilderSlides,
 } from "@/data/heroBuilderCaseStudy.js";
+import { getNextProject } from "@/data/projects.js";
 
 const store = useStore();
 const project = heroBuilderCaseStudy;
 const slides = heroBuilderSlides;
+const nextFeaturedProject = getNextProject(project.id);
 </script>
 
 <style scoped lang="scss">
