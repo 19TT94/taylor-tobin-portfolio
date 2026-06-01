@@ -3,8 +3,8 @@
     <ul class="slider">
       <li
         class="slide"
-        v-for="(item, index) in slides"
-        :class="[item.name, { active: currentIndex === index }]"
+        v-for="(item, index) in visibleSlides"
+        :class="[{ active: currentIndex === index }]"
         :key="`x-${index}`"
       >
         <div class="content">
@@ -39,9 +39,8 @@
       <ul class="item-list">
         <li
           class="item"
-          v-for="(item, index) in slides"
+          v-for="(item, index) in visibleSlides"
           :class="[
-            item.slug,
             { active: currentIndex === index },
             { [`item-${store.state.theme}`]: store.state.theme },
           ]"
@@ -51,7 +50,7 @@
             <span v-if="dotText">
               {{ item.title }}
             </span>
-            <span else> &times; </span>
+            <span v-else>&times;</span>
           </button>
         </li>
       </ul>
@@ -60,10 +59,12 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from "vue";
+import { ref, computed, watch, onMounted, onBeforeUnmount } from "vue";
 import { useStore } from "vuex";
 
 import { isMobileDevice, isMobileSize } from "@/utils/index.js";
+
+const MOBILE_MAX_SLIDES = 5;
 
 const store = useStore();
 
@@ -74,10 +75,31 @@ const setupFinished = ref(false);
 const navigation = ref(true);
 const dots = ref(true);
 const dotText = ref(false);
+const isMobile = ref(isMobileSize());
+
+const visibleSlides = computed(() => {
+  const slides = props.slides ?? [];
+
+  if (isMobile.value && slides.length > MOBILE_MAX_SLIDES) {
+    return slides.slice(0, MOBILE_MAX_SLIDES);
+  }
+
+  return slides;
+});
+
+const updateMobile = () => {
+  isMobile.value = isMobileSize();
+};
 
 onMounted(() => {
   currentIndex.value = 0;
   setupFinished.value = true;
+
+  window.addEventListener("resize", updateMobile);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", updateMobile);
 });
 
 watch(
@@ -87,7 +109,13 @@ watch(
   }
 );
 
-const itemsLength = computed(() => [...props.slides].length - 1);
+watch(visibleSlides, (slides) => {
+  if (currentIndex.value > slides.length - 1) {
+    currentIndex.value = 0;
+  }
+});
+
+const itemsLength = computed(() => Math.max(visibleSlides.value.length - 1, 0));
 
 const previousIndex = computed(() => {
   return currentIndex.value - 1 < 0
@@ -178,19 +206,6 @@ const onSwipe = (direction) => {
     }
   }
 
-  .pagination {
-    z-index: $base;
-
-    span {
-      padding: 1.5rem;
-      text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.8);
-
-      @media #{$small} {
-        font-size: 2rem;
-      }
-    }
-  }
-
   .button,
   .menu {
     // menu/buttons etc. - rendering could be based on an optional parameter
@@ -246,12 +261,26 @@ const onSwipe = (direction) => {
   }
 
   .pagination {
+    z-index: $base;
     position: absolute;
     bottom: 1rem;
     width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
 
     @media #{$small} {
       bottom: 4rem;
+    }
+
+    span {
+      padding: 0.5rem;
+      text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.8);
+
+      @media #{$small} {
+        padding: 1.5rem;
+        font-size: 2rem;
+      }
     }
 
     .item-list {
@@ -260,19 +289,22 @@ const onSwipe = (direction) => {
       list-style: none;
       display: flex;
       justify-content: center;
+      flex-wrap: nowrap;
       width: 100%;
+      max-width: 100%;
     }
 
     .item {
       display: block;
       width: fit-content;
+      flex-shrink: 0;
 
-      span {
-        .dark {
+      button {
+        &.dark {
           color: $white;
         }
 
-        .light {
+        &.light {
           color: $black;
         }
       }

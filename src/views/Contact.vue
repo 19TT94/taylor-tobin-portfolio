@@ -87,7 +87,7 @@
             <a
               class="button"
               :class="{ [`resume-${store.state.theme}`]: store.state.theme }"
-              href="mailto:19tt94@gmail.com"
+              href="mailto:ttobin.dev@gmail.com"
               >Email</a
             >
           </li>
@@ -119,8 +119,6 @@ const store = useStore();
 
 const show = ref(false);
 const reveal = ref(false);
-
-const localTime = () => dayjs.utc().tz("US/Pacific").format("h:mm A z");
 
 onMounted(() => {
   setTimeout(() => {

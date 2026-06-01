@@ -128,8 +128,7 @@ const services = ["Software Engineering", "Design", "Consulting"];
 const activeService = ref(0);
 let serviceTimer;
 
-// TODO: Set to your Calendly URL when ready to show "Book a call"
-const calendlyUrl = "";
+const calendlyUrl = "https://calendly.com/ttobin-dev";
 
 const toggle = () => store.commit("toggleTheme");
 

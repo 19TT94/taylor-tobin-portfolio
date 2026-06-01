@@ -39,8 +39,20 @@
             Read Case Study
           </router-link>
           <div
+            v-if="currentProject.shortDescription"
+            class="description description-short"
+            :class="{
+              [`description-${store.state.theme}`]: store.state.theme,
+            }"
+          >
+            <p
+              class="description-text"
+              v-html="currentProject.shortDescription"
+            ></p>
+          </div>
+          <div
             v-if="currentProject.name"
-            class="description"
+            class="description description-full"
             :class="{
               'show-top': scrollTop,
               'show-bottom': scrollBottom,
@@ -54,6 +66,16 @@
             ></p>
           </div>
         </div>
+      </section>
+
+      <div class="featured-slider-wrap">
+        <Slider
+          ref="slider"
+          class="featured-slider hide"
+          :class="{ show: show }"
+          :projectIdx="projectIdx"
+          :slides="currentProject.slides"
+        />
         <button
           area-label="Navigate to next project"
           class="next-project hide"
@@ -65,15 +87,7 @@
         >
           Next Project
         </button>
-      </section>
-
-      <Slider
-        ref="slider"
-        class="featured-slider hide"
-        :class="{ show: show }"
-        :projectIdx="projectIdx"
-        :slides="currentProject.slides"
-      />
+      </div>
     </div>
   </div>
 </template>
@@ -129,6 +143,8 @@ const projects = [
     name: "Hero Builder",
     link: "https://hero-services.com",
     caseStudyRoute: "/featured/hero-builder",
+    shortDescription:
+      "Led design and development of Hero Builder™, an ops platform for 100+ water/wastewater facilities with web, mobile, and SCADA integration.",
     description:
       "I designed, architected, and led development of <strong>Hero Builder™</strong>, an operations and maintenance platform for water and wastewater facilities under Hero Services. The stack uses React, Flask, PostgreSQL, and Redis, with a React Native app for field operators and SCADA integration via Ewon Flexy devices. The platform supports compliance management across 100+ facilities and 500+ users in the office and in the field.",
     type: "React, Flask",
@@ -149,6 +165,8 @@ const projects = [
   {
     name: "New Regency",
     link: "http://newregency.com",
+    shortDescription:
+      "Led relaunch of newregency.com with visual upgrades, internationalization, and custom analytics pages for regional teams.",
     description:
       'I lead development on the relaunch and revamp of <a href="http://newregency.com">newregency.com</a>. It involved some visual upgrades, new content, and new functionality for internationalization. New Regency was looking for a way to promote their new international team. I was in charge of implementing a solution that allowed for custom pages and analytics for their international teams. In the cms international team members could generate pages for their clients with specific movies for their region.',
     type: "Laravel",
@@ -156,6 +174,8 @@ const projects = [
   },
   {
     name: "Paramount",
+    shortDescription:
+      "Led frontend on Paramount's movie archive site with responsive sort/filter, Laravel API, and Vue frontend.",
     description:
       "I led frontend Development on Parmount's new website. This site leverages a large archive of movies with a user friendly and responsive sort and filter menu. I also assisted in api and database design/development, utilizing a Laravel (PHP) backend and a Vue (JS) frontend.",
     type: "Vue/Laravel",
@@ -165,6 +185,8 @@ const projects = [
   {
     name: "Dreamworks Animation",
     link: "https://dreamworks.com",
+    shortDescription:
+      "Built custom Swiper sliders, fullscreen video backgrounds, and promotional movie pages for Dreamworks Animation.",
     description:
       "I worked the team that built Dreamworks Animation. I helped to build a custom Swiper.io slider with a responsive fullscreen video background, full screen video model for each featured movie, and custom slide transitions. I also contributed to the promotional movie pages and contact forms throughout the site.",
     type: "Vue/Laravel",
@@ -173,6 +195,8 @@ const projects = [
   {
     name: "PXL Agency",
     link: "https://pxlagency.com",
+    shortDescription:
+      "Developed pxlagency.com during the brand relaunch and led ongoing maintenance as primary developer.",
     description:
       'Assisted in the development of <a href="https://www.pxlagency.com">pxlagency.com</a> during the brand relaunch at PXL Agency. Then was the lead developer on maintenance updates.',
     type: "Ember",
@@ -181,6 +205,8 @@ const projects = [
   {
     name: "ReplaceHate.com",
     link: "https://pxlagency.com/our-work/replace-hate",
+    shortDescription:
+      "Built Fox Movies' #ReplaceHate campaign site for fast, easy generation of shareable Instagram posters.",
     description:
       'Frontend developement on <a href="https://www.instagram.com/explore/tags/replacehate/">#ReplaceHate</a> social campaign site. This site was built for Fox Movies and allows users to generate #replacehate posters to share on social media. This promotion for the movie lived mostly on Instagram and was a fun way for fans to get involved. The biggest challenge was trying to make the process of creating the share assets as easy in fast as possible for the user. Despite the changing requirements from the client and the challenges of creating the assets in a web app, the app was a success.',
     type: "Ember",
@@ -189,6 +215,8 @@ const projects = [
   {
     name: "Wiere Weddings",
     link: "https://wiereweddings.com",
+    shortDescription:
+      "Designed and developed a portfolio site with pricing and Honeybook appointment booking integration.",
     description:
       "I designed and developed a new website for Wiere Weddings. It showcases recent work, pricing and integrates with Honeybook to obtain new appointments.",
     type: "Vue (Typescript), Wordpress (PHP)",
@@ -197,6 +225,8 @@ const projects = [
   {
     name: "Ted Tobin's Portfolio",
     link: "https://tedtobin.com",
+    shortDescription:
+      "Built a writer-focused portfolio where copy is the hero, with a vanilla JS slider inspired by word scramble demos.",
     description:
       "This project was a portfolio website for Creative Director, Consultant, and Copy Writer Ted Tobin. During his transition to freelance work he needed a simple site that would showcase his skills and experience as a writer. In order to do this I designed and built a site where his words are the focus. The slider is built with vanilla js and inspired by word scramble code pens.",
     type: "Vue (JS)",
@@ -284,6 +314,7 @@ const next = async () => {
   position: relative;
   width: 100%;
   height: 100%;
+  overflow-x: hidden;
 
   &-dark {
     color: $white;
@@ -303,19 +334,53 @@ const next = async () => {
   }
 
   .next-project {
+    position: relative;
+    width: fit-content;
     padding: 0.5rem 1rem;
-    position: absolute;
-    width: 100%;
-    bottom: 0;
+    margin: 0 auto 1rem;
+    font-size: 0.75rem;
+    background: transparent;
+    flex-shrink: 0;
+
+    @media #{$small} {
+      margin: 0 2rem 1rem auto;
+      font-size: 0.85rem;
+    }
 
     &-dark {
-      color: $black;
-      background: $gold;
+      color: $gold;
+      border: 1px solid $gold;
     }
 
     &-light {
-      color: $gold;
-      background: $black;
+      color: $black;
+      border: 1px solid $black;
+    }
+
+    &:focus,
+    &:focus-visible {
+      outline: none;
+      box-shadow: none;
+      -webkit-text-stroke: 1px $turquiose;
+    }
+  }
+
+  &-slider-wrap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media #{$small} {
+      width: 65%;
+      height: 100%;
+      right: 0;
+      left: auto;
+      align-items: stretch;
     }
   }
 
@@ -381,7 +446,23 @@ const next = async () => {
         }
       }
 
-      .description {
+      .description-short {
+        display: block;
+        margin-bottom: 0.5rem;
+
+        .description-text {
+          padding: 0 2rem;
+          margin: 0;
+          font-size: 0.7rem;
+          line-height: 1.45;
+        }
+
+        @media #{$small} {
+          display: none;
+        }
+      }
+
+      .description-full {
         display: none;
 
         @media #{$small} {
@@ -391,7 +472,7 @@ const next = async () => {
           height: 50%;
           margin-bottom: 3rem;
 
-          &-text {
+          .description-text {
             overflow: auto;
             height: 100%;
             margin: 0;
@@ -483,22 +564,18 @@ const next = async () => {
   }
 
   &-slider {
+    flex: 1;
     width: 100% !important;
-    height: 50% !important;
-    position: absolute !important;
-    bottom: 0;
-    left: 0;
+    min-height: 0;
+    height: 100% !important;
+    position: relative !important;
+    bottom: auto;
+    left: auto;
+    right: auto;
     display: flex;
     align-items: center;
     justify-content: center;
     transition-delay: 0.5s;
-
-    @media #{$small} {
-      width: 65% !important;
-      height: 100% !important;
-      right: 0;
-      left: auto;
-    }
   }
 
   .move {

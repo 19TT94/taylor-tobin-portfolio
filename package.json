@@ -2,7 +2,7 @@
   "name": "taylor-tobin-portfolio",
   "version": "1.0.0",
   "description": "Taylor Tobin's Portfolio",
-  "author": "Taylor Tobin <19tt94@gmail.com>",
+  "author": "Taylor Tobin <ttobin.dev@gmail.com>",
   "private": true,
   "scripts": {
     "dev": "vite",
