@@ -44,9 +44,9 @@ export const projects = [
     name: "Hero Builder",
     caseStudyRoute: "/featured/hero-builder",
     shortDescription:
-      "Led design and development of Hero Builder™, an ops platform for 100+ water/wastewater facilities with web, mobile, and SCADA integration.",
+      "Led design and development of Hero Builder™, a production ops platform for 150+ facilities—1,100+ monthly checksheet submissions, 50,000+ compliance records, 99% uptime since 2022.",
     description:
-      "I designed, architected, and led development of <strong>Hero Builder™</strong>, an operations and maintenance platform for water and wastewater facilities under Hero Services. The stack uses React, Flask, PostgreSQL, and Redis, with a React Native app for field operators and SCADA integration via Ewon Flexy devices. The platform supports compliance management across 100+ facilities and 500+ users in the office and in the field.",
+      "I designed, architected, and led development of <strong>Hero Builder™</strong>, an operations and maintenance platform for water and wastewater facilities under Hero Services. Built solo, then scaled with a team, it now supports 150+ facilities with 1,100+ completed checksheet submissions per month, 50,000+ compliance records, and 99% uptime since 2022. Stack: React, Flask, PostgreSQL, Redis, React Native for field operators, and SCADA integration via Ewon Flexy devices.",
     type: "React, Flask",
     slides: [
       signin,

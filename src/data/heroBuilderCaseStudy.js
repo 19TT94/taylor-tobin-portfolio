@@ -3,9 +3,9 @@ import mobileAppScreenshot from "@/assets/images/projects/hero-builder/callout.p
 
 const caseStudyData = {
   id: "hero-builder",
-  year: "2023-present",
+  year: "2022-present",
   overview:
-    "The project is a comprehensive operations and maintenance management platform designed for water/wastewater facilities. It features comprehensive form building for on site data collection, compliance tracking, and mobile accessibility. This was the largest project of my professional career and something that I built from scratch as a solo developer over the course of a year before bringing on a small team. The project now serves 100+ facilities throughout California.",
+    "Hero Builder™ is an operations and maintenance platform for water and wastewater facilities—built from scratch as a solo developer, then scaled with a small team into production software used across California. Today it supports 150+ facilities, processes 1,100+ completed checksheet submissions per month, and maintains 99% uptime since 2022 while maintaining 50,000+ compliance records.",
   problem:
     "Initially I was brought on to help provide a centralized system for operations, compliance, and maintenance across all of Fluid Resource Management's water and wastewater facilities. When I arrived operators were managing facilities through a combination of paper check sheets and excel documents. At first the challenge was to determine the best path forward with existing technologies (Zoho at the time) and integrations or to build out something custom. Ultimately the feature set required a proprietary solution and gave the company options to move more into the consulting/tech space in the water industry.",
   solution:
@@ -21,13 +21,13 @@ const caseStudyData = {
     "JavaScript",
   ],
   architecture:
-    "Microservices architecture with React frontend, Flask API backend, PostgreSQL database, and Redis caching. Mobile app built with React Native for field operators.",
+    "Microservices architecture with React frontend, Flask API backend, PostgreSQL database, and Redis caching. Multi-tenant enterprise accounts isolate branding and data for separate organizations (e.g. Fluid Resource Management and Cloacina). Mobile app built with React Native for field operators.",
   keyFeatures: [
-    "Compliance monitoring and reporting",
-    "Customizable dashboard for different facility types",
-    "Multi-tenant architecture supporting 100+ facilities",
-    "~90 API endpoints, 60+ models, 128 migrations, 16 scheduled Lambdas.",
-    "400+ tests gated in CI before deploy.",
+    "Multi-tenant architecture across 150+ facilities and enterprise environments",
+    "Configurable checksheet builder for on-site compliance data collection",
+    "1,100+ completed checksheet submissions per month in steady-state production",
+    "~90 API endpoints, 60+ models, 128 migrations, 16 scheduled Lambdas",
+    "400+ tests gated in CI before deploy",
     "Automated compliance alerts and notifications",
     "Mobile app for field operators",
   ],
@@ -62,17 +62,19 @@ const caseStudyData = {
     },
   ],
   results:
-    "Successfully deployed across 100+ facilities, supporting 500+ users while maintaining compliance standards. Client onboarding time improved from 2–3 weeks to 1–2 days as enterprise accounts, reusable facility templates, and self-service configuration matured. The platform became the foundation for Hero Services as a company.",
+    "What started as paper checksheets and Excel grew into a system processing 1,100+ completed checksheet submissions every month across 150+ facilities, with 50,000+ compliance records on file and 99% uptime since 2022. Monthly submission volume scaled from early MVP levels into a steady ~1k+/month run rate as adoption expanded through 2024. Client onboarding dropped from 3-4 weeks to 1–2 days once enterprise accounts, reusable facility templates, and self-service configuration were in place. Hero Builder™ became the foundation for Hero Services as a company.",
   metrics: [
-    { value: "100+", label: "Facilities Supported" },
-    { value: "1-2 days", label: "Client Onboarding (from 2-3 weeks)" },
-    // { value: "500+", label: "Active Users" },
+    { value: "150+", label: "Facilities Supported" },
+    { value: "1,100+", label: "Monthly Checksheet Submissions" },
+    { value: "50,000+", label: "Compliance Records" },
+    { value: "99%", label: "Uptime Since 2022" },
+    { value: "1-2 days", label: "Client Onboarding (from 3-4 weeks)" },
   ],
   lessonsLearned: [
-    "Importance of stakeholder involvement throughout development process",
-    "Value of microservices architecture for complex enterprise applications",
-    "Critical role of mobile accessibility for field operations",
-    "Need for comprehensive training and support during deployment",
+    "Operational metrics (submissions, records, uptime) tell the adoption story better than user counts alone",
+    "Multi-tenant architecture pays off when each enterprise needs isolated data and branding",
+    "Reusable facility templates and self-service config were the biggest levers for faster onboarding",
+    "Mobile workflows matter as much as the admin dashboard for day-to-day compliance in the field",
   ],
   team: "Led a small development team, working closely with facility managers and compliance managers.",
   role: "Lead Developer & Architect - Designed system architecture, led development team, managed stakeholder relationships, and oversaw deployment across multiple facilities.",
