@@ -3,57 +3,35 @@
     <div class="bar"></div>
     <div class="grid">
       <div class="block" v-for="project in projects" :key="project.id">
-        <a href="">{{ project.name }}</a>
+        <router-link
+          v-if="project.caseStudyRoute"
+          class="project-link"
+          :to="project.caseStudyRoute"
+        >
+          <span class="project-name">{{ project.name }}</span>
+          <span class="project-type" v-if="project.type">{{ project.type }}</span>
+        </router-link>
+        <a
+          v-else-if="project.link"
+          class="project-link"
+          :href="project.link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="project-name">{{ project.name }}</span>
+          <span class="project-type" v-if="project.type">{{ project.type }}</span>
+        </a>
+        <div v-else class="project-link">
+          <span class="project-name">{{ project.name }}</span>
+          <span class="project-type" v-if="project.type">{{ project.type }}</span>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: "Projects",
-
-  data() {
-    return {
-      projects: [
-        {
-          name: "PXL Website",
-          link: "https://pxlagency.com",
-          type: "Ember/Laravel",
-          image: "",
-        },
-        {
-          name: "Selfie Booth",
-          type: "Ember/Cordova/Laravel",
-          image: "",
-        },
-        {
-          name: "Universal Platform",
-          link: "https://universalpictures.com",
-          type: "Vue/Laravel",
-          image: "",
-        },
-        {
-          name: "Fathom Events",
-          link: "https://dreamworks.com",
-          type: "Ember/Laravel",
-          image: "",
-        },
-        {
-          name: "Global Road",
-          link: "https://dreamworks.com",
-          type: "Vue/Laravel",
-          image: "",
-        },
-        {
-          name: "PXL Platform",
-          type: "Ember",
-          image: "",
-        },
-      ],
-    };
-  },
-};
+<script setup>
+import { projects } from "@/data/projects.js";
 </script>
 
 <style scoped lang="scss">
@@ -87,6 +65,41 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 1rem;
+      box-sizing: border-box;
+
+      .project-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        text-decoration: none;
+        color: $white;
+        border: 1px solid $gold;
+        padding: 1rem;
+        box-sizing: border-box;
+        transition: background 0.3s ease;
+
+        &:hover {
+          background: rgba($black, 0.35);
+        }
+      }
+
+      .project-name {
+        font-family: $title-font;
+        font-size: 1rem;
+        line-height: 1.2;
+      }
+
+      .project-type {
+        font-size: 0.75rem;
+        line-height: 1.3;
+        opacity: 0.85;
+      }
 
       img {
         border: 1px solid $gold;

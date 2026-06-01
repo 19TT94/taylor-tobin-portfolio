@@ -68,7 +68,14 @@ const MOBILE_MAX_SLIDES = 5;
 
 const store = useStore();
 
-const props = defineProps(["slides", "projectIdx"]);
+const props = defineProps({
+  slides: Array,
+  projectIdx: Number,
+  limitMobileSlides: {
+    type: Boolean,
+    default: true,
+  },
+});
 
 const currentIndex = ref(0);
 const setupFinished = ref(false);
@@ -80,7 +87,11 @@ const isMobile = ref(isMobileSize());
 const visibleSlides = computed(() => {
   const slides = props.slides ?? [];
 
-  if (isMobile.value && slides.length > MOBILE_MAX_SLIDES) {
+  if (
+    props.limitMobileSlides &&
+    isMobile.value &&
+    slides.length > MOBILE_MAX_SLIDES
+  ) {
     return slides.slice(0, MOBILE_MAX_SLIDES);
   }
 

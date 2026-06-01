@@ -14,7 +14,7 @@
           </div>
         </div>
 
-        <div class="case-actions">
+        <div class="case-actions" v-if="project.link">
           <a
             v-if="project.link"
             :href="project.link"
@@ -128,7 +128,12 @@
       <section class="case-section case-gallery" v-if="slides.length > 0">
         <h2 class="section-title">Project Gallery</h2>
         <div class="section-content">
-          <Slider class="case-slider" :projectIdx="0" :slides="slides" />
+          <Slider
+            class="case-slider"
+            :projectIdx="0"
+            :slides="slides"
+            :limit-mobile-slides="false"
+          />
         </div>
       </section>
 
@@ -152,35 +157,14 @@
 <script setup>
 import { useStore } from "vuex";
 import Slider from "@/components/slider.vue";
-import { heroBuilderCaseStudy } from "@/data/heroBuilderCaseStudy.js";
-
-import signin from "@/assets/images/projects/hero-builder/1-signin.png";
-import facilitiesDashboard from "@/assets/images/projects/hero-builder/2-facilities-dashboard.png";
-import facilityDashboardStats from "@/assets/images/projects/hero-builder/3-facility-dashboard-stats.png";
-import facilityDashboardRecords from "@/assets/images/projects/hero-builder/4-facility-dashboard-records.png";
-import facilityDashboardRecord from "@/assets/images/projects/hero-builder/5-facility-dashboard-record.png";
-import facilityDashboardChecksheetEditor from "@/assets/images/projects/hero-builder/6-facility-dashboard-checksheet-editor.png";
-import checksheetBuilder from "@/assets/images/projects/hero-builder/7-checksheet-builder.png";
-import facilityBuilderPreview from "@/assets/images/projects/hero-builder/8-faciltity-builder-preview.png";
-import tasks from "@/assets/images/projects/hero-builder/9-tasks.png";
-import checksheetRecord from "@/assets/images/projects/hero-builder/10-checksheet-record.png";
-import calendar from "@/assets/images/projects/hero-builder/11-calendar.png";
+import {
+  heroBuilderCaseStudy,
+  heroBuilderSlides,
+} from "@/data/heroBuilderCaseStudy.js";
 
 const store = useStore();
 const project = heroBuilderCaseStudy;
-const slides = [
-  signin,
-  facilitiesDashboard,
-  facilityDashboardStats,
-  facilityDashboardRecords,
-  facilityDashboardRecord,
-  facilityDashboardChecksheetEditor,
-  checksheetBuilder,
-  facilityBuilderPreview,
-  tasks,
-  checksheetRecord,
-  calendar,
-];
+const slides = heroBuilderSlides;
 </script>
 
 <style scoped lang="scss">
@@ -447,11 +431,68 @@ const slides = [
       }
 
       &.case-gallery {
+        .section-content {
+          max-width: 100%;
+        }
+
         .case-slider {
           width: 100% !important;
-          height: 400px !important;
+          height: auto !important;
+          min-height: 420px;
+          display: flex !important;
+          flex-direction: column;
           border-radius: 8px;
-          overflow: hidden;
+          overflow: visible;
+
+          @media #{$small} {
+            min-height: 560px;
+          }
+
+          :deep(.slider) {
+            flex: 1;
+            position: relative;
+            min-height: 340px;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+
+            @media #{$small} {
+              min-height: 480px;
+            }
+          }
+
+          :deep(.slide .content img) {
+            max-width: 92%;
+            max-height: 92%;
+
+            @media #{$small} {
+              max-width: 96%;
+              max-height: 94%;
+            }
+          }
+
+          :deep(.pagination) {
+            position: relative;
+            bottom: auto;
+            flex-shrink: 0;
+            padding: 0.75rem 0 0.25rem;
+            margin-top: auto;
+          }
+
+          :deep(.pagination .item-list) {
+            flex-wrap: wrap;
+            gap: 0.15rem;
+          }
+
+          :deep(.pagination span) {
+            padding: 0.2rem 0.35rem;
+            font-size: 0.95rem;
+
+            @media #{$small} {
+              padding: 0.3rem 0.45rem;
+              font-size: 1.1rem;
+            }
+          }
         }
       }
     }
