@@ -39,15 +39,6 @@ import TT2 from "@/assets/images/projects/ted/ted-2.png";
 import TT3 from "@/assets/images/projects/ted/ted-3.png";
 
 export const projects = [
-  // TODO: Add Autolit project
-  // {
-  //   id: "autolit",
-  //   name: "Autolit",
-  //   shortDescription: "Modernized and iterated on an internal service to integrate scientific databases and apis to support genetic counselors in accurate genetic variant interpretation",
-  //   description: "I modernized and iterated on an internal service to integrate scientific databases and apis to support genetic counselors in accurate genetic variant interpretation. I used React for the frontend and Symfony for the backend. I also used Docker to containerize the application and Kubernetes to deploy it. I also used Jenkins to automate the build and deployment process. I also used GitLab for version control and Jira for project management.",
-  //   type: "React, Symfony",
-  //   slides: []
-  // },
   {
     id: "hero-builder",
     name: "Hero Builder",

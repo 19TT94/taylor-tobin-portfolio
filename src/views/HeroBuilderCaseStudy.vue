@@ -74,6 +74,20 @@
               </li>
             </ul>
           </div>
+          <div
+            class="key-feature-callout-list"
+            v-if="project.keyFeatureCallout?.length"
+          >
+            <CaseStudyFeatureCallout
+              v-for="callout in project.keyFeatureCallout"
+              :key="callout.id"
+              :title="callout.title"
+              :description="callout.description"
+              :image="callout.image"
+              :image-alt="callout.imageAlt"
+              :image-position="callout.imagePosition"
+            />
+          </div>
         </div>
       </section>
 
@@ -157,6 +171,7 @@
 <script setup>
 import { useStore } from "vuex";
 import Slider from "@/components/slider.vue";
+import CaseStudyFeatureCallout from "@/components/CaseStudyFeatureCallout.vue";
 import {
   heroBuilderCaseStudy,
   heroBuilderSlides,
@@ -335,6 +350,13 @@ const slides = heroBuilderSlides;
       }
 
       &.case-technical {
+        .key-feature-callout-list {
+          display: flex;
+          flex-direction: column;
+          gap: 2rem;
+          margin-top: 2rem;
+        }
+
         .tech-tags {
           display: flex;
           flex-wrap: wrap;

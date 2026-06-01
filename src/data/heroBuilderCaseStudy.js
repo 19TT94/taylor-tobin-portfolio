@@ -1,14 +1,15 @@
 import { getProjectById } from "./projects.js";
+import mobileAppScreenshot from "@/assets/images/projects/hero-builder/callout.png";
 
 const caseStudyData = {
   id: "hero-builder",
   year: "2023-present",
   overview:
-    "A comprehensive operations and maintenance management platform designed for water/wastewater facilities, featuring real-time monitoring, compliance tracking, and mobile accessibility.",
+    "The project is a comprehensive operations and maintenance management platform designed for water/wastewater facilities. It features comprehensive form building for on site data collection, compliance tracking, and mobile accessibility. This was the largest project of my professional career and something that I built from scratch as a solo developer over the course of a year before bringing on a small team. The project now serves 100+ facilities throughout California.",
   problem:
-    "I was brought on to help provide a centralized system to manage operations, maintain compliance standards, and provide real-time access to critical data for both office staff and field operators. When I arrived operators were managing facilities thorugh a combination of paper check sheets and excel documents. Over the course of the first year I designed an MVP that would allow these varying methods of data collection to a single proprietary platform.",
+    "Initially I was brought on to help provide a centralized system for operations, compliance, and maintenance across all of Fluid Resource Management's water and wastewater facilities. When I arrived operators were managing facilities through a combination of paper check sheets and excel documents. At first the challenge was to determine the best path forward with existing technologies (Zoho at the time) and integrations or to build out something custom. Ultimately the feature set required a proprietary solution and gave the company options to move more into the consulting/tech space in the water industry.",
   solution:
-    "Following the approval and implementation of the initial MVP, I iterated to build out what today is Hero Builder™ and build up the team that supports it. It is a customizable microservices-based platform that provides comprehensive management capabilities through web and mobile interfaces. I designed the platform to be modular and scalable, allowing for easy addition of new features and integrations. I also designed the platform to be responsive and mobile-friendly, allowing for easy use on the go.",
+    "Over the course of the first year, I iterated to design (UI/UX) and implement an MVP for a few select facilities that would go on to become what today is Hero Builder™. After the MVP and as we continued to iterate and bring on facilities I worked with contractors, and a new company Hero Services for water/wastewater consulting/solutions was formed around what we were building and I built up the small team that supports Hero Builder™. The product itself is a customizable microservices-based platform that provides comprehensive management capabilities through web and mobile interfaces. Facilities can be added through enterprise accounts that have their own set of resources and branding. This became relevant because Fluid Resource Management (Operations and Maintenance Company) and Cloacina (Manufacturer of Package Wastewater Plants) required isolated instances. I designed the platform to be modular and scalable, allowing for easy addition of new features and integrations. It is responsive and mobile-friendly, allowing for easy use on the go.",
   technicalDetails: true,
   techStack: [
     "React",
@@ -22,11 +23,24 @@ const caseStudyData = {
   architecture:
     "Microservices architecture with React frontend, Flask API backend, PostgreSQL database, and Redis caching. Mobile app built with React Native for field operators.",
   keyFeatures: [
-    "Real-time compliance monitoring and reporting",
+    "Compliance monitoring and reporting",
     "Customizable dashboard for different facility types",
-    "Mobile app for field operators",
     "Multi-tenant architecture supporting 100+ facilities",
+    "~90 API endpoints, 60+ models, 128 migrations, 16 scheduled Lambdas.",
+    "400+ tests gated in CI before deploy.",
     "Automated compliance alerts and notifications",
+    "Mobile app for field operators",
+  ],
+  keyFeatureCallout: [
+    {
+      id: "mobile-app",
+      title: "Hero Builder™ Operator App (Mobile)",
+      description:
+        "Field operators complete daily checksheets, log maintenance tasks, and review compliance records from iPhones and iPads on site. I designed the React Native app to mirror the web platform's checksheet workflows while optimizing for touch input, quick navigation between facilities and easier visibility.",
+      image: mobileAppScreenshot,
+      imageAlt: "Hero Builder™ mobile app checksheet record screen",
+      imagePosition: "right",
+    },
   ],
   process:
     "Led the entire development lifecycle from initial concept to deployment, managing a small development team and working closely with stakeholders to understand facility requirements.",
@@ -48,9 +62,10 @@ const caseStudyData = {
     },
   ],
   results:
-    "Successfully deployed across 100+ facilities, supporting 500+ users while maintaining 100% compliance standards. The platform became the foundation for Hero Services as a company.",
+    "Successfully deployed across 100+ facilities, supporting 500+ users while maintaining compliance standards. Client onboarding time improved from 2–3 weeks to 1–2 days as enterprise accounts, reusable facility templates, and self-service configuration matured. The platform became the foundation for Hero Services as a company.",
   metrics: [
     { value: "100+", label: "Facilities Supported" },
+    { value: "1-2 days", label: "Client Onboarding (from 2-3 weeks)" },
     // { value: "500+", label: "Active Users" },
   ],
   lessonsLearned: [
