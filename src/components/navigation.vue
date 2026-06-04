@@ -56,8 +56,12 @@
       <router-link
         @click.native="pageChange"
         class="item"
-        area-label="Navigate to Hero Builder case study"
-        to="/featured/hero-builder"
+        :area-label="
+          heroBuilderCaseStudyEnabled
+            ? 'Navigate to Hero Builder case study'
+            : 'Navigate to Hero Builder project'
+        "
+        :to="featuredNavTo"
         >Featured</router-link
       >
       <router-link
@@ -126,14 +130,21 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useStore } from "vuex";
+import { heroBuilderCaseStudyEnabled } from "@/data/projects.js";
 
 const down = ref(null);
 const unlock = ref(false);
 const open = ref(false);
 
 const store = useStore();
+
+const featuredNavTo = computed(() =>
+  heroBuilderCaseStudyEnabled
+    ? "/featured/hero-builder"
+    : { path: "/featured", query: { project: "hero-builder" } },
+);
 
 onMounted(() => {
   down.value = store.state.down;

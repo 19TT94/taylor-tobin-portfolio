@@ -1,4 +1,4 @@
-import { getProjectById } from "./projects.js";
+import { getProjectById, heroBuilderAllSlides } from "./projects.js";
 import mobileAppScreenshot from "@/assets/images/projects/hero-builder/callout.png";
 
 const caseStudyData = {
@@ -87,6 +87,6 @@ export const heroBuilderCaseStudy = {
   ...caseStudyData,
 };
 
-export const heroBuilderSlides = baseProject?.slides ?? [];
+export const heroBuilderSlides = heroBuilderAllSlides;
 
 export default heroBuilderCaseStudy;
