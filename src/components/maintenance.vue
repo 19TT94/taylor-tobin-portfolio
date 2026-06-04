@@ -12,9 +12,9 @@
         <li>
           <span>Email:</span>
           <a
-            href="mailto:19tt94@gmail.com"
-            area-label="Email me at 19tt94@gmail.com"
-            >19tt94@gmail.com</a
+            href="mailto:ttobin.dev@gmail.com"
+            area-label="Email me at ttobin.dev@gmail.com"
+            >ttobin.dev@gmail.com</a
           >
         </li>
         <span>Phone:</span>
@@ -79,7 +79,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 
-import Resume from "@/assets/TTResume2025.pdf";
+import Resume from "@/assets/documents/TTResume2025.pdf";
 
 import { isMobileDevice, isMobileSize } from "@/utils/index.js";
 

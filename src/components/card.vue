@@ -11,9 +11,9 @@
           <li>
             <span>Email:</span>
             <a
-              href="mailto:19tt94@gmail.com"
-              area-label="Email me at 19tt94@gmail.com"
-              >19tt94@gmail.com</a
+              href="mailto:ttobin.dev@gmail.com"
+              area-label="Email me at ttobin.dev@gmail.com"
+              >ttobin.dev@gmail.com</a
             >
           </li>
           <li>
@@ -71,7 +71,7 @@
 </template>
 
 <script setup>
-import Resume from "@/assets/TTResume2024.pdf";
+import Resume from "@/assets/documents/TTResume2024.pdf";
 </script>
 
 <style scoped lang="scss">
