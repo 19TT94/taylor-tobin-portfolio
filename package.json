@@ -20,7 +20,7 @@
     "dayjs": "^1.11.13",
     "eslint-config-prettier": "^9.1.0",
     "sass": "^1.69.5",
-    "vite": "^6.4.2",
+    "vite": "^6.4.3",
     "vue": "^3.3.11",
     "vue-router": "^4.2.5",
     "vue3-touch-events": "^4.1.8",
