@@ -38,8 +38,6 @@ import TT1 from "@/assets/images/projects/ted/ted-1.png";
 import TT2 from "@/assets/images/projects/ted/ted-2.png";
 import TT3 from "@/assets/images/projects/ted/ted-3.png";
 
-export const heroBuilderCaseStudyEnabled = false;
-
 export const heroBuilderAllSlides = [
   signin,
   facilitiesDashboard,
@@ -58,13 +56,11 @@ export const projects = [
   {
     id: "hero-builder",
     name: "Hero Builder",
-    caseStudyRoute: heroBuilderCaseStudyEnabled
-      ? "/featured/hero-builder"
-      : undefined,
+    caseStudyRoute: "/featured/hero-builder",
     shortDescription:
       "Led design and development of Hero Builder™, a production ops platform for 150+ facilities—1,100+ monthly checksheet submissions, 50,000+ compliance records, 99% uptime since 2022.",
     description:
-      "I designed, architected, and led development of <strong>Hero Builder™</strong>, an operations and maintenance platform for water and wastewater facilities under Hero Services. Built solo, then scaled with a team, it now supports 150+ facilities with 1,100+ completed checksheet submissions per month, 50,000+ compliance records, and 99% uptime since 2022. Stack: React, Flask, PostgreSQL, Redis, React Native for field operators, and SCADA integration via Ewon Flexy devices. <em>More screenshots and a full case study are coming soon.</em>",
+      "I designed, architected, and led development of <strong>Hero Builder™</strong>, an operations and maintenance platform for water and wastewater facilities under Hero Services. Built solo, then scaled with a team, it now supports 150+ facilities with 1,100+ completed checksheet submissions per month, 50,000+ compliance records, and 99% uptime since 2022. Stack: React, Flask, PostgreSQL, Redis, React Native for field operators, and SCADA integration via Ewon Flexy devices.",
     type: "React, Flask",
     slides: [signin],
   },

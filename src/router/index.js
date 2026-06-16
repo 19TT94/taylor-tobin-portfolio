@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import { heroBuilderCaseStudyEnabled } from "@/data/projects.js";
 import Home from "@/views/Home.vue";
 import Featured from "@/views/Featured.vue";
 import HeroBuilderCaseStudy from "@/views/HeroBuilderCaseStudy.vue";
@@ -29,10 +28,6 @@ const router = createRouter({
       name: "hero-builder-case-study",
       component: HeroBuilderCaseStudy,
       meta: { transitionName: "fade" },
-      beforeEnter: () => {
-        if (heroBuilderCaseStudyEnabled) return true;
-        return { name: "featured", query: { project: "hero-builder" } };
-      },
     },
     {
       path: "/projects",
