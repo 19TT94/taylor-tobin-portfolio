@@ -6,6 +6,7 @@ import HeroBuilderCaseStudy from "@/views/HeroBuilderCaseStudy.vue";
 import Projects from "@/views/Projects.vue";
 import About from "@/views/About.vue";
 import Contact from "@/views/Contact.vue";
+import Card from "@/views/Card.vue";
 import NotFound from "@/views/NotFound.vue";
 
 const router = createRouter({
@@ -45,6 +46,12 @@ const router = createRouter({
       path: "/contact",
       name: "contact",
       component: Contact,
+      meta: { transitionName: "fade" },
+    },
+    {
+      path: "/card",
+      name: "card",
+      component: Card,
       meta: { transitionName: "fade" },
     },
     {
