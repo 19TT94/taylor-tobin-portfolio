@@ -109,9 +109,8 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useStore } from "vuex";
-import dayjs from "dayjs";
 
-import Resume from "@/assets/documents/TTResume2025.pdf";
+import Resume from "@/assets/documents/TTResume2026.pdf";
 
 import NetlifyForm from "@/components/form.vue";
 

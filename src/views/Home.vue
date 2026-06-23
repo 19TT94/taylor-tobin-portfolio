@@ -111,7 +111,7 @@
           Book a call
         </a>
         <router-link class="button cta-link" to="/contact">
-          Submit an inquiry
+          Submit Inquiry
         </router-link>
       </div>
     </div>

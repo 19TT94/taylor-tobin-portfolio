@@ -35,33 +35,28 @@
       "
     />
     <!-- Global Nav Component -->
-    <navigation v-if="!down && !landscape" />
+    <navigation v-if="!down && route.path !== '/card'" />
     <!-- Pages -->
     <transition :name="transitionName">
       <router-view
         :preloaded="store.state.preloaded"
-        v-if="!down && !landscape"
+        v-if="!down || route.path === '/card'"
       />
     </transition>
     <!-- Maintenance -->
-    <maintenance v-if="down" />
-    <!-- Landscape Device -->
-    <card v-if="landscape" />
+    <maintenance v-if="down && route.path !== '/card'" />
   </div>
 </template>
 
 <script setup>
-import { ref, onBeforeMount, onMounted, onUnmounted } from "vue";
+import { ref, onBeforeMount, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useStore } from "vuex";
-
-import { isMobileDevice, isMobileSize } from "@/utils/index.js";
 
 // Components
 import Navigation from "@/components/navigation.vue";
 import Maintenance from "@/components/maintenance.vue";
 import Preloader from "@/components/preloader.vue";
-import Card from "@/components/card.vue";
 import Bolt from "@/components/bolt.vue";
 
 // Images
@@ -77,7 +72,6 @@ const store = useStore();
 
 // reference state from store
 const down = store.state.down;
-const landscape = ref(false);
 const transitionName = ref(DEFAULT_TRANSITION);
 
 onBeforeMount(() => {
@@ -89,10 +83,6 @@ onBeforeMount(() => {
   });
 });
 
-const showCard = (e) => {
-  landscape.value = isMobileDevice() && isMobileSize() && e.matches;
-};
-
 onMounted(() => {
   setTimeout(() => {
     store.state.preload = true;
@@ -100,17 +90,6 @@ onMounted(() => {
       store.state.preloaded = true;
     }, 1000);
   }, 2000);
-
-  // intial orientation check
-  let orientation = window.matchMedia("(orientation: landscape)");
-  landscape.value = isMobileDevice() && isMobileSize() && orientation.matches;
-
-  // set landscape state on orientation change
-  orientation.addEventListener("change", showCard);
-});
-
-onUnmounted(() => {
-  window.removeEventListener("change", showCard);
 });
 </script>
 
