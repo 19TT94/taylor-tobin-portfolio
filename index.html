@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta
@@ -7,7 +7,80 @@
       content="width=device-width,initial-scale=1.0,user-scalable=no"
     />
     <title>Taylor Tobin | Software Engineer</title>
-    <link rel="shortcut icon" type="image/png" href="/static/tail-bw.png" />
+    <meta
+      name="description"
+      content="Taylor Tobin is a software engineer and full-stack developer based in Grover Beach, California. Explore portfolio projects, case studies, and contact information."
+    />
+    <meta name="author" content="Taylor Tobin" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://ttobin.com/" />
+    <link rel="icon" type="image/png" href="/static/tail-bw.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Taylor Tobin" />
+    <meta property="og:title" content="Taylor Tobin | Software Engineer & Developer" />
+    <meta
+      property="og:description"
+      content="Taylor Tobin is a software engineer and full-stack developer based in Grover Beach, California. Explore portfolio projects, case studies, and contact information."
+    />
+    <meta property="og:url" content="https://ttobin.com/" />
+    <meta property="og:image" content="https://ttobin.com/static/tail-bw.png" />
+    <meta property="og:image:alt" content="Taylor Tobin portfolio logo" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Taylor Tobin | Software Engineer" />
+    <meta
+      name="twitter:description"
+      content="Taylor Tobin is a software engineer and full-stack developer based in Grover Beach, California. Explore portfolio projects, case studies, and contact information."
+    />
+    <meta name="twitter:image" content="https://ttobin.com/static/tail-bw.png" />
+    <meta name="twitter:image:alt" content="Taylor Tobin portfolio logo" />
+
+    <!-- Identity links -->
+    <link rel="me" href="https://github.com/19TT94" />
+    <link rel="me" href="https://www.linkedin.com/in/taylor-tobin/" />
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Taylor Tobin",
+        "url": "https://ttobin.com",
+        "jobTitle": "Software Engineer",
+        "email": "ttobin.dev@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Grover Beach",
+          "addressRegion": "CA",
+          "addressCountry": "US"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/in/taylor-tobin/",
+          "https://github.com/19TT94",
+          "https://www.instagram.com/19tt94/",
+          "https://calendly.com/ttobin-dev"
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Taylor Tobin",
+        "url": "https://ttobin.com",
+        "description": "Taylor Tobin is a software engineer and full-stack developer based in Grover Beach, California.",
+        "author": {
+          "@type": "Person",
+          "name": "Taylor Tobin",
+          "url": "https://ttobin.com"
+        }
+      }
+    </script>
+
     <script type="module" src="/src/main.js"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script
@@ -26,7 +99,22 @@
   </head>
   <body>
     <div id="app"></div>
-    <!-- built files will be auto injected -->
+    <noscript>
+      <main>
+        <h1>Taylor Tobin</h1>
+        <p>
+          Software engineer and full-stack developer based in Grover Beach,
+          California. Open to freelance and contract work.
+        </p>
+        <nav>
+          <a href="/">Home</a>
+          <a href="/projects">Projects</a>
+          <a href="/featured/hero-builder">Hero Builder Case Study</a>
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+        </nav>
+      </main>
+    </noscript>
     <form name="inquiries" netlify netlify-honeypot="bot-field" hidden>
       <input type="text" name="name" />
       <input type="email" name="email" />
