@@ -62,7 +62,7 @@
 import { ref, computed, watch, onMounted, onBeforeUnmount } from "vue";
 import { useStore } from "vuex";
 
-import { isMobileDevice, isMobileSize } from "@/utils/index.js";
+import { isMobileSize } from "@/utils/index.js";
 
 const MOBILE_MAX_SLIDES = 5;
 
@@ -151,11 +151,8 @@ const backward = () => {
 };
 
 const onSwipe = (direction) => {
-  // if mobile device
-  if (isMobileSize() && isMobileDevice()) {
-    if (direction === "left") currentIndex.value = nextIndex.value;
-    if (direction === "right") currentIndex.value = previousIndex.value;
-  }
+  if (direction === "left") currentIndex.value = nextIndex.value;
+  if (direction === "right") currentIndex.value = previousIndex.value;
 };
 </script>
 
@@ -178,6 +175,7 @@ const onSwipe = (direction) => {
     justify-content: center;
 
     .content {
+      position: relative;
       opacity: 0; // also hide this -
       transform: translate(0, 10px);
       transition: 0.5s; // animation duration
@@ -346,5 +344,6 @@ const onSwipe = (direction) => {
   width: 100%;
   height: 100%;
   z-index: $front;
+  touch-action: pan-y;
 }
 </style>

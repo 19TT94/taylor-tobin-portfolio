@@ -37,6 +37,10 @@ import WW3 from "@/assets/images/projects/wiere-weddings/ww-3.png";
 import TT1 from "@/assets/images/projects/ted/ted-1.png";
 import TT2 from "@/assets/images/projects/ted/ted-2.png";
 import TT3 from "@/assets/images/projects/ted/ted-3.png";
+import DT1 from "@/assets/images/projects/devtab/devtab-1.png";
+import DT2 from "@/assets/images/projects/devtab/devtab-2.png";
+import DT3 from "@/assets/images/projects/devtab/devtab-3.png";
+import DT4 from "@/assets/images/projects/devtab/devtab-4.png";
 
 export const heroBuilderAllSlides = [
   signin,
@@ -58,11 +62,22 @@ export const projects = [
     name: "Hero Builder",
     caseStudyRoute: "/featured/hero-builder",
     shortDescription:
-      "Led design and development of Hero Builder™, a production ops platform for 150+ facilities—1,100+ monthly checksheet submissions, 50,000+ compliance records, 99% uptime since 2022.",
+      "I transformed paper checksheets and spreadsheets into a production operations platform used across 150+ water and wastewater facilities.",
     description:
-      "I designed, architected, and led development of <strong>Hero Builder™</strong>, an operations and maintenance platform for water and wastewater facilities under Hero Services. Built solo, then scaled with a team, it now supports 150+ facilities with 1,100+ completed checksheet submissions per month, 50,000+ compliance records, and 99% uptime since 2022. Stack: React, Flask, PostgreSQL, Redis, React Native for field operators, and SCADA integration via Ewon Flexy devices.",
+      "I took <strong>Hero Builder™</strong> from initial concept to a production platform for managing operations, maintenance, and compliance at water and wastewater facilities. I designed and built the MVP independently, then assembled and led a small team as the product expanded into a configurable, multi-tenant web and mobile system. Today it supports 150+ facilities, processes 1,100+ checksheet submissions each month, maintains 50,000+ compliance records, and has achieved 99% uptime since 2022.",
     type: "React, Flask",
-    slides: [signin],
+    slides: heroBuilderAllSlides,
+  },
+  {
+    id: "devtab",
+    name: "DevTab",
+    link: "https://stage--dev-tab.netlify.app/",
+    shortDescription:
+      "A focused time-tracking and invoicing app I built after Clockify started putting core features behind paywalls—just the workflow I need, without the extras I don't.",
+    description:
+      'I built <a href="https://stage--dev-tab.netlify.app/">DevTab</a> as a personal alternative to Clockify after more of the day-to-day workflow started moving behind paywalls. I didn\'t need the bloated feature set—just a clean way to track time, manage clients and retainers, export reports, and invoice. So I designed and built a focused React + TypeScript app with Supabase for auth and data, covering timers, time entries, clients/projects, retainer-aware billing, PDF/CSV reports, and invoices.',
+    type: "React, TypeScript, Supabase",
+    slides: [DT1, DT2, DT3, DT4],
   },
   {
     id: "wiere-weddings",
@@ -119,28 +134,28 @@ export const projects = [
     type: "Ember",
     slides: [PA1, PA2, PA3, PA4],
   },
-  {
-    id: "replace-hate",
-    name: "ReplaceHate.com",
-    link: "https://pxlagency.com/our-work/replace-hate",
-    shortDescription:
-      "Built Fox Movies' #ReplaceHate campaign site for fast, easy generation of shareable Instagram posters.",
-    description:
-      'Frontend developement on <a href="https://www.instagram.com/explore/tags/replacehate/">#ReplaceHate</a> social campaign site. This site was built for Fox Movies and allows users to generate #replacehate posters to share on social media. This promotion for the movie lived mostly on Instagram and was a fun way for fans to get involved. The biggest challenge was trying to make the process of creating the share assets as easy in fast as possible for the user. Despite the changing requirements from the client and the challenges of creating the assets in a web app, the app was a success.',
-    type: "Ember",
-    slides: [RH1, RH2, RH3, RH4],
-  },
-  {
-    id: "ted-tobin-portfolio",
-    name: "Ted Tobin's Portfolio",
-    link: "https://tedtobin.com",
-    shortDescription:
-      "Built a writer-focused portfolio where copy is the hero, with a vanilla JS slider inspired by word scramble demos.",
-    description:
-      "This project was a portfolio website for Creative Director, Consultant, and Copy Writer Ted Tobin. During his transition to freelance work he needed a simple site that would showcase his skills and experience as a writer. In order to do this I designed and built a site where his words are the focus. The slider is built with vanilla js and inspired by word scramble code pens.",
-    type: "Vue (JS)",
-    slides: [TT1, TT2, TT3],
-  },
+  // {
+  //   id: "replace-hate",
+  //   name: "ReplaceHate.com",
+  //   link: "https://pxlagency.com/our-work/replace-hate",
+  //   shortDescription:
+  //     "Built Fox Movies' #ReplaceHate campaign site for fast, easy generation of shareable Instagram posters.",
+  //   description:
+  //     'Frontend developement on <a href="https://www.instagram.com/explore/tags/replacehate/">#ReplaceHate</a> social campaign site. This site was built for Fox Movies and allows users to generate #replacehate posters to share on social media. This promotion for the movie lived mostly on Instagram and was a fun way for fans to get involved. The biggest challenge was trying to make the process of creating the share assets as easy in fast as possible for the user. Despite the changing requirements from the client and the challenges of creating the assets in a web app, the app was a success.',
+  //   type: "Ember",
+  //   slides: [RH1, RH2, RH3, RH4],
+  // },
+  // {
+  //   id: "ted-tobin-portfolio",
+  //   name: "Ted Tobin's Portfolio",
+  //   link: "https://tedtobin.com",
+  //   shortDescription:
+  //     "Built a writer-focused portfolio where copy is the hero, with a vanilla JS slider inspired by word scramble demos.",
+  //   description:
+  //     "This project was a portfolio website for Creative Director, Consultant, and Copy Writer Ted Tobin. During his transition to freelance work he needed a simple site that would showcase his skills and experience as a writer. In order to do this I designed and built a site where his words are the focus. The slider is built with vanilla js and inspired by word scramble code pens.",
+  //   type: "Vue (JS)",
+  //   slides: [TT1, TT2, TT3],
+  // },
 ];
 
 export const getProjectById = (id) =>
